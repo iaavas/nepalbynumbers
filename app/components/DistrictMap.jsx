@@ -10,7 +10,7 @@ import nepalProvinceData from "@/assets/data/nepal-districts.json";
 import { useValues } from "../context/ValueContext";
 import Draggable from "react-draggable";
 
-const ProvinceMap = () => {
+const DistrictMap = () => {
   const { getEntityValue } = useValues();
   const [provincePositions, setProvincePositions] = useState({});
   const [editingProvince, setEditingProvince] = useState(null);
@@ -152,4 +152,4 @@ const ProvinceMap = () => {
   );
 };
 
-export default ProvinceMap;
+export default DistrictMap;

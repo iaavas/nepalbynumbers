@@ -1,17 +1,17 @@
 "use client";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import L from "leaflet";
-import html2canvas from "html2canvas";
-import downloadjs from "downloadjs";
-import { scaleLinear } from "d3-scale";
+import { scaleLinear } from "d3-scale"; // Import scaleLinear from d3-scale
+
+import "leaflet/dist/leaflet.css";
+
 import nepalProvinceData from "@/assets/data/nepal-provinces.json";
 import { useValues } from "../context/ValueContext";
 
 const ProvinceMap = () => {
   const { getEntityValue } = useValues();
-
   useEffect(() => {
-    const map = L.map("map", {
+    const map = new L.map("map", {
       attributionControl: false,
       zoomControl: false,
       touchZoom: false,
@@ -20,33 +20,42 @@ const ProvinceMap = () => {
       dragging: false,
     }).setView([28.3949, 84.124], 7);
 
-    let minValue = Infinity;
-    let maxValue = 0;
+    // Collect all province values
+    const provinceValues = nepalProvinceData.features.map((feature) =>
+      getEntityValue("province", feature.properties.name)
+    );
+
+    // Filter out undefined or null values
+    const filteredValues = provinceValues.filter(
+      (value) => value !== undefined && value !== null
+    );
+
+    // Find the minimum and maximum values
+    const minValue = Math.min(...filteredValues);
+    const maxValue = Math.max(...filteredValues);
+
+    // Define color scale using d3-scale
+    const colorScale = scaleLinear()
+      .domain([minValue, maxValue]) // Define the domain based on min and max values
+      .range(["#f7fcf5", "#238b45"]); // Define the range of colors
 
     nepalProvinceData.features.forEach((feature) => {
       const provinceValue = getEntityValue("province", feature.properties.name);
 
-      minValue = Math.min(minValue, provinceValue) || 0;
-      maxValue = Math.max(maxValue, provinceValue) || 0;
+      // If province value is undefined or null, assign a default color
+      const scaledValue =
+        provinceValue !== undefined && provinceValue !== null
+          ? colorScale(provinceValue)
+          : "#cccccc";
 
-      const colorScale = scaleLinear(
-        [minValue, maxValue],
-        ["#FFCCFF", "#7F007F"]
-      );
-      const fillColor = provinceValue ? colorScale(provinceValue) : "#460698";
-
-      const provinceLayer = L.geoJSON(feature, {
+      L.geoJSON(feature, {
         style: {
-          fillColor,
-          weight: 1,
+          fillColor: scaledValue,
+          weight: 0.8,
           color: "black",
-          fillOpacity: 1,
+          fillOpacity: 0.7,
         },
       }).addTo(map);
-
-      // Calculate the center coordinates of the province area
-      const bounds = provinceLayer.getBounds();
-      const center = bounds.getCenter();
     });
 
     return () => {
@@ -54,31 +63,11 @@ const ProvinceMap = () => {
     };
   }, [getEntityValue]);
 
-  const handleCaptureClick = async () => {
-    const mapElement = document.getElementById("map");
-    const { width, height } = mapElement.getBoundingClientRect();
-    html2canvas(mapElement, {
-      width: width / 1.5,
-      height: height / 1.2,
-    }).then((canvas) => {
-      const imageURL = canvas.toDataURL("image/png");
-      downloadjs(imageURL, "map.png", "image/png");
-    });
-  };
-
   return (
-    <div className="flex flex-col items-center bg-white">
-      <div
-        id="map"
-        className="w-screen h-screen relative bg-white m-20 p-10"
-      ></div>
-      <button
-        onClick={handleCaptureClick}
-        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 z-10"
-      >
-        Download
-      </button>
-    </div>
+    <div
+      id="map"
+      style={{ width: "800px", height: "600px", backgroundColor: "white" }}
+    ></div>
   );
 };
 
