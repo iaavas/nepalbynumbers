@@ -26,7 +26,9 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "app/components/ProvinceMap.jsx"
+    "app/components/ProvinceMap.jsx",
+    "app/map/nepal-province/page.jsx",
+    "app/components/CreatedBy.jsx"
   ],
   "exclude": ["node_modules"]
 }

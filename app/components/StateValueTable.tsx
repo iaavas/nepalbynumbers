@@ -6,28 +6,27 @@ interface StateValues {
 }
 
 const StateValueTable = ({ data }: { data: any }) => {
-  const initialState: StateValues = {
-    California: 100,
-    "New York": 150,
-    Texas: 120,
-    Florida: 110,
-    Ohio: 90,
-  };
-
   const { setEntityValue, getEntityValue } = useValues();
 
-  const [stateValues, setStateValues] = useState<StateValues>(initialState);
-
-  const handleChange = (state: string, value: number) => {
-    setStateValues((prevState) => ({
-      ...prevState,
-      [state]: value,
-    }));
-  };
+  function randomizeValue() {
+    data.forEach((d: any, idx: number) => {
+      setEntityValue(
+        "province",
+        d.properties.name,
+        Math.floor(Math.random() * 100)
+      );
+    });
+  }
 
   return (
-    <div className="flex justify-center mt-4 ">
-      <table className="table-auto border border-stone-800">
+    <div className="flex  flex-col w-96 ">
+      <button
+        className=" text-black font-thin border border-black hover:text-blue-600 hover:border-blue-600 p-2 m-2 rounded-lg font-sans "
+        onClick={randomizeValue}
+      >
+        Randomize
+      </button>
+      <table className="table border border-stone-800 w-96">
         <thead>
           <tr>
             <th className="bg-[#F5F5F5]  px-4 py-2 border ">State</th>

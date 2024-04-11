@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Papa from "papaparse";
 import nepalProvinceData from "@/assets/data/nepal-provinces.json";
 import StateValueTable from "./StateValueTable";
-// eslint-disable-next-line react/prop-types
+
 function DataInput({ onDataChange }) {
   const [hdiValue, setHdiValue] = useState("");
   const [excelFile, setExcelFile] = useState(null);
@@ -21,15 +21,6 @@ function DataInput({ onDataChange }) {
     setExcelFile(e.target.files[0]);
   };
 
-  const handleSubmit = () => {
-    // e.preventDefault();
-    // const data = {
-    //   provinceNumber: parseInt(provinceNumber),
-    //   hdiValue: parseFloat(hdiValue),
-    // };
-    // onDataChange(data);
-  };
-
   const handleExcelImport = () => {
     if (excelFile) {
       Papa.parse(excelFile, {
@@ -45,10 +36,9 @@ function DataInput({ onDataChange }) {
   };
 
   return (
-    <div className="data-input">
-      <form onSubmit={handleSubmit}>
-        <StateValueTable data={provinces} />
-      </form>
+    <div className="">
+      <StateValueTable data={provinces} />
+
       {/* <div>
         <h4>Import from Excel</h4>
         <input type="file" onChange={handleExcelFileChange} />
