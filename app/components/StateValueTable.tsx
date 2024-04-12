@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useValues } from "../context/ValueContext";
+import * as htmlToImage from "html-to-image";
 
 interface StateValues {
   [key: string]: number;
@@ -18,14 +19,32 @@ const StateValueTable = ({ data }: { data: any }) => {
     });
   }
 
+  const captureMapImage = () => {
+    // @ts-ignore
+    htmlToImage.toPng(document.getElementById("map")).then(function (dataUrl) {
+      var link = document.createElement("a");
+      link.download = "my-image-name.png";
+      link.href = dataUrl;
+      link.click();
+    });
+  };
+
   return (
     <div className="flex  flex-col w-96 ">
-      <button
-        className=" text-black font-thin border border-black hover:text-blue-600 hover:border-blue-600 p-2 m-2 rounded-lg font-sans "
-        onClick={randomizeValue}
-      >
-        Randomize
-      </button>
+      <div className="flex items-center justify-center mb-8 border-b p-2">
+        <button
+          className=" text-black font-thin border border-black hover:text-blue-600 hover:border-blue-600 p-2 m-2 rounded-lg font-sans "
+          onClick={randomizeValue}
+        >
+          Randomize
+        </button>
+        <button
+          className=" text-black font-thin border border-black hover:text-blue-600 hover:border-blue-600 p-2 m-2 rounded-lg font-sans "
+          onClick={captureMapImage}
+        >
+          Export Image as PNG
+        </button>
+      </div>
       <table className="table border border-stone-800 w-96">
         <thead>
           <tr>

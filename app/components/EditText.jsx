@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Popover,
   PopoverContent,
@@ -10,21 +10,26 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Dragger from "./Dragger";
 
-function EditText({ text, setText }) {
+function EditText({ text, setText, css = "", s = "30" }) {
   const [size, setSize] = useState("30");
+
+  useEffect(() => {
+    setSize(s);
+  }, [s]);
+
   return (
     <Popover>
-      <Dragger>
-        <PopoverTrigger>
-          <p
-            className="font-bold bg-red-100 z-10 break-all max-w-20 "
-            style={{ fontSize: `${size}px` }}
-          >
-            {text}
-          </p>
-        </PopoverTrigger>
-      </Dragger>
-      <PopoverContent className="w-80 z-10">
+      {/* <Dragger> */}
+      <PopoverTrigger>
+        <p
+          className={`font-bold bg-red-100 z-10 break-all max-w-20 tracking-widest ${css}`}
+          style={{ fontSize: `${size}px` }}
+        >
+          {text}
+        </p>
+      </PopoverTrigger>
+      {/* </Dragger> */}
+      <PopoverContent className="w-80 z-50">
         <div className="grid gap-4">
           <div className="grid gap-2">
             <div className="grid grid-cols-3 items-center gap-4">

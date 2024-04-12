@@ -1,20 +1,22 @@
-"use client";
 import React, { useEffect, useState, useRef } from "react";
 import L from "leaflet";
 
-import { scaleQuantile } from "d3-scale"; // Import scaleLinear from d3-scale
+import { scaleQuantile } from "d3-scale";
 import EditText from "./EditText";
 import "leaflet/dist/leaflet.css";
 import ColorBar from "./ColorBar";
 import nepalProvinceData from "@/assets/data/nepal-provinces.json";
 import { useValues } from "../context/ValueContext";
-
 import CreatedBy from "./CreatedBy";
+import Dragger from "./Dragger";
 
 const ProvinceMap = () => {
   const { getEntityValue } = useValues();
   const [scale, setScale] = useState(null);
   const [title, setTitle] = useState("Title Here");
+  const [markers, setMarkers] = useState([]);
+  const [source, setSource] = useState("https://www.");
+  const [common, setCommon] = useState("0");
 
   const mapRef = useRef(null);
 
@@ -51,6 +53,8 @@ const ProvinceMap = () => {
 
     setScale(() => colorScale);
 
+    const newMarkers = [];
+
     nepalProvinceData.features.forEach((feature) => {
       const provinceValue = getEntityValue("province", feature.properties.name);
 
@@ -79,18 +83,86 @@ const ProvinceMap = () => {
       const textColor = intensity < 10 ? "white" : "black";
 
       const center = provinceLayer.getBounds().getCenter();
-      L.marker(center, {
+
+      const markerPositionKey = `markerPosition_${feature.properties.id}`;
+      let markerPosition = localStorage.getItem(markerPositionKey);
+      if (markerPosition) {
+        markerPosition = JSON.parse(markerPosition);
+      } else {
+        markerPosition = center;
+      }
+
+      const marker = L.marker(markerPosition, {
         icon: L.divIcon({
           className: "label font-sans",
-          html: `<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.1rem; font-weight: bold;font-size:16px; color: ${textColor}">
-          <p>${feature.properties.name}</p><p style="font-size:14px;" >${
+          html: `<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.1rem; font-weight: normal;font-size:20px; color: ${textColor}">
+                      <p>${
+                        feature.properties.name
+                      }</p><p style="font-size:14px;" >${
             provinceValue || 0
           }</p></div>`,
         }),
-
         draggable: true,
       }).addTo(map);
+
+      // When marker is dragged, update its position in local storage
+      marker.on("dragend", function (e) {
+        const newPos = marker.getLatLng();
+        localStorage.setItem(markerPositionKey, JSON.stringify(newPos));
+      });
+
+      marker.on("dblclick", () => {
+        const propertyToChange = prompt(
+          "Enter property to change (font size, color, or display name):"
+        );
+
+        switch (propertyToChange.toLowerCase()) {
+          case "font size":
+            const newFontSize = prompt("Enter new font size:");
+            marker.setIcon(
+              L.divIcon({
+                className: "label font-sans",
+                html: `<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.1rem; font-weight: normal;font-size:${newFontSize}px; color: ${textColor}">
+                <p>${feature.properties.name}</p><p style="font-size:14px;" >${
+                  provinceValue || 0
+                }</p></div>`,
+              })
+            );
+            break;
+          case "color":
+            const newColor = prompt("Enter new color:");
+            marker.setIcon(
+              L.divIcon({
+                className: "label font-sans",
+                html: `<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.1rem; font-weight: normal;font-size:20px; color: ${newColor}">
+                <p>${feature.properties.name}</p><p style="font-size:14px;" >${
+                  provinceValue || 0
+                }</p></div>`,
+              })
+            );
+            break;
+          case "display name":
+            const newName = prompt("Enter new display name:");
+            marker.setIcon(
+              L.divIcon({
+                className: "label font-sans",
+                html: `<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.1rem; font-weight: normal;font-size:20px; color: ${textColor}">
+                <p>${newName}</p><p style="font-size:14px;" >${
+                  provinceValue || 0
+                }</p></div>`,
+              })
+            );
+            break;
+          default:
+            alert("Invalid property.");
+            break;
+        }
+      });
+
+      newMarkers.push(marker);
     });
+
+    setMarkers(newMarkers);
 
     return () => {
       map.remove();
@@ -106,28 +178,79 @@ const ProvinceMap = () => {
           position: "relative",
           width: "800px",
           backgroundColor: "white",
-          borderRight: "1px solid gray",
+          borderRight: "0.5px solid gray",
           height: "100vh",
         }}
       >
-        <div
-          className="flex flex-col justify-end items-center font-sans"
-          style={{ marginBottom: "auto" }}
-        >
-          <EditText text={title} setText={setTitle} />
-          {scale && <ColorBar colorScale={scale} />}
-        </div>
-        <div
-          style={{
-            position: "absolute",
-            bottom: "0",
-            left: "0",
-            padding: "10px",
-          }}
-          className="font-sans"
-        >
-          <CreatedBy />
-        </div>
+        <Dragger>
+          <div className="flex flex-col justify-end items-center font-sans">
+            <EditText text={title} setText={setTitle} />
+            {scale && <ColorBar colorScale={scale} />}
+          </div>
+        </Dragger>
+        <Dragger>
+          <div
+            style={{
+              position: "absolute",
+              bottom: "0",
+              right: "0",
+              padding: "10px",
+            }}
+            className="font-sans"
+          >
+            <CreatedBy />
+          </div>
+        </Dragger>
+        <Dragger>
+          <div
+            style={{
+              position: "absolute",
+              bottom: "50px",
+              right: "100px",
+              padding: "10px",
+              fontStyle: "italic",
+              cursor: "move",
+            }}
+            className="font-sans text-lg cursor-move"
+          >
+            Created By
+          </div>
+        </Dragger>
+        <Dragger>
+          <div
+            style={{
+              position: "absolute",
+              bottom: "100px",
+              left: "100px",
+              padding: "10px",
+              fontStyle: "italic",
+              cursor: "move",
+            }}
+            className="font-sans text-lg cursor-move"
+          >
+            <p>Source</p>
+            <EditText text={source} setText={setSource} s={20} />
+          </div>
+        </Dragger>
+        <Dragger>
+          <div
+            style={{
+              position: "absolute",
+              top: "100px",
+              right: "100px",
+              padding: "10px",
+              fontStyle: "italic",
+              cursor: "move",
+              display: "flex",
+              flexDirection: "column",
+              rowGap: "16px",
+            }}
+            className="font-sans text-lg cursor-move items-center "
+          >
+            <EditText text={"Most Common"} setText={() => {}} s={20} />
+            <EditText text={common} setText={setCommon} s={60} />
+          </div>
+        </Dragger>
       </div>
     </>
   );
