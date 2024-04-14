@@ -7,7 +7,7 @@ interface StateValues {
 }
 
 const StateValueTable = ({ data }: { data: any }) => {
-  const { setEntityValue, getEntityValue } = useValues();
+  const { setEntityValue, getEntityValue, setType } = useValues();
 
   function randomizeValue() {
     data.forEach((d: any, idx: number) => {
@@ -45,33 +45,48 @@ const StateValueTable = ({ data }: { data: any }) => {
           Export Image as PNG
         </button>
       </div>
-      <table className="table border border-stone-800 w-96">
+      <table className="table border border-stone-800 w-96 font-normal">
         <thead>
           <tr>
-            <th className="bg-[#F5F5F5]  px-4 py-2 border ">State</th>
-            <th className="bg-[#F5F5F5]  px-4 py-2 border ">Value</th>
+            <th className="bg-[#F5F5F5]  px-4 py-2 border text-center font-normal ">
+              State
+            </th>
+            <th className="bg-[#F5F5F5]  px-4 py-2 border text-center font-normal ">
+              Value
+            </th>
           </tr>
         </thead>
         <tbody>
           {data.map((d: any, idx: number) => {
             return (
               <tr key={idx} className="border ">
-                <td className="bg-[#F5F5F5] px-4 py-2 border ">
+                <td className="bg-[#F5F5F5] px-4 py-2 border text-center">
                   {d.properties.name}
                 </td>
-                <td className="bg-white px-4 py-2">
+                <td className="bg-white  cursor-cell w-32 ">
                   <input
-                    type="number"
+                    type="text"
                     step={"any"}
-                    value={getEntityValue("province", d.properties.name) || 0}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                      setEntityValue(
-                        "province",
-                        d.properties.name,
-                        Number(e.target.value)
-                      )
+                    value={
+                      getEntityValue("province", d.properties.name) || undefined
                     }
-                    className="w-16 text-right"
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      if (Number(e.target.value)) {
+                        setEntityValue(
+                          "province",
+                          d.properties.name,
+                          Number(e.target.value) * 1
+                        );
+                      } else {
+                        setType("class");
+                        setEntityValue(
+                          "province",
+                          d.properties.name,
+                          e.target.value
+                        );
+                      }
+                    }}
+                    className=" w-full  cursor-cell px-4 py-2 text-right"
                   />
                 </td>
               </tr>

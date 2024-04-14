@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import L from "leaflet";
 
-import { scaleQuantile } from "d3-scale";
+import { scaleQuantile, scaleOrdinal } from "d3-scale";
 import EditText from "./EditText";
 import "leaflet/dist/leaflet.css";
 import ColorBar from "./ColorBar";
@@ -11,7 +11,7 @@ import CreatedBy from "./CreatedBy";
 import Dragger from "./Dragger";
 
 const ProvinceMap = () => {
-  const { getEntityValue } = useValues();
+  const { getEntityValue, type, getAllEntityValues } = useValues();
   const [scale, setScale] = useState(null);
   const [title, setTitle] = useState("Title Here");
   const [markers, setMarkers] = useState([]);
@@ -41,15 +41,40 @@ const ProvinceMap = () => {
     const minValue = Math.min(...filteredValues);
     const maxValue = Math.max(...filteredValues);
 
-    const colorScale = scaleQuantile()
-      .domain([minValue, maxValue])
-      .range([
-        `rgb(240, 249, 33)`,
-        `rgb(248, 148, 65)`,
-        `rgb(203, 71, 120)`,
-        `rgb(126, 3, 168)`,
-        `rgb(13, 8, 135)`,
-      ]);
+    const values = getAllEntityValues("province");
+
+    let colorScale;
+    if (type === "reg") {
+      colorScale = scaleQuantile()
+        .domain([minValue, maxValue])
+        .range([
+          `rgb(240, 249, 33)`,
+          `rgb(248, 148, 65)`,
+          `rgb(203, 71, 120)`,
+          `rgb(126, 3, 168)`,
+          `rgb(13, 8, 135)`,
+        ]);
+    } else {
+      const top5Values = Object.entries(
+        values.reduce((acc, val) => {
+          acc[val] = (acc[val] || 0) + 1;
+          return acc;
+        }, {})
+      )
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5)
+        .map((x) => x[0]);
+      colorScale = scaleOrdinal()
+        .domain(top5Values)
+        .range([
+          `rgb(240, 249, 33)`,
+          `rgb(248, 148, 65)`,
+          `rgb(203, 71, 120)`,
+          `rgb(126, 3, 168)`,
+          `rgb(13, 8, 135)`,
+        ]);
+      console.log(top5Values);
+    }
 
     setScale(() => colorScale);
 
@@ -94,8 +119,8 @@ const ProvinceMap = () => {
 
       const marker = L.marker(markerPosition, {
         icon: L.divIcon({
-          className: "label font-sans",
-          html: `<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.1rem; font-weight: normal;font-size:20px; color: ${textColor}">
+          className: "label font-sans custom-marker-icon",
+          html: `<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.1rem; font-weight: normal;font-size:20px; color: ${textColor} " class="label-container">
                       <p>${
                         feature.properties.name
                       }</p><p style="font-size:14px;" >${
@@ -108,7 +133,21 @@ const ProvinceMap = () => {
       // When marker is dragged, update its position in local storage
       marker.on("dragend", function (e) {
         const newPos = marker.getLatLng();
+
         localStorage.setItem(markerPositionKey, JSON.stringify(newPos));
+
+        const hexColor = scaledValue.replace("#", "");
+        const r = parseInt(hexColor.substring(0, 2), 16) || 0;
+        const g = parseInt(hexColor.substring(2, 4), 16) || 0;
+        const b = parseInt(hexColor.substring(4, 6), 16) || 0;
+        const intensity = (r * 299 + g * 587 + b * 114) / 1000;
+
+        // Determine text color based on intensity
+        const textColor = intensity < 10 ? "white" : "black";
+
+        // Update marker's HTML with new text color
+        marker.getElement().querySelector(".label-container").style.color =
+          textColor;
       });
 
       marker.on("dblclick", () => {
@@ -167,7 +206,7 @@ const ProvinceMap = () => {
     return () => {
       map.remove();
     };
-  }, [getEntityValue]);
+  }, [getEntityValue, getAllEntityValues, type]);
 
   return (
     <>
@@ -185,7 +224,7 @@ const ProvinceMap = () => {
         <Dragger>
           <div className="flex flex-col justify-end items-center font-sans">
             <EditText text={title} setText={setTitle} />
-            {scale && <ColorBar colorScale={scale} />}
+            {scale && <ColorBar colorScale={scale} content={"province"} />}
           </div>
         </Dragger>
         <Dragger>

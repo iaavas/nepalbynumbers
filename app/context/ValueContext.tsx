@@ -1,33 +1,54 @@
 "use client";
-import React, { createContext, useContext, useState, FC } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  FC,
+  Dispatch,
+  SetStateAction,
+} from "react";
 
 type EntityType = string;
-type EntityValues = Record<string, number | null>;
+type EntityValues = Record<string, (number | string) | null>;
 
 interface ValueContextType {
   setEntityValue: (
     entityType: EntityType,
     entityId: string,
-    value: number | null
+    value: number | null | string
   ) => void;
-  getEntityValue: (entityType: EntityType, entityId: string) => number | null;
-  getAllEntityValues: (entityType: EntityType) => EntityValues | null;
+  getEntityValue: (
+    entityType: EntityType,
+    entityId: string
+  ) => number | null | string;
+  getAllEntityValues: (
+    entityType: EntityType
+  ) => (string | number | null)[] | undefined;
+  type: "reg" | "class";
+  setType: Dispatch<SetStateAction<"reg" | "class">>;
 }
+
+// Define a generic type for the values state
+type ValuesState = Record<EntityType, EntityValues>;
 
 const ValueContext = createContext<ValueContextType | null>(null);
 
-export const ValueProvider = ({ children }: { children: React.ReactNode }) => {
-  const [values, setValues] = useState<Record<EntityType, EntityValues>>({});
+export const ValueProvider: FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  // Use the generic type for the state
+  const [values, setValues] = useState<ValuesState>({});
+  const [type, setType] = useState<"reg" | "class">("reg");
 
   const setEntityValue = (
     entityType: EntityType,
     entityId: string,
-    value: number | null
+    value: number | null | string
   ) => {
-    setValues((prevValues) => ({
+    setValues((prevValues: ValuesState) => ({
       ...prevValues,
       [entityType]: {
-        ...prevValues[entityType],
+        ...(prevValues[entityType] || {}),
         [entityId]: value,
       },
     }));
@@ -38,13 +59,17 @@ export const ValueProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const getAllEntityValues = (entityType: EntityType) => {
-    return values[entityType] || null;
+    if (values[entityType]) {
+      return Object.values(values[entityType]) || null;
+    }
   };
 
   const contextValue: ValueContextType = {
     setEntityValue,
     getEntityValue,
     getAllEntityValues,
+    type,
+    setType,
   };
 
   return (
