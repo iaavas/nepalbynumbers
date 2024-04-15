@@ -1,15 +1,18 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import * as htmlToImage from "html-to-image";
 import { useValues } from "../../context/ValueContext";
+import { useData } from "@/app/hooks/useData";
 
-interface StateValues {
-  [key: string]: number;
-}
-
-const StateValueTable = ({ data, content }: { data: any; content: string }) => {
+const StateValueTable = ({ content }: { content: string }) => {
   const { setEntityValue, getEntityValue, setType } = useValues();
+  const { data, fetchData } = useData(content);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
   function randomizeValue() {
     data.forEach((d: any, idx: number) => {
       setEntityValue(
@@ -46,58 +49,57 @@ const StateValueTable = ({ data, content }: { data: any; content: string }) => {
           Export Image as PNG
         </button>
       </div>
-      <table
-        className="table border border-stone-800  font-normal overflow-scroll "
-        style={{ height: "10px" }}
-      >
-        <thead>
-          <tr>
-            <th className="bg-[#F5F5F5]  px-4 py-2 border text-center font-normal ">
-              State
-            </th>
-            <th className="bg-[#F5F5F5]  px-4 py-2 border text-center font-normal ">
-              Value
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((d: any, idx: number) => {
-            return (
-              <tr key={idx} className="border ">
-                <td className="bg-[#F5F5F5] px-4 py-2 border text-center">
-                  {d.properties.name}
-                </td>
-                <td className="bg-white  cursor-cell w-32 ">
-                  <input
-                    type="text"
-                    step={"any"}
-                    value={
-                      getEntityValue(content, d.properties.name) || undefined
-                    }
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                      if (Number(e.target.value)) {
-                        setEntityValue(
-                          content,
-                          d.properties.name,
-                          Number(e.target.value) * 1
-                        );
-                      } else {
-                        setType("class");
-                        setEntityValue(
-                          content,
-                          d.properties.name,
-                          e.target.value
-                        );
+      <div style={{ height: "500px", overflow: "auto" }}>
+        <table className="table border border-stone-800  font-normal  ">
+          <thead>
+            <tr>
+              <th className="bg-[#F5F5F5]  px-4 py-2 border text-center font-normal ">
+                State
+              </th>
+              <th className="bg-[#F5F5F5]  px-4 py-2 border text-center font-normal ">
+                Value
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((d: any, idx: number) => {
+              return (
+                <tr key={idx} className="border ">
+                  <td className="bg-[#F5F5F5] px-4 py-2 border text-center">
+                    {d.properties.name}
+                  </td>
+                  <td className="bg-white  cursor-cell w-32 ">
+                    <input
+                      type="text"
+                      step={"any"}
+                      value={
+                        getEntityValue(content, d.properties.name) || undefined
                       }
-                    }}
-                    className=" w-full  cursor-cell px-4 py-2 text-right"
-                  />
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                        if (Number(e.target.value)) {
+                          setEntityValue(
+                            content,
+                            d.properties.name,
+                            Number(e.target.value) * 1
+                          );
+                        } else {
+                          setType("class");
+                          setEntityValue(
+                            content,
+                            d.properties.name,
+                            e.target.value
+                          );
+                        }
+                      }}
+                      className=" w-full  cursor-cell px-4 py-2 text-right"
+                    />
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

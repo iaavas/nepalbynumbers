@@ -26,8 +26,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "app/components/map/ProvinceMap.jsx",
-    "app/map/nepal-province/page.jsx",
+    "app/components/map/ProvinceMap.tsx",
+    "app/map/nepal-province/page.tsx",
     "app/components/map/CreatedBy.tsx",
     "app/components/map/ColorBar.tsx"
   ],
