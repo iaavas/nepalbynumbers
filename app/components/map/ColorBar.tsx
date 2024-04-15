@@ -1,25 +1,28 @@
 import React from "react";
-import Dragger from "./Dragger";
-import { useValues } from "../context/ValueContext";
+import Dragger from "../ui/Dragger";
+import { useValues } from "../../context/ValueContext";
+import ColorBarProps from "../../interfaces/ColorBarTypes";
 
-const ColorBar = ({ colorScale, content }) => {
-  const { type, getAllEntityValues } = useValues();
+const ColorBar: React.FC<ColorBarProps> = ({ colorScale, content }) => {
+  const {
+    type,
+    getAllEntityValues,
+  }: { type: string; getAllEntityValues: Function } = useValues();
 
   if (type !== "class") {
-    // Previous code for non-"class" type
-    const domain = colorScale.domain();
+    const domain: number[] = colorScale.domain() as number[];
 
-    const min = domain[0];
-    const max = domain[1];
-    const onethird = min + (max - min) / 3;
-    const mid = min + (max - min) / 2;
-    const twothird = min + ((max - min) * 2) / 3;
-    let adj = 0;
+    const min: number = domain[0];
+    const max: number = domain[1];
+    const onethird: number = min + (max - min) / 3;
+    const mid: number = min + (max - min) / 2;
+    const twothird: number = min + ((max - min) * 2) / 3;
+    let adj: number = 0;
     if (min >= 0 && max <= 1) {
       adj = 2;
     }
 
-    const colorBarStyle = {
+    const colorBarStyle: React.CSSProperties = {
       background: `linear-gradient(to right, ${colorScale(min)}, ${colorScale(
         onethird
       )}, ${colorScale(mid)},${colorScale(twothird)}, ${colorScale(max)})`,
@@ -31,12 +34,12 @@ const ColorBar = ({ colorScale, content }) => {
       position: "relative",
     };
 
-    const labelStyle = {
+    const labelStyle: React.CSSProperties = {
       position: "absolute",
       bottom: "-20px",
       fontSize: "12px",
       textAlign: "left",
-      width: "50px", // Adjust as needed
+      width: "50px",
     };
 
     return (
@@ -71,39 +74,33 @@ const ColorBar = ({ colorScale, content }) => {
     );
   }
 
-  // Code for "class" type
-  const values = getAllEntityValues(content);
+  const values: any[] = getAllEntityValues(content);
 
-  const top5Values = Object.entries(
-    values.reduce((acc, val) => {
+  console.log(values);
+
+  const top5Values: string[] = Object.entries(
+    values.reduce((acc: any, val: any) => {
       acc[val] = (acc[val] || 0) + 1;
       return acc;
     }, {})
   )
-    .sort((a, b) => b[1] - a[1])
+
+    .sort((a: [string, any], b: [string, any]) => b[1] - a[1])
     .slice(0, 5)
     .map((x) => x[0]);
 
-  const labelStyle = {
-    position: "absolute",
-    bottom: "-20px",
-    fontSize: "12px",
-    textAlign: "left",
-    width: "50px", // Adjust as needed
-  };
-
   return (
     <Dragger>
-      <div className="p-4 flex " style={{ columnGap: "16px" }}>
-        {top5Values.map((category, index) => (
+      <div className="p-4 flex " style={{ columnGap: "12px", rowGap: "12px" }}>
+        {top5Values.map((category: string, index: number) => (
           <div
             key={index}
             className="font-sans font-bold flex flex-col justify-center items-center"
           >
             <div
               style={{
-                height: "50px",
-                width: "50px",
+                height: "2.5rem",
+                width: "2.5rem",
                 border: "none",
                 borderRadius: "999px",
                 backgroundColor: `${colorScale(category)}`,

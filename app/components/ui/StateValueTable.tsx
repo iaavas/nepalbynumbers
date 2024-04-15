@@ -1,18 +1,19 @@
+"use client";
 import React, { useState } from "react";
-import { useValues } from "../context/ValueContext";
+
 import * as htmlToImage from "html-to-image";
+import { useValues } from "../../context/ValueContext";
 
 interface StateValues {
   [key: string]: number;
 }
 
-const StateValueTable = ({ data }: { data: any }) => {
+const StateValueTable = ({ data, content }: { data: any; content: string }) => {
   const { setEntityValue, getEntityValue, setType } = useValues();
-
   function randomizeValue() {
     data.forEach((d: any, idx: number) => {
       setEntityValue(
-        "province",
+        content,
         d.properties.name,
         Math.floor(Math.random() * 100)
       );
@@ -30,7 +31,7 @@ const StateValueTable = ({ data }: { data: any }) => {
   };
 
   return (
-    <div className="flex  flex-col w-96 ">
+    <div className="flex  flex-col w-96  ">
       <div className="flex items-center justify-center mb-8 border-b p-2">
         <button
           className=" text-black font-thin border border-black hover:text-blue-600 hover:border-blue-600 p-2 m-2 rounded-lg font-sans "
@@ -45,7 +46,10 @@ const StateValueTable = ({ data }: { data: any }) => {
           Export Image as PNG
         </button>
       </div>
-      <table className="table border border-stone-800 w-96 font-normal">
+      <table
+        className="table border border-stone-800  font-normal overflow-scroll "
+        style={{ height: "10px" }}
+      >
         <thead>
           <tr>
             <th className="bg-[#F5F5F5]  px-4 py-2 border text-center font-normal ">
@@ -68,19 +72,19 @@ const StateValueTable = ({ data }: { data: any }) => {
                     type="text"
                     step={"any"}
                     value={
-                      getEntityValue("province", d.properties.name) || undefined
+                      getEntityValue(content, d.properties.name) || undefined
                     }
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                       if (Number(e.target.value)) {
                         setEntityValue(
-                          "province",
+                          content,
                           d.properties.name,
                           Number(e.target.value) * 1
                         );
                       } else {
                         setType("class");
                         setEntityValue(
-                          "province",
+                          content,
                           d.properties.name,
                           e.target.value
                         );

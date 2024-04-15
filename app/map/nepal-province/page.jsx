@@ -1,15 +1,11 @@
-"use client";
-import React, { useRef } from "react";
-import SideBar from "@/app/components/Sidebar";
-import ProvinceMap from "@/app/components/ProvinceMap";
-import * as htmlToImage from "html-to-image";
+import React from "react";
+import SideBar from "@/app/components/ui/Sidebar";
+import ProvinceMap from "@/app/components/map/ProvinceMap";
 
 function Page() {
   return (
     <main className="flex">
-      <div className="">
-        <ProvinceMap id="map" />
-      </div>
+      <ProvinceMap />
 
       <div className="p-4 ">
         <SideBar />

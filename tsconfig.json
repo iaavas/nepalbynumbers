@@ -26,9 +26,10 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "app/components/ProvinceMap.jsx",
+    "app/components/map/ProvinceMap.jsx",
     "app/map/nepal-province/page.jsx",
-    "app/components/CreatedBy.jsx"
+    "app/components/map/CreatedBy.tsx",
+    "app/components/map/ColorBar.tsx"
   ],
   "exclude": ["node_modules"]
 }

@@ -37,7 +37,7 @@ function DataInput({ onDataChange }) {
 
   return (
     <div className="">
-      <StateValueTable data={provinces} />
+      <StateValueTable data={provinces} content="province" />
 
       {/* <div>
         <h4>Import from Excel</h4>

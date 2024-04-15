@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState, useRef } from "react";
 import L from "leaflet";
 
@@ -5,10 +6,10 @@ import { scaleQuantile, scaleOrdinal } from "d3-scale";
 import EditText from "./EditText";
 import "leaflet/dist/leaflet.css";
 import ColorBar from "./ColorBar";
-import nepalProvinceData from "@/assets/data/nepal-provinces.json";
-import { useValues } from "../context/ValueContext";
+import nepalProvinceData from "@/assets/data/nepal-districts.json";
+import { useValues } from "../../context/ValueContext";
 import CreatedBy from "./CreatedBy";
-import Dragger from "./Dragger";
+import Dragger from "../ui/Dragger";
 
 const ProvinceMap = () => {
   const { getEntityValue, type, getAllEntityValues } = useValues();
@@ -31,7 +32,7 @@ const ProvinceMap = () => {
     }).setView([28.3949, 84.124], 7);
 
     const provinceValues = nepalProvinceData.features.map((feature) =>
-      getEntityValue("province", feature.properties.name)
+      getEntityValue("districts", feature.properties.name)
     );
 
     const filteredValues = provinceValues.filter(
@@ -41,7 +42,8 @@ const ProvinceMap = () => {
     const minValue = Math.min(...filteredValues);
     const maxValue = Math.max(...filteredValues);
 
-    const values = getAllEntityValues("province");
+    const values = getAllEntityValues("districts");
+    console.log(values);
 
     let colorScale;
     if (type === "reg") {
@@ -81,7 +83,10 @@ const ProvinceMap = () => {
     const newMarkers = [];
 
     nepalProvinceData.features.forEach((feature) => {
-      const provinceValue = getEntityValue("province", feature.properties.name);
+      const provinceValue = getEntityValue(
+        "districts",
+        feature.properties.name
+      );
 
       const scaledValue =
         provinceValue !== undefined && provinceValue !== null
@@ -109,7 +114,7 @@ const ProvinceMap = () => {
 
       const center = provinceLayer.getBounds().getCenter();
 
-      const markerPositionKey = `markerPosition_${feature.properties.id}`;
+      const markerPositionKey = `markerPosition_${feature.id}`;
       let markerPosition = localStorage.getItem(markerPositionKey);
       if (markerPosition) {
         markerPosition = JSON.parse(markerPosition);
@@ -120,12 +125,12 @@ const ProvinceMap = () => {
       const marker = L.marker(markerPosition, {
         icon: L.divIcon({
           className: "label font-sans custom-marker-icon",
-          html: `<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.1rem; font-weight: normal;font-size:20px; color: ${textColor} " class="label-container">
-                      <p>${
-                        feature.properties.name
-                      }</p><p style="font-size:14px;" >${
-            provinceValue || 0
-          }</p></div>`,
+          // html: `<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.1rem; font-weight: normal;font-size:5px; color: ${textColor} " class="label-container">
+          //             <p>${
+          //               feature.properties.name
+          //             }</p><p style="font-size:4px;" >${
+          //   provinceValue || 0
+          // }</p></div>`,
         }),
         draggable: true,
       }).addTo(map);
@@ -222,9 +227,12 @@ const ProvinceMap = () => {
         }}
       >
         <Dragger>
-          <div className="flex flex-col justify-end items-center font-sans">
+          <div
+            className="flex flex-col justify-end items-center font-sans p-3 "
+            style={{ rowGap: "10px" }}
+          >
             <EditText text={title} setText={setTitle} />
-            {scale && <ColorBar colorScale={scale} content={"province"} />}
+            {scale && <ColorBar colorScale={scale} content={"districts"} />}
           </div>
         </Dragger>
         <Dragger>
