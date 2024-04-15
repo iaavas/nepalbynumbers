@@ -1,5 +1,5 @@
 import React from "react";
-import Dragger from "../ui/Dragger";
+
 import { useValues } from "../../context/ValueContext";
 import ColorBarProps from "../../interfaces/ColorBarTypes";
 
@@ -43,34 +43,32 @@ const ColorBar: React.FC<ColorBarProps> = ({ colorScale, content }) => {
     };
 
     return (
-      <Dragger>
-        <div className="color-bar" style={colorBarStyle}>
-          <div
-            style={{ ...labelStyle, left: "0" }}
-            className="font-sans font-bold"
-          >
-            {min.toFixed(adj)}
-          </div>
-          <div
-            style={{ ...labelStyle, left: "30%" }}
-            className="font-sans font-bold"
-          >
-            {onethird.toFixed(adj)}
-          </div>
-          <div
-            style={{ ...labelStyle, left: "60%" }}
-            className="font-sans font-bold"
-          >
-            {twothird.toFixed(adj)}
-          </div>
-          <div
-            style={{ ...labelStyle, left: "90%" }}
-            className="font-sans font-bold"
-          >
-            {max.toFixed(adj)}
-          </div>
+      <div className="color-bar" style={colorBarStyle}>
+        <div
+          style={{ ...labelStyle, left: "0" }}
+          className="font-sans font-bold"
+        >
+          {min.toFixed(adj)}
         </div>
-      </Dragger>
+        <div
+          style={{ ...labelStyle, left: "30%" }}
+          className="font-sans font-bold"
+        >
+          {onethird.toFixed(adj)}
+        </div>
+        <div
+          style={{ ...labelStyle, left: "60%" }}
+          className="font-sans font-bold"
+        >
+          {twothird.toFixed(adj)}
+        </div>
+        <div
+          style={{ ...labelStyle, left: "90%" }}
+          className="font-sans font-bold"
+        >
+          {max.toFixed(adj)}
+        </div>
+      </div>
     );
   }
 
@@ -90,31 +88,29 @@ const ColorBar: React.FC<ColorBarProps> = ({ colorScale, content }) => {
     .map((x) => x[0]);
 
   return (
-    <Dragger>
-      <div className="p-4 flex " style={{ columnGap: "12px", rowGap: "12px" }}>
-        {top5Values.map((category: string, index: number) => (
+    <div className="p-4 flex " style={{ columnGap: "12px", rowGap: "12px" }}>
+      {top5Values.map((category: string, index: number) => (
+        <div
+          key={index}
+          className="font-sans font-bold flex flex-col justify-center items-center"
+        >
           <div
-            key={index}
-            className="font-sans font-bold flex flex-col justify-center items-center"
-          >
-            <div
-              style={{
-                height: "2.5rem",
-                width: "2.5rem",
-                border: "none",
-                borderRadius: "999px",
-                backgroundColor: `${colorScale(category)}`,
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            ></div>
+            style={{
+              height: "2.5rem",
+              width: "2.5rem",
+              border: "none",
+              borderRadius: "999px",
+              backgroundColor: `${colorScale(category)}`,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          ></div>
 
-            <p>{category}</p>
-          </div>
-        ))}
-      </div>
-    </Dragger>
+          <p>{category}</p>
+        </div>
+      ))}
+    </div>
   );
 };
 

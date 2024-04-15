@@ -4,6 +4,7 @@ import { ValueProvider } from "@/app/context/ValueContext";
 import "./globals.css";
 
 import localFont from "@next/font/local";
+import { ColorProvider } from "./context/ColorsContex";
 
 const segoe = localFont({
   src: "../public/Segoe UI.woff",
@@ -21,9 +22,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${segoe.variable} font-sans`}>
+    <html lang="en" className={`${segoe.variable} font-sans `}>
       <body>
-        <ValueProvider>{children}</ValueProvider>
+        <ValueProvider>
+          <ColorProvider>{children}</ColorProvider>
+        </ValueProvider>
       </body>
     </html>
   );

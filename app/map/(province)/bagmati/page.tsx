@@ -1,15 +1,15 @@
 import React from "react";
 
 import Map from "@/app/components/map/Map";
-import StateValueTable from "@/app/components/ui/StateValueTable";
+import Menubar from "@/app/components/ui/Menubar";
 
 function Page() {
   return (
     <main className="flex">
-      <Map mapType="province" />
+      <Map mapType="bagmati" />
 
       <div className="p-4 ">
-        <StateValueTable content="province" />
+        <Menubar content="bagmati" />
       </div>
     </main>
   );

@@ -35,7 +35,7 @@ const StateValueTable = ({ content }: { content: string }) => {
 
   return (
     <div className="flex  flex-col w-96  ">
-      <div className="flex items-center justify-center mb-8 border-b p-2">
+      <div className="flex items-center justify-start mb-8 ">
         <button
           className=" text-black font-thin border border-black hover:text-blue-600 hover:border-blue-600 p-2 m-2 rounded-lg font-sans "
           onClick={randomizeValue}

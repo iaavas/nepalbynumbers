@@ -9,11 +9,14 @@ import { colors } from "@/app/constants/Colors";
 import Legend from "./Legend";
 import DataSource from "./DataSource";
 import { useData } from "@/app/hooks/useData";
+import OverallStats from "./OverallStats";
+import { useColor } from "@/app/context/ColorsContex";
 
 const Map = ({ mapType }: { mapType: string }) => {
   const { getEntityValue, type, getAllEntityValues } = useValues();
   const [scale, setScale] = useState(null);
   const { data, fetchData } = useData(mapType!);
+  const { theme } = useColor();
 
   const mapRef = useRef(null);
 
@@ -23,6 +26,11 @@ const Map = ({ mapType }: { mapType: string }) => {
 
   useEffect(() => {
     if (!mapRef) return;
+    let L: any;
+    if (typeof window !== "undefined") {
+      L = require("leaflet");
+    }
+
     const map = L.map(mapRef.current! as string | HTMLElement, {
       attributionControl: false,
       zoomControl: false,
@@ -41,7 +49,8 @@ const Map = ({ mapType }: { mapType: string }) => {
     );
 
     const values = getAllEntityValues(mapType);
-    const colorRange: any = colors["Gurkha"];
+    // @ts-ignore
+    const colorRange: any = colors[theme].colors;
     let colorScale;
     if (type === "reg") {
       const minValue = Math.min(...(filteredValues as number[]));
@@ -122,7 +131,7 @@ const Map = ({ mapType }: { mapType: string }) => {
         draggable: true,
       }).addTo(map);
 
-      marker.on("dragend", function (e) {
+      marker.on("dragend", function () {
         const newPos = marker.getLatLng();
 
         localStorage.setItem(markerPositionKey, JSON.stringify(newPos));
@@ -181,7 +190,7 @@ const Map = ({ mapType }: { mapType: string }) => {
     return () => {
       map.remove();
     };
-  }, [getEntityValue, getAllEntityValues, type, data, mapType]);
+  }, [getEntityValue, getAllEntityValues, type, data, mapType, theme]);
 
   return (
     <>
@@ -198,6 +207,7 @@ const Map = ({ mapType }: { mapType: string }) => {
       >
         <Legend scale={scale} />
         <CreatedBy />
+        <OverallStats />
         <DataSource />
       </div>
     </>
