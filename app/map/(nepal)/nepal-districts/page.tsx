@@ -1,15 +1,16 @@
 import React from "react";
 
 import Map from "@/app/components/map/Map";
-import StateValueTable from "@/app/components/ui/StateValueTable";
 import Menubar from "@/app/components/ui/Menubar";
 
 function Page() {
   return (
-    <main className="flex">
-      <Map mapType="district" />
+    <main className="flex justify-between h-screen">
+      <div className="flex-1 h-full">
+        <Map mapType="district" />
+      </div>
 
-      <div className="px-4 ">
+      <div className="flex-1 overflow-y-scroll items-center justify-center px-8">
         <Menubar content="district" />
       </div>
     </main>

@@ -13,7 +13,6 @@ const ColorPalette = ({
 
   return (
     <div
-      style={{ marginBottom: "20px" }}
       className={`flex justify-center flex-col items-center cursor-pointer ease-in-out transition-all ${
         theme === paletteName && "border border-black rounded-xl  p-2"
       }`}
@@ -35,9 +34,9 @@ const ColorPalette = ({
 
 const Theme = () => {
   return (
-    <div>
+    <>
       <h1 className="font-sans font-bold text-lg mb-8">Select a Theme.</h1>
-      <div className="flex items-center gap-6 flex-wrap w-96">
+      <div className="flex items-center gap-6 flex-wrap w-96  ">
         {Object.entries(colorPalettes).map(([paletteName, palette], index) => (
           <ColorPalette
             key={index}
@@ -46,7 +45,7 @@ const Theme = () => {
           />
         ))}
       </div>
-    </div>
+    </>
   );
 };
 

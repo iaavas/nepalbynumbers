@@ -13,7 +13,7 @@ function Menubar({ content }: { content: string }) {
   };
 
   return (
-    <div className="h-screen overflow-auto">
+    <div className="">
       <Tabs
         defaultActiveKey="1"
         activeKey={selectedTab}

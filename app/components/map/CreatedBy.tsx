@@ -10,7 +10,7 @@ function CreatedBy() {
         style={{
           position: "absolute",
           bottom: "0",
-          right: "0px",
+          right: "20px",
           padding: "0px 2px",
           display: "flex",
           flexDirection: "column",
@@ -24,7 +24,7 @@ function CreatedBy() {
             position: "absolute",
             bottom: "50px",
             right: "",
-            padding: "10px",
+            padding: "",
             fontStyle: "italic",
             cursor: "move",
             textAlign: "center",

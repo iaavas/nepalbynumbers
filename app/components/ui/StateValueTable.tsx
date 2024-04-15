@@ -49,7 +49,15 @@ const StateValueTable = ({ content }: { content: string }) => {
           Export Image as PNG
         </button>
       </div>
-      <div style={{ height: "500px", overflow: "auto" }}>
+      <div
+        style={{
+          overflow: "auto",
+          height: "400px",
+          borderTop: "0.1px solid gray",
+          borderBottom: "0.1px solid gray",
+          borderRadius: "5px",
+        }}
+      >
         <table className="table border border-stone-800  font-normal  ">
           <thead>
             <tr>
