@@ -78,7 +78,9 @@ const Map = ({ mapType }: { mapType: string }) => {
       const value: any = getEntityValue(mapType, feature.properties.name);
 
       const scaledValue: any =
-        value !== undefined && value !== null ? colorScale(value) : "#cccccc";
+        value !== undefined && value !== null
+          ? colorScale(value)
+          : colorRange[0];
 
       const provinceLayer = L.geoJSON(feature, {
         style: {
@@ -205,7 +207,7 @@ const Map = ({ mapType }: { mapType: string }) => {
           height: "100vh",
         }}
       >
-        <Legend scale={scale} />
+        <Legend scale={scale} content={mapType} />
         <CreatedBy />
         <OverallStats />
         <DataSource />

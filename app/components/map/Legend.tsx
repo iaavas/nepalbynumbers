@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import Dragger from "../ui/Dragger";
 import EditText from "./EditText";
 import ColorBar from "./ColorBar";
+import { useValues } from "@/app/context/ValueContext";
 
-function Legend({ scale }: { scale: any }) {
-  const [title, setTitle] = useState<string>("Title Here");
+function Legend({ scale, content }: { scale: any; content: string }) {
+  const { title, setTitle } = useValues();
   return (
     <Dragger>
       <div
@@ -12,7 +13,7 @@ function Legend({ scale }: { scale: any }) {
         style={{ rowGap: "1px" }}
       >
         <EditText text={title} setText={setTitle} />
-        {scale && <ColorBar colorScale={scale} content={"province"} />}
+        {scale && <ColorBar colorScale={scale} content={content} />}
       </div>
     </Dragger>
   );

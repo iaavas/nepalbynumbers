@@ -13,8 +13,9 @@ const ColorPalette = ({
 
   return (
     <div
-      className={`flex justify-center flex-col items-center cursor-pointer ease-in-out transition-all ${
-        theme === paletteName && "border border-black rounded-xl  p-2"
+      className={`flex justify-center flex-col items-center cursor-pointer ease-in transition-all ${
+        theme === paletteName &&
+        "border border-gray-500 border-dotted rounded-xl  p-1"
       }`}
       onClick={() => updateTheme(paletteName)}
     >

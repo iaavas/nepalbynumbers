@@ -1,9 +1,14 @@
 "use client";
 import React, { useState } from "react";
-import { DatabaseOutlined, HighlightOutlined } from "@ant-design/icons";
+import {
+  DatabaseOutlined,
+  HighlightOutlined,
+  ExportOutlined,
+} from "@ant-design/icons";
 import { Tabs } from "antd";
 import StateValueTable from "./StateValueTable";
 import Theme from "./Theme";
+import Export from "./Export";
 
 function Menubar({ content }: { content: string }) {
   const [selectedTab, setSelectedTab] = useState<string>("1");
@@ -40,6 +45,17 @@ function Menubar({ content }: { content: string }) {
           key="2"
         >
           {selectedTab === "2" && <Theme />}
+        </Tabs.TabPane>
+        <Tabs.TabPane
+          tab={
+            <span className="flex">
+              <ExportOutlined />
+              <p>Export</p>
+            </span>
+          }
+          key="3"
+        >
+          {selectedTab === "3" && <Export />}
         </Tabs.TabPane>
       </Tabs>
     </div>

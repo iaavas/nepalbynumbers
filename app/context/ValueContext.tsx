@@ -26,6 +26,8 @@ interface ValueContextType {
   ) => (string | number | null)[] | undefined;
   type: "reg" | "class";
   setType: Dispatch<SetStateAction<"reg" | "class">>;
+  setTitle: Dispatch<SetStateAction<string>>;
+  title: string;
 }
 
 // Define a generic type for the values state
@@ -39,7 +41,7 @@ export const ValueProvider: FC<{ children: React.ReactNode }> = ({
   // Use the generic type for the state
   const [values, setValues] = useState<ValuesState>({});
   const [type, setType] = useState<"reg" | "class">("reg");
-
+  const [title, setTitle] = useState<string>("Title Here");
   const setEntityValue = (
     entityType: EntityType,
     entityId: string,
@@ -59,6 +61,7 @@ export const ValueProvider: FC<{ children: React.ReactNode }> = ({
   };
 
   const getAllEntityValues = (entityType: EntityType) => {
+    console.log(values[entityType]);
     if (values[entityType]) {
       return Object.values(values[entityType]) || null;
     }
@@ -70,6 +73,8 @@ export const ValueProvider: FC<{ children: React.ReactNode }> = ({
     getAllEntityValues,
     type,
     setType,
+    title,
+    setTitle,
   };
 
   return (

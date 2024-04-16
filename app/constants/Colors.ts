@@ -10,7 +10,14 @@ export const colors = {
   },
 
   Danfe: {
-    colors: ["#7F8EFF", "#4DD9EE", "#3FD9B0", "#B3D95C", "#F7C444", "#FF7F7F"],
+    colors: [
+      "#4E6AFF",
+      "#00BFFF",
+      "#00FFB0",
+      "#8BFF00",
+      "#FFD700",
+      "#FF0000    ",
+    ],
   },
 
   Yeti: {
@@ -51,7 +58,7 @@ export const colors = {
       "rgb(0, 204, 106)",
     ],
   },
-  test: {
+  Barsha: {
     colors: [
       "rgb(204, 229, 255)",
       "rgb(102, 178, 255)",

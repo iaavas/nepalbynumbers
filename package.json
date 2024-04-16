@@ -41,7 +41,8 @@
     "styled-components": "^6.1.8",
     "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7",
-    "use-react-screenshot": "^4.0.0"
+    "use-react-screenshot": "^4.0.0",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/d3": "^7.4.3",
