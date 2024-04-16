@@ -12,23 +12,46 @@ import { useData } from "@/app/hooks/useData";
 import OverallStats from "./OverallStats";
 import { useColor } from "@/app/context/ColorsContex";
 
-const Map = ({ mapType }: { mapType: string }) => {
+const Map = ({
+  mapType,
+  ctr = [28.3949, 84.124],
+}: {
+  mapType: string;
+  ctr?: [number, number];
+}) => {
   const { getEntityValue, type, getAllEntityValues } = useValues();
   const [scale, setScale] = useState(null);
   const { data, fetchData } = useData(mapType!);
   const { theme } = useColor();
 
-  const mapRef = useRef(null);
+  const mapRef: any = useRef(null);
+
+  const mctr = useRef<[number, number] | undefined>();
+
+  useEffect(() => {
+    mctr.current = ctr;
+  }, [ctr]);
 
   useEffect(() => {
     fetchData();
   }, [fetchData]);
 
   useEffect(() => {
-    if (!mapRef) return;
+    if (!mapRef.current) return;
+
     let L: any;
     if (typeof window !== "undefined") {
       L = require("leaflet");
+    }
+    let zoom: number;
+    let fs: number;
+
+    if (mapType === "district" || mapType === "province") {
+      zoom = 7;
+      fs = 20;
+    } else {
+      zoom = 8;
+      fs = 9;
     }
 
     const map = L.map(mapRef.current! as string | HTMLElement, {
@@ -38,7 +61,7 @@ const Map = ({ mapType }: { mapType: string }) => {
       scrollWheelZoom: false,
       doubleClickZoom: false,
       dragging: false,
-    }).setView([28.3949, 84.124], 7);
+    }).setView(mctr.current, zoom);
 
     const provinceValues = data.map((feature) =>
       getEntityValue(mapType, feature.properties.name)
@@ -102,12 +125,7 @@ const Map = ({ mapType }: { mapType: string }) => {
       const textColor = intensity < 10 ? "white" : "black";
 
       const center = provinceLayer.getBounds().getCenter();
-      let id;
-      if (feature.properties.id) {
-        id = feature.properties.id;
-      } else {
-        id = feature.id;
-      }
+      let id = feature.properties.id || feature.id || feature.properties.name;
 
       const markerPositionKey = `markerPosition_${id}`;
       let markerPosition: L.LatLngExpression | string | null =
@@ -125,7 +143,7 @@ const Map = ({ mapType }: { mapType: string }) => {
       const marker = L.marker(markerPosition! as L.LatLngExpression, {
         icon: L.divIcon({
           className: "label font-sans custom-marker-icon",
-          html: `<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.1rem; font-weight: normal;font-size:20px; color: ${textColor} " class="label-container">
+          html: `<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.1rem; font-weight: normal;font-size:${fs!}px; color: ${textColor} " class="label-container">
                       <p>${
                         feature.properties.name
                       }</p><p style="font-size:14px;" >${value || 0}</p></div>`,

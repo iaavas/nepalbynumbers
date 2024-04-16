@@ -30,7 +30,6 @@ interface ValueContextType {
   title: string;
 }
 
-// Define a generic type for the values state
 type ValuesState = Record<EntityType, EntityValues>;
 
 const ValueContext = createContext<ValueContextType | null>(null);
@@ -38,7 +37,6 @@ const ValueContext = createContext<ValueContextType | null>(null);
 export const ValueProvider: FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  // Use the generic type for the state
   const [values, setValues] = useState<ValuesState>({});
   const [type, setType] = useState<"reg" | "class">("reg");
   const [title, setTitle] = useState<string>("Title Here");

@@ -1,12 +1,24 @@
 import { useState } from "react";
-import nepalProvinceData from "@/assets/data/nepal-provinces.json";
-import nepalDistrictData from "@/assets/data/nepal-districts.json";
-import bagmati from "@/assets/data/karnali.json";
+import province from "@/assets/data/nepal-provinces.json";
+import district from "@/assets/data/nepal-districts.json";
+import bagmati from "@/assets/data/bagmati.json";
+import karnali from "@/assets/data/karnali.json";
+import sudurpaschim from "@/assets/data/sudurpaschim.json";
+import lumbini from "@/assets/data/lumbini.json";
+import koshi from "@/assets/data/koshi.json";
+import gandaki from "@/assets/data/gandaki.json";
+import madhesh from "@/assets/data/madhesh.json";
 
 const dataSources: { [key: string]: any } = {
-  province: nepalProvinceData,
-  district: nepalDistrictData,
+  province,
+  district,
   bagmati,
+  sudurpaschim,
+  lumbini,
+  karnali,
+  koshi,
+  madhesh,
+  gandaki,
 };
 
 export const useData = (dataType: string) => {
