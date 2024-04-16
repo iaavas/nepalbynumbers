@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import PageLayout from "@/app/components/layout/pageLayout";
 import { centers } from "@/app/constants/Centers";
@@ -13,7 +13,9 @@ function DynamicContentPage() {
   ].center;
 
   return (
-    <PageLayout mapType={map as string} center={center as [number, number]} />
+    <Suspense fallback={<div>I am sorry babu...........</div>}>
+      <PageLayout mapType={map as string} center={center as [number, number]} />
+    </Suspense>
   );
 }
 

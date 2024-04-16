@@ -1,14 +1,14 @@
 # Nepal By Numbers
 
-This project aims to visualize various statistical factors on maps, primarily focusing on Nepal a. It utilizes map visualization techniques to represent data such as GDP, HDI, and other interesting statistics.
+This project aims to visually represent various statistical factors on maps, with a primary focus on Nepal. It utilizes map visualization techniques to depict data such as GDP, HDI, and other intriguing statistics.
 
 ## Features
 
-- **Map of Nepal**: Visualizes different statistical factors within the geographical boundaries of Nepal.
-- **World Map**: Provides a global perspective by visualizing data on a world map.
-- **Statistical Data**: Displays various factors such as GDP, HDI, and more to offer insights into different regions.
+- **Various Maps of Nepal**: Visualizes diverse statistical factors within different geographical boundaries of Nepal, including provinces and districts.
+- **World Map View**: Provides a global perspective by showcasing data on a world map.
+- **Excel Data Import**: Easily import data from your Excel files with just one click.
 
-## Work Till Now
+## Snapshot
 
 ![Map Visualization](./public/hero.png)
 
@@ -18,7 +18,19 @@ This project aims to visualize various statistical factors on maps, primarily fo
 
 2. Open the project in your preferred development environment.
 
-3. Run the visualization script to generate maps with statistical data.
+3. Install necessary dependencies:
+
+```bash
+npm install
+
+```
+
+Run the Webapp:
+
+```bash
+npm run dev
+
+```
 
 ## Contributing
 
