@@ -5,6 +5,14 @@ import PageLayout from "@/app/components/layout/pageLayout";
 import { centers } from "@/app/constants/Centers";
 
 function DynamicContentPage() {
+  return (
+    <Suspense fallback={<div>I am sorry babu...........</div>}>
+      <DynamicContent />
+    </Suspense>
+  );
+}
+
+function DynamicContent() {
   const params = useSearchParams();
   const map = params.get("m");
   console.log(map);
@@ -13,9 +21,7 @@ function DynamicContentPage() {
   ].center;
 
   return (
-    <Suspense fallback={<div>I am sorry babu...........</div>}>
-      <PageLayout mapType={map as string} center={center as [number, number]} />
-    </Suspense>
+    <PageLayout mapType={map as string} center={center as [number, number]} />
   );
 }
 
