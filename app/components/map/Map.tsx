@@ -25,9 +25,6 @@ const Map = ({
   const { data, fetchData } = useData(mapType!);
   const { theme } = useColor();
   const { postfix, prefix } = usePostfix();
-  const [displayName, setDisplayName] = useState("");
-  const [fontSize, setFontSize] = useState("");
-  const [color, setColor] = useState("");
 
   const mapRef: any = useRef(null);
 
@@ -114,10 +111,10 @@ const Map = ({
       const provinceLayer = L.geoJSON(feature, {
         style: {
           fillColor: scaledValue,
-          weight: 1.2,
+          weight: 1,
           color: "black",
           fillOpacity: 1,
-          className: "ease-in duration-1000 transition-all",
+          transition: "fill 0.5s ease", // Add transition
         },
       }).addTo(map);
 
@@ -149,17 +146,59 @@ const Map = ({
       const markerIcon = L.divIcon({
         className: "label font-sans custom-marker-icon",
         html: `<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.1rem; font-weight: normal;font-size:${fs}px; color: ${textColor} " class="label-container">
-            <p>${feature.properties.name}</p><p style="font-size:${
-          fs * 0.9
-        }px;" >${value ? prefix : ""}${value ?? ""}${
-          value ? postfix : ""
-        }</p></div>`,
+            <p>${feature.properties.name}</p>
+            <p style="font-size:${fs * 0.9}px;" >
+        ${value ? prefix : ""}${value ?? ""}${value ? postfix : ""}</p>
+        </div>`,
       });
 
       const marker = L.marker(markerPosition, {
         icon: markerIcon,
         draggable: true,
       }).addTo(map);
+
+      marker.on("dblclick", function () {
+        const popupContent = `
+          <div>
+            <label for="fontSize">Font Size:</label>
+            <input type="number" id="fontSize" name="fontSize" value="12" min="1">
+            <br>
+            <label for="fontColor">Font Color:</label>
+            <input type="color" id="fontColor" name="fontColor" value="#000000">
+            <br>
+            <button id="applyChanges">Apply Changes</button>
+          </div>
+        `;
+
+        const popup = L.popup()
+
+          .setLatLng(center)
+          .setContent(popupContent)
+          .openOn(map);
+
+        document
+          .getElementById("applyChanges")
+          ?.addEventListener("click", () => {
+            const fontSize = (
+              document.getElementById("fontSize") as HTMLInputElement
+            ).value;
+            const fontColor = (
+              document.getElementById("fontColor") as HTMLInputElement
+            ).value;
+
+            marker.setIcon(
+              L.divIcon({
+                className: "label font-sans custom-marker-icon",
+                html: `<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.1rem; font-weight: normal;font-size:${fontSize}px; color: ${fontColor} " class="label-container">
+              <p>${
+                feature.properties.name
+              }</p><p style="font-size:${fontSize}px;" >${value ? prefix : ""}${
+                  value ?? ""
+                }${value ? postfix : ""}</p></div>`,
+              })
+            );
+          });
+      });
 
       marker.on("dragend", function () {
         localStorage.setItem(

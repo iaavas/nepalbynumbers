@@ -5,7 +5,7 @@ import { LinkOutlined } from "@ant-design/icons";
 import { useValues } from "../../context/ValueContext";
 import { useData } from "@/app/hooks/useData";
 import * as XLSX from "xlsx";
-import confirm from "antd/es/modal/confirm";
+
 import { usePostfix } from "@/app/context/PostfixContext";
 
 const StateValueTable = ({ content }: { content: string }) => {
@@ -14,6 +14,7 @@ const StateValueTable = ({ content }: { content: string }) => {
   const { title, setTitle } = useValues();
   const [excelData, setExcelData] = useState<any[]>([]);
   const { postfix, prefix, setPostfix, setPrefix } = usePostfix();
+  const [fileName, setFileName] = useState<string | null>(null);
 
   useEffect(() => {
     fetchData();
@@ -32,6 +33,7 @@ const StateValueTable = ({ content }: { content: string }) => {
   const handleFileUpload = (e: any) => {
     const file = e.target.files[0];
     const reader = new FileReader();
+    setFileName(file.name);
 
     reader.onload = (event: any) => {
       const binaryString = event.target.result;
@@ -46,10 +48,12 @@ const StateValueTable = ({ content }: { content: string }) => {
   };
 
   const importFromExcel = () => {
-    // Assuming excelData follows the structure: [ [state1, value1], [state2, value2], ... ]
     excelData.forEach((row: any) => {
       let state = row[0];
       const value = row[1];
+      if (typeof value != "number") {
+        setType("class");
+      }
       if (content == "district") {
         state = state.toUpperCase();
       }
@@ -93,7 +97,9 @@ const StateValueTable = ({ content }: { content: string }) => {
                     htmlFor="file-upload"
                     className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500 font-sans"
                   >
-                    <span className="text-center">Upload a file</span>
+                    <span className="text-center">
+                      {!fileName ? "Upload a file" : fileName}
+                    </span>
                     <input
                       id="file-upload"
                       name="file-upload"
