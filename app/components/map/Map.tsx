@@ -11,6 +11,7 @@ import DataSource from "./DataSource";
 import { useData } from "@/app/hooks/useData";
 import OverallStats from "./OverallStats";
 import { useColor } from "@/app/context/ColorsContex";
+import { usePostfix } from "@/app/context/PostfixContext";
 
 const Map = ({
   mapType,
@@ -23,6 +24,10 @@ const Map = ({
   const [scale, setScale] = useState(null);
   const { data, fetchData } = useData(mapType!);
   const { theme } = useColor();
+  const { postfix, prefix } = usePostfix();
+  const [displayName, setDisplayName] = useState("");
+  const [fontSize, setFontSize] = useState("");
+  const [color, setColor] = useState("");
 
   const mapRef: any = useRef(null);
 
@@ -51,7 +56,7 @@ const Map = ({
       fs = 20;
     } else {
       zoom = 8;
-      fs = 9;
+      fs = 12;
     }
 
     const map = L.map(mapRef.current! as string | HTMLElement, {
@@ -80,7 +85,7 @@ const Map = ({
       const maxValue = Math.max(...(filteredValues as number[]));
       colorScale = scaleQuantile()
         .domain([minValue, maxValue])
-        .range(colorRange);
+        .range(colorRange.slice(1));
     } else {
       const top5Values: string[] = Object.entries(
         values!.reduce((acc: any, val: any) => {
@@ -99,6 +104,7 @@ const Map = ({
 
     data.forEach((feature) => {
       const value: any = getEntityValue(mapType, feature.properties.name);
+      let a: string;
 
       const scaledValue: any =
         value !== undefined && value !== null
@@ -124,6 +130,10 @@ const Map = ({
 
       const textColor = intensity < 10 ? "white" : "black";
 
+      if (mapType === "district") {
+        return;
+      }
+
       const center = provinceLayer.getBounds().getCenter();
       let id = feature.properties.id || feature.id || feature.properties.name;
 
@@ -136,81 +146,42 @@ const Map = ({
         markerPosition = center;
       }
 
-      if (mapType === "district") {
-        return;
-      }
+      const markerIcon = L.divIcon({
+        className: "label font-sans custom-marker-icon",
+        html: `<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.1rem; font-weight: normal;font-size:${fs}px; color: ${textColor} " class="label-container">
+            <p>${feature.properties.name}</p><p style="font-size:${
+          fs * 0.9
+        }px;" >${value ? prefix : ""}${value ?? ""}${
+          value ? postfix : ""
+        }</p></div>`,
+      });
 
-      const marker = L.marker(markerPosition! as L.LatLngExpression, {
-        icon: L.divIcon({
-          className: "label font-sans custom-marker-icon",
-          html: `<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.1rem; font-weight: normal;font-size:${fs!}px; color: ${textColor} " class="label-container">
-                      <p>${
-                        feature.properties.name
-                      }</p><p style="font-size:14px;" >${value || 0}</p></div>`,
-        }),
+      const marker = L.marker(markerPosition, {
+        icon: markerIcon,
         draggable: true,
       }).addTo(map);
 
       marker.on("dragend", function () {
-        const newPos = marker.getLatLng();
-
-        localStorage.setItem(markerPositionKey, JSON.stringify(newPos));
-      });
-
-      marker.on("dblclick", () => {
-        const propertyToChange = prompt(
-          "Enter property to change (font size, color, or display name):"
+        localStorage.setItem(
+          markerPositionKey,
+          JSON.stringify(marker.getLatLng())
         );
-        if (!propertyToChange) return;
-
-        switch (propertyToChange.toLowerCase()) {
-          case "font size":
-            const newFontSize = prompt("Enter new font size:");
-            marker.setIcon(
-              L.divIcon({
-                className: "label font-sans",
-                html: `<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.1rem; font-weight: normal;font-size:${newFontSize}px; color: ${textColor}">
-                <p>${feature.properties.name}</p><p style="font-size:14px;" >${
-                  value || 0
-                }</p></div>`,
-              })
-            );
-            break;
-          case "color":
-            const newColor = prompt("Enter new color:");
-            marker.setIcon(
-              L.divIcon({
-                className: "label font-sans",
-                html: `<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.1rem; font-weight: normal;font-size:20px; color: ${newColor}">
-                <p>${feature.properties.name}</p><p style="font-size:14px;" >${
-                  value || 0
-                }</p></div>`,
-              })
-            );
-            break;
-          case "display name":
-            const newName = prompt("Enter new display name:");
-            marker.setIcon(
-              L.divIcon({
-                className: "label font-sans",
-                html: `<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.1rem; font-weight: normal;font-size:20px; color: ${textColor}">
-                <p>${newName}</p><p style="font-size:14px;" >${
-                  value || 0
-                }</p></div>`,
-              })
-            );
-            break;
-          default:
-            alert("Invalid property.");
-            break;
-        }
       });
     });
 
     return () => {
       map.remove();
     };
-  }, [getEntityValue, getAllEntityValues, type, data, mapType, theme]);
+  }, [
+    getEntityValue,
+    getAllEntityValues,
+    type,
+    data,
+    mapType,
+    theme,
+    postfix,
+    prefix,
+  ]);
 
   return (
     <>

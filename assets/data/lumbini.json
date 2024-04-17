@@ -689,17 +689,17 @@
         ]
       },
       "properties": {
-        "name": "अर्घाखाँची",
+        "DISTRICT": "अर्घाखाँची",
         "Province": 5,
         "Level": 1,
-        "TARGET": "ARGHAKHANCHI",
+        "name": "ARGHAKHANCHI",
         "METRO": "०",
         "SMETRO": "०",
         "MUN": "३",
         "RMUN": "३",
         "POPN": "१९६८९६",
         "WARDS": "६१",
-        "nameid": 51
+        "DISTRICTid": 51
       }
     },
     {
@@ -1188,17 +1188,17 @@
         ]
       },
       "properties": {
-        "name": "बाँके\r\n",
+        "DISTRICT": "बाँके\r\n",
         "Province": 5,
         "Level": 1,
-        "TARGET": "BANKE",
+        "name": "BANKE",
         "METRO": "०",
         "SMETRO": "१",
         "MUN": "१",
         "RMUN": "६",
         "POPN": "४८५१६४",
         "WARDS": "८१",
-        "nameid": 57
+        "DISTRICTid": 57
       }
     },
     {
@@ -1778,17 +1778,17 @@
         ]
       },
       "properties": {
-        "name": "बर्दिया",
+        "DISTRICT": "बर्दिया",
         "Province": 5,
         "Level": 1,
-        "TARGET": "BARDIYA",
+        "name": "BARDIYA",
         "METRO": "०",
         "SMETRO": "०",
         "MUN": "६",
         "RMUN": "२",
         "POPN": "४२३६११",
         "WARDS": "७५",
-        "nameid": 58
+        "DISTRICTid": 58
       }
     },
     {
@@ -6658,17 +6658,17 @@
         ]
       },
       "properties": {
-        "name": "दाङ",
+        "DISTRICT": "दाङ",
         "Province": 5,
         "Level": 1,
-        "TARGET": "DANG",
+        "name": "DANG",
         "METRO": "०",
         "SMETRO": "२",
         "MUN": "१",
         "RMUN": "७",
         "POPN": "५४८१४०",
         "WARDS": "१००",
-        "nameid": 56
+        "DISTRICTid": 56
       }
     },
     {
@@ -7216,17 +7216,17 @@
         ]
       },
       "properties": {
-        "name": "गुल्मी",
+        "DISTRICT": "गुल्मी",
         "Province": 5,
         "Level": 1,
-        "TARGET": "GULMI",
+        "name": "GULMI",
         "METRO": "०",
         "SMETRO": "०",
         "MUN": "२",
         "RMUN": "१०",
         "POPN": "२७९००५",
         "WARDS": "९३",
-        "nameid": 46
+        "DISTRICTid": 46
       }
     },
     {
@@ -7834,17 +7834,17 @@
         ]
       },
       "properties": {
-        "name": "कपिलवस्तु",
+        "DISTRICT": "कपिलवस्तु",
         "Province": 5,
         "Level": 1,
-        "TARGET": "KAPILBASTU",
+        "name": "KAPILBASTU",
         "METRO": "०",
         "SMETRO": "०",
         "MUN": "६",
         "RMUN": "४",
         "POPN": "५६९८४४",
         "WARDS": "९६",
-        "nameid": 50
+        "DISTRICTid": 50
       }
     },
     {
@@ -8525,17 +8525,17 @@
         ]
       },
       "properties": {
-        "name": "पाल्पा",
+        "DISTRICT": "पाल्पा",
         "Province": 5,
         "Level": 1,
-        "TARGET": "PALPA",
+        "name": "PALPA",
         "METRO": "०",
         "SMETRO": "०",
         "MUN": "२",
         "RMUN": "८",
         "POPN": "२५८८९३",
         "WARDS": "८१",
-        "nameid": 47
+        "DISTRICTid": 47
       }
     },
     {
@@ -9054,17 +9054,17 @@
         ]
       },
       "properties": {
-        "name": "प्यूठान",
+        "DISTRICT": "प्यूठान",
         "Province": 5,
         "Level": 1,
-        "TARGET": "PYUTHAN",
+        "name": "PYUTHAN",
         "METRO": "०",
         "SMETRO": "०",
         "MUN": "२",
         "RMUN": "७",
         "POPN": "२२६७९६",
         "WARDS": "६४",
-        "nameid": 52
+        "DISTRICTid": 52
       }
     },
     {
@@ -9599,17 +9599,17 @@
         ]
       },
       "properties": {
-        "name": "रोल्पा",
+        "DISTRICT": "रोल्पा",
         "Province": 5,
         "Level": 1,
-        "TARGET": "ROLPA",
+        "name": "ROLPA",
         "METRO": "०",
         "SMETRO": "०",
         "MUN": "१",
         "RMUN": "९",
         "POPN": "२२११७७",
         "WARDS": "७२",
-        "nameid": 53
+        "DISTRICTid": 53
       }
     },
     {
@@ -10199,17 +10199,17 @@
         ]
       },
       "properties": {
-        "name": "रूपन्देही",
+        "DISTRICT": "रूपन्देही",
         "Province": 5,
         "Level": 1,
-        "TARGET": "RUPANDEHI",
+        "name": "RUPANDEHI",
         "METRO": "०",
         "SMETRO": "१",
         "MUN": "५",
         "RMUN": "१०",
         "POPN": "८७४६०६",
         "WARDS": "१५५",
-        "nameid": 49
+        "DISTRICTid": 49
       }
     },
     {
@@ -10745,17 +10745,17 @@
         ]
       },
       "properties": {
-        "name": "रुकुम (पूर्वी भाग)",
+        "DISTRICT": "रुकुम (पूर्वी भाग)",
         "Province": 5,
         "Level": 1,
-        "TARGET": "RUKUM5",
+        "name": "RUKUM5",
         "METRO": "०",
         "SMETRO": "०",
         "MUN": "०",
         "RMUN": "३",
         "POPN": "५३०२८",
         "WARDS": "३१",
-        "nameid": 541
+        "DISTRICTid": 541
       }
     },
     {
@@ -11029,17 +11029,17 @@
         ]
       },
       "properties": {
-        "name": "नवलपरासी (बर्दघाट सुस्ता पश्चिम)",
+        "DISTRICT": "नवलपरासी (बर्दघाट सुस्ता पश्चिम)",
         "Province": 5,
         "Level": 1,
-        "TARGET": "NAWALPARASI5",
+        "name": "NAWALPARASI5",
         "METRO": "०",
         "SMETRO": "०",
         "MUN": "३",
         "RMUN": "४",
         "POPN": "२८५१६८",
         "WARDS": "६९",
-        "nameid": 482
+        "DISTRICTid": 482
       }
     }
   ]

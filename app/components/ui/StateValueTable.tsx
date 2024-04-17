@@ -5,12 +5,15 @@ import { LinkOutlined } from "@ant-design/icons";
 import { useValues } from "../../context/ValueContext";
 import { useData } from "@/app/hooks/useData";
 import * as XLSX from "xlsx";
+import confirm from "antd/es/modal/confirm";
+import { usePostfix } from "@/app/context/PostfixContext";
 
 const StateValueTable = ({ content }: { content: string }) => {
-  const { setEntityValue, getEntityValue, setType } = useValues();
+  const { setEntityValue, getEntityValue, setType, type } = useValues();
   const { data, fetchData } = useData(content);
   const { title, setTitle } = useValues();
   const [excelData, setExcelData] = useState<any[]>([]);
+  const { postfix, prefix, setPostfix, setPrefix } = usePostfix();
 
   useEffect(() => {
     fetchData();
@@ -64,6 +67,22 @@ const StateValueTable = ({ content }: { content: string }) => {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
+      <div className="flex gap-4 items-center justify-between my-4">
+        <TextField
+          id="outlined-basic"
+          label="Postfix"
+          variant="outlined"
+          value={postfix}
+          onChange={(e) => setPostfix(e.target.value)}
+        />
+        <TextField
+          id="outlined-basic"
+          label="Prefix"
+          variant="outlined"
+          value={prefix}
+          onChange={(e) => setPrefix(e.target.value)}
+        />
+      </div>
       <div className="flex   my-4 flex-col ">
         <div className="flex items-center  gap-8 mb-4">
           <div className="mt-4">
@@ -140,13 +159,25 @@ const StateValueTable = ({ content }: { content: string }) => {
                         getEntityValue(content, d.properties.name) || undefined
                       }
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                        if (Number(e.target.value)) {
+                        if (e.target.value === "") {
+                          setEntityValue(content, d.properties.name, null);
+                        } else if (
+                          Number(e.target.value) ||
+                          e.target.value == "" ||
+                          Number(e.target.value) == 0
+                        ) {
                           setEntityValue(
                             content,
                             d.properties.name,
                             Number(e.target.value) * 1
                           );
                         } else {
+                          if (type != "class") {
+                            let choice = window.confirm(
+                              "Do you want to change the type to category for eg. Rivers, Lakes etc. ?"
+                            );
+                            if (!choice) return;
+                          }
                           setType("class");
                           console.log(d.properties.name);
                           setEntityValue(

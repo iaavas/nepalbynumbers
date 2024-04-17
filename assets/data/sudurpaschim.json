@@ -571,17 +571,17 @@
         ]
       },
       "properties": {
-        "name": "अछाम",
+        "DISTRICT": "अछाम",
         "Province": 7,
         "Level": 1,
-        "TARGET": "ACHHAM",
+        "name": "ACHHAM",
         "METRO": "०",
         "SMETRO": "०",
         "MUN": "४",
         "RMUN": "६",
         "POPN": "२५६१८८",
         "WARDS": "९१",
-        "nameid": 69
+        "DISTRICTid": 69
       }
     },
     {
@@ -1177,17 +1177,17 @@
         ]
       },
       "properties": {
-        "name": "बैतडी",
+        "DISTRICT": "बैतडी",
         "Province": 7,
         "Level": 1,
-        "TARGET": "BAITADI",
+        "name": "BAITADI",
         "METRO": "०",
         "SMETRO": "०",
         "MUN": "४",
         "RMUN": "६",
         "POPN": "२५०२२५",
         "WARDS": "८४",
-        "nameid": 74
+        "DISTRICTid": 74
       }
     },
     {
@@ -1855,17 +1855,17 @@
         ]
       },
       "properties": {
-        "name": "बझाङ\r\n",
+        "DISTRICT": "बझाङ\r\n",
         "Province": 7,
         "Level": 1,
-        "TARGET": "BAJHANG",
+        "name": "BAJHANG",
         "METRO": "०",
         "SMETRO": "०",
         "MUN": "२",
         "RMUN": "१०",
         "POPN": "१९४७०१",
         "WARDS": "९४",
-        "nameid": 68
+        "DISTRICTid": 68
       }
     },
     {
@@ -2502,17 +2502,17 @@
         ]
       },
       "properties": {
-        "name": "बाजुरा\r\n",
+        "DISTRICT": "बाजुरा\r\n",
         "Province": 7,
         "Level": 1,
-        "TARGET": "BAJURA",
+        "name": "BAJURA",
         "METRO": "०",
         "SMETRO": "०",
         "MUN": "४",
         "RMUN": "५",
         "POPN": "१३४१५४",
         "WARDS": "६९",
-        "nameid": 67
+        "DISTRICTid": 67
       }
     },
     {
@@ -3123,17 +3123,17 @@
         ]
       },
       "properties": {
-        "name": "डडेल्धुरा",
+        "DISTRICT": "डडेल्धुरा",
         "Province": 7,
         "Level": 1,
-        "TARGET": "DADELDHURA",
+        "name": "DADELDHURA",
         "METRO": "०",
         "SMETRO": "०",
         "MUN": "२",
         "RMUN": "५",
         "POPN": "१४१००४",
         "WARDS": "५२",
-        "nameid": 73
+        "DISTRICTid": 73
       }
     },
     {
@@ -11497,17 +11497,17 @@
         ]
       },
       "properties": {
-        "name": "दार्चुला",
+        "DISTRICT": "दार्चुला",
         "Province": 7,
         "Level": 1,
-        "TARGET": "DARCHULA",
+        "name": "DARCHULA",
         "METRO": "०",
         "SMETRO": "०",
         "MUN": "२",
         "RMUN": "७",
         "POPN": "१३२४८४",
         "WARDS": "६१",
-        "nameid": 75
+        "DISTRICTid": 75
       }
     },
     {
@@ -12110,17 +12110,17 @@
         ]
       },
       "properties": {
-        "name": "डोटी",
+        "DISTRICT": "डोटी",
         "Province": 7,
         "Level": 1,
-        "TARGET": "DOTI",
+        "name": "DOTI",
         "METRO": "०",
         "SMETRO": "०",
         "MUN": "२",
         "RMUN": "७",
         "POPN": "२०७०७०",
         "WARDS": "६५",
-        "nameid": 70
+        "DISTRICTid": 70
       }
     },
     {
@@ -12718,17 +12718,17 @@
         ]
       },
       "properties": {
-        "name": "कैलाली",
+        "DISTRICT": "कैलाली",
         "Province": 7,
         "Level": 1,
-        "TARGET": "KAILALI",
+        "name": "KAILALI",
         "METRO": "०",
         "SMETRO": "१",
         "MUN": "६",
         "RMUN": "६",
         "POPN": "७६६६७९",
         "WARDS": "१२६",
-        "nameid": 71
+        "DISTRICTid": 71
       }
     },
     {
@@ -13144,17 +13144,17 @@
         ]
       },
       "properties": {
-        "name": "कञ्चनपुर",
+        "DISTRICT": "कञ्चनपुर",
         "Province": 7,
         "Level": 1,
-        "TARGET": "KANCHANPUR",
+        "name": "KANCHANPUR",
         "METRO": "०",
         "SMETRO": "०",
         "MUN": "७",
         "RMUN": "२",
         "POPN": "४४५२४७",
         "WARDS": "९२",
-        "nameid": 72
+        "DISTRICTid": 72
       }
     }
   ]

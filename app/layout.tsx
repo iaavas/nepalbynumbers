@@ -5,6 +5,7 @@ import "./globals.css";
 
 import localFont from "@next/font/local";
 import { ColorProvider } from "./context/ColorsContex";
+import { PostfixProvider } from "./context/PostfixContext";
 
 const segoe = localFont({
   src: "../public/Segoe UI.woff",
@@ -25,7 +26,9 @@ export default function RootLayout({
     <html lang="en" className={`${segoe.variable} font-sans `}>
       <body>
         <ValueProvider>
-          <ColorProvider>{children}</ColorProvider>
+          <ColorProvider>
+            <PostfixProvider>{children}</PostfixProvider>
+          </ColorProvider>
         </ValueProvider>
       </body>
     </html>

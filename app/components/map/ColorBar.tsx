@@ -2,12 +2,14 @@ import React from "react";
 
 import { useValues } from "../../context/ValueContext";
 import ColorBarProps from "../../interfaces/ColorBarTypes";
+import { usePostfix } from "@/app/context/PostfixContext";
 
 const ColorBar: React.FC<ColorBarProps> = ({ colorScale, content }) => {
   const {
     type,
     getAllEntityValues,
   }: { type: string; getAllEntityValues: Function } = useValues();
+  const { postfix, prefix } = usePostfix();
 
   if (type !== "class") {
     const domain: number[] = colorScale.domain() as number[];
@@ -48,25 +50,33 @@ const ColorBar: React.FC<ColorBarProps> = ({ colorScale, content }) => {
           style={{ ...labelStyle, left: "0" }}
           className="font-sans font-bold"
         >
+          {min != -Infinity ? prefix : ""}
           {min.toFixed(adj)}
+          {min != -Infinity ? postfix : ""}
         </div>
         <div
           style={{ ...labelStyle, left: "30%" }}
           className="font-sans font-bold"
         >
+          {onethird ? prefix : ""}
           {onethird.toFixed(adj)}
+          {onethird ? postfix : ""}
         </div>
         <div
           style={{ ...labelStyle, left: "60%" }}
           className="font-sans font-bold"
         >
+          {twothird ? prefix : ""}
           {twothird.toFixed(adj)}
+          {twothird ? postfix : ""}
         </div>
         <div
           style={{ ...labelStyle, left: "90%" }}
           className="font-sans font-bold"
         >
+          {max != Infinity ? prefix : ""}
           {max.toFixed(adj)}
+          {max != Infinity ? postfix : ""}
         </div>
       </div>
     );

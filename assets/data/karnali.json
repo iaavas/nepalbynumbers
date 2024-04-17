@@ -413,17 +413,17 @@
         ]
       },
       "properties": {
-        "name": "दैलेख",
+        "DISTRICT": "दैलेख",
         "Province": 6,
         "Level": 1,
-        "TARGET": "DAILEKH",
+        "name": "DAILEKH",
         "METRO": "०",
         "SMETRO": "०",
         "MUN": "४",
         "RMUN": "७",
         "POPN": "२६०८५५",
         "WARDS": "९०",
-        "nameid": 60
+        "DISTRICTid": 60
       }
     },
     {
@@ -1457,17 +1457,17 @@
         ]
       },
       "properties": {
-        "name": "डोल्पा",
+        "DISTRICT": "डोल्पा",
         "Province": 6,
         "Level": 1,
-        "TARGET": "DOLPA",
+        "name": "DOLPA",
         "METRO": "०",
         "SMETRO": "०",
         "MUN": "२",
         "RMUN": "६",
         "POPN": "३६१२८",
         "WARDS": "६४",
-        "nameid": 62
+        "DISTRICTid": 62
       }
     },
     {
@@ -2558,17 +2558,17 @@
         ]
       },
       "properties": {
-        "name": "हुम्ला",
+        "DISTRICT": "हुम्ला",
         "Province": 6,
         "Level": 1,
-        "TARGET": "HUMLA",
+        "name": "HUMLA",
         "METRO": "०",
         "SMETRO": "०",
         "MUN": "०",
         "RMUN": "७",
         "POPN": "४९९३३",
         "WARDS": "४४",
-        "nameid": 66
+        "DISTRICTid": 66
       }
     },
     {
@@ -3160,17 +3160,17 @@
         ]
       },
       "properties": {
-        "name": "जाजरकोट",
+        "DISTRICT": "जाजरकोट",
         "Province": 6,
         "Level": 1,
-        "TARGET": "JAJARKOT",
+        "name": "JAJARKOT",
         "METRO": "०",
         "SMETRO": "०",
         "MUN": "३",
         "RMUN": "४",
         "POPN": "१७०११३",
         "WARDS": "७७",
-        "nameid": 61
+        "DISTRICTid": 61
       }
     },
     {
@@ -3776,17 +3776,17 @@
         ]
       },
       "properties": {
-        "name": "जुम्ला",
+        "DISTRICT": "जुम्ला",
         "Province": 6,
         "Level": 1,
-        "TARGET": "JUMLA",
+        "name": "JUMLA",
         "METRO": "०",
         "SMETRO": "०",
         "MUN": "१",
         "RMUN": "७",
         "POPN": "१०८०६६",
         "WARDS": "६०",
-        "nameid": 63
+        "DISTRICTid": 63
       }
     },
     {
@@ -4295,17 +4295,17 @@
         ]
       },
       "properties": {
-        "name": "कालिकोट",
+        "DISTRICT": "कालिकोट",
         "Province": 6,
         "Level": 1,
-        "TARGET": "KALIKOT",
+        "name": "KALIKOT",
         "METRO": "०",
         "SMETRO": "०",
         "MUN": "३",
         "RMUN": "६",
         "POPN": "१३६५८७",
         "WARDS": "८२",
-        "nameid": 64
+        "DISTRICTid": 64
       }
     },
     {
@@ -5162,17 +5162,17 @@
         ]
       },
       "properties": {
-        "name": "मुगु",
+        "DISTRICT": "मुगु",
         "Province": 6,
         "Level": 1,
-        "TARGET": "MUGU",
+        "name": "MUGU",
         "METRO": "०",
         "SMETRO": "०",
         "MUN": "१",
         "RMUN": "३",
         "POPN": "५४८२८",
         "WARDS": "४५",
-        "nameid": 65
+        "DISTRICTid": 65
       }
     },
     {
@@ -10662,17 +10662,17 @@
         ]
       },
       "properties": {
-        "name": "सल्यान",
+        "DISTRICT": "सल्यान",
         "Province": 6,
         "Level": 1,
-        "TARGET": "SALYAN",
+        "name": "SALYAN",
         "METRO": "०",
         "SMETRO": "०",
         "MUN": "३",
         "RMUN": "७",
         "POPN": "२४१७१६",
         "WARDS": "८३",
-        "nameid": 55
+        "DISTRICTid": 55
       }
     },
     {
@@ -11490,17 +11490,17 @@
         ]
       },
       "properties": {
-        "name": "सुर्खेत",
+        "DISTRICT": "सुर्खेत",
         "Province": 6,
         "Level": 1,
-        "TARGET": "SURKHET",
+        "name": "SURKHET",
         "METRO": "०",
         "SMETRO": "०",
         "MUN": "५",
         "RMUN": "४",
         "POPN": "३४३३१८",
         "WARDS": "९९",
-        "nameid": 59
+        "DISTRICTid": 59
       }
     },
     {
@@ -11993,17 +11993,17 @@
         ]
       },
       "properties": {
-        "name": "रुकुम (पश्चिम भाग)",
+        "DISTRICT": "रुकुम (पश्चिम भाग)",
         "Province": 6,
         "Level": 1,
-        "TARGET": "RUKUM6",
+        "name": "RUKUM6",
         "METRO": "०",
         "SMETRO": "०",
         "MUN": "३",
         "RMUN": "३",
         "POPN": "१५४२७२",
         "WARDS": "७३",
-        "nameid": 542
+        "DISTRICTid": 542
       }
     }
   ]

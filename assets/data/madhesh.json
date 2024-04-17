@@ -678,17 +678,17 @@
         ]
       },
       "properties": {
-        "name": "बारा\r\n",
+        "DISTRICT": "बारा\r\n",
         "Province": 2,
         "Level": 1,
-        "TARGET": "BARA",
+        "name": "BARA",
         "METRO": "०",
         "SMETRO": "२",
         "MUN": "४",
         "RMUN": "९",
         "POPN": "६८८६६४",
         "WARDS": "१६६",
-        "nameid": 33
+        "DISTRICTid": 33
       }
     },
     {
@@ -1416,17 +1416,17 @@
         ]
       },
       "properties": {
-        "name": "धनुषा",
+        "DISTRICT": "धनुषा",
         "Province": 2,
         "Level": 1,
-        "TARGET": "DHANUSHA",
+        "name": "DHANUSHA",
         "METRO": "०",
         "SMETRO": "१",
         "MUN": "८",
         "RMUN": "८",
         "POPN": "७४२७८७",
         "WARDS": "१६५",
-        "nameid": 17
+        "DISTRICTid": 17
       }
     },
     {
@@ -1917,17 +1917,17 @@
         ]
       },
       "properties": {
-        "name": "महोत्तरी",
+        "DISTRICT": "महोत्तरी",
         "Province": 2,
         "Level": 1,
-        "TARGET": "MAHOTTARI",
+        "name": "MAHOTTARI",
         "METRO": "०",
         "SMETRO": "०",
         "MUN": "३",
         "RMUN": "१२",
         "POPN": "६२४६९६",
         "WARDS": "१२४",
-        "nameid": 18
+        "DISTRICTid": 18
       }
     },
     {
@@ -2760,17 +2760,17 @@
         ]
       },
       "properties": {
-        "name": "पर्सा",
+        "DISTRICT": "पर्सा",
         "Province": 2,
         "Level": 1,
-        "TARGET": "PARSA",
+        "name": "PARSA",
         "METRO": "०",
         "SMETRO": "१",
         "MUN": "१",
         "RMUN": "११",
         "POPN": "५९७४०८",
         "WARDS": "१०५",
-        "nameid": 34
+        "DISTRICTid": 34
       }
     },
     {
@@ -3241,17 +3241,17 @@
         ]
       },
       "properties": {
-        "name": "रौटहट",
+        "DISTRICT": "रौटहट",
         "Province": 2,
         "Level": 1,
-        "TARGET": "RAUTAHAT",
+        "name": "RAUTAHAT",
         "METRO": "०",
         "SMETRO": "०",
         "MUN": "३",
         "RMUN": "१३",
         "POPN": "६८८०२७",
         "WARDS": "१३२",
-        "nameid": 32
+        "DISTRICTid": 32
       }
     },
     {
@@ -3853,17 +3853,17 @@
         ]
       },
       "properties": {
-        "name": "सप्तरी",
+        "DISTRICT": "सप्तरी",
         "Province": 2,
         "Level": 1,
-        "TARGET": "SAPTARI",
+        "name": "SAPTARI",
         "METRO": "०",
         "SMETRO": "०",
         "MUN": "८",
         "RMUN": "९",
         "POPN": "६२५५७३",
         "WARDS": "१६२",
-        "nameid": 15
+        "DISTRICTid": 15
       }
     },
     {
@@ -4467,17 +4467,17 @@
         ]
       },
       "properties": {
-        "name": "सिराहा",
+        "DISTRICT": "सिराहा",
         "Province": 2,
         "Level": 1,
-        "TARGET": "SIRAHA",
+        "name": "SIRAHA",
         "METRO": "०",
         "SMETRO": "०",
         "MUN": "६",
         "RMUN": "११",
         "POPN": "६३६३५९",
         "WARDS": "१५८",
-        "nameid": 16
+        "DISTRICTid": 16
       }
     },
     {
@@ -4929,17 +4929,17 @@
         ]
       },
       "properties": {
-        "name": "सर्लाही",
+        "DISTRICT": "सर्लाही",
         "Province": 2,
         "Level": 1,
-        "TARGET": "SARLAHI",
+        "name": "SARLAHI",
         "METRO": "०",
         "SMETRO": "०",
         "MUN": "१०",
         "RMUN": "७",
         "POPN": "७६९३३०",
         "WARDS": "१९५",
-        "nameid": 19
+        "DISTRICTid": 19
       }
     }
   ]
