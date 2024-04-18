@@ -24,6 +24,8 @@ const Map = ({
   const [scale, setScale] = useState(null);
   const { data, fetchData } = useData(mapType!);
   const { theme } = useColor();
+  const currentPopupRef = useRef<any>(null);
+
   const { postfix, prefix } = usePostfix();
 
   const mapRef: any = useRef(null);
@@ -111,7 +113,7 @@ const Map = ({
       const provinceLayer = L.geoJSON(feature, {
         style: {
           fillColor: scaledValue,
-          weight: 1,
+          weight: 1.4,
           color: "black",
           fillOpacity: 1,
           transition: "fill 0.5s ease", // Add transition
@@ -143,13 +145,28 @@ const Map = ({
         markerPosition = center;
       }
 
+      const markerPropsKey = `markerProps_${id}`;
+      let markerProps: any = localStorage.getItem(markerPropsKey);
+      if (markerProps) {
+        markerProps = JSON.parse(markerProps);
+      } else {
+        markerProps = {
+          fontSize: fs,
+          displayName: feature.properties.name,
+          fontColor: textColor,
+        };
+      }
+      const updatedHtml = `<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.1rem; font-weight: normal;font-size:${
+        markerProps.fontSize
+      }px; color: ${markerProps.fontColor} " class="label-container">
+            <p>${markerProps.displayName}</p>
+            <p style="font-size:${markerProps.fontSize * 0.9}px;" >
+        ${value ? prefix : ""}${value ?? ""}${value ? postfix : ""}</p>
+        </div>`;
+
       const markerIcon = L.divIcon({
         className: "label font-sans custom-marker-icon",
-        html: `<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.1rem; font-weight: normal;font-size:${fs}px; color: ${textColor} " class="label-container">
-            <p>${feature.properties.name}</p>
-            <p style="font-size:${fs * 0.9}px;" >
-        ${value ? prefix : ""}${value ?? ""}${value ? postfix : ""}</p>
-        </div>`,
+        html: updatedHtml,
       });
 
       const marker = L.marker(markerPosition, {
@@ -158,46 +175,96 @@ const Map = ({
       }).addTo(map);
 
       marker.on("dblclick", function () {
-        const popupContent = `
-          <div>
-            <label for="fontSize">Font Size:</label>
-            <input type="number" id="fontSize" name="fontSize" value="12" min="1">
-            <br>
-            <label for="fontColor">Font Color:</label>
-            <input type="color" id="fontColor" name="fontColor" value="#000000">
-            <br>
-            <button id="applyChanges">Apply Changes</button>
-          </div>
-        `;
+        if (currentPopupRef.current) {
+          currentPopupRef.current.remove();
+          currentPopupRef.current = null;
+        }
 
-        const popup = L.popup()
+        let markerProps: any = localStorage.getItem(markerPropsKey);
+        if (markerProps) {
+          markerProps = JSON.parse(markerProps);
+        } else {
+          markerProps = {
+            fontSize: fs,
+            displayName: feature.properties.name,
+            fontColor: textColor,
+          };
+        }
+        const markerLatLng = marker.getLatLng();
+        const markerPos = map.latLngToContainerPoint(markerLatLng);
 
-          .setLatLng(center)
-          .setContent(popupContent)
-          .openOn(map);
+        // Create a custom popup container
+        const popupContainer = document.createElement("div");
+        popupContainer.className =
+          "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-1.5  shadow-md border border-blue-500 w-32";
+        popupContainer.style.zIndex = "9999";
+        popupContainer.style.left = `${markerPos.x}px`;
+        popupContainer.style.top = `${markerPos.y}px`;
+        currentPopupRef.current = popupContainer;
 
-        document
-          .getElementById("applyChanges")
-          ?.addEventListener("click", () => {
-            const fontSize = (
-              document.getElementById("fontSize") as HTMLInputElement
-            ).value;
-            const fontColor = (
-              document.getElementById("fontColor") as HTMLInputElement
-            ).value;
+        // Create input fields for font size, display name, and font color
+        const header = document.createElement("span");
+        header.innerText = feature.properties.name;
+        header.className = "font-sans text-md text-left";
+        const fontSizeInput = document.createElement("input");
+        fontSizeInput.className = "w-full mb-2 px-2 py-1 rounded border";
+        fontSizeInput.type = "number";
+        fontSizeInput.placeholder = "Font Size";
+        fontSizeInput.value = markerProps.fontSize.toString();
 
-            marker.setIcon(
-              L.divIcon({
-                className: "label font-sans custom-marker-icon",
-                html: `<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.1rem; font-weight: normal;font-size:${fontSize}px; color: ${fontColor} " class="label-container">
-              <p>${
-                feature.properties.name
-              }</p><p style="font-size:${fontSize}px;" >${value ? prefix : ""}${
-                  value ?? ""
-                }${value ? postfix : ""}</p></div>`,
-              })
-            );
-          });
+        const displayNameInput = document.createElement("input");
+        displayNameInput.className = "w-full mb-2 px-2 py-1 rounded border";
+        displayNameInput.type = "text";
+        displayNameInput.placeholder = "Display Name";
+        displayNameInput.value = markerProps.displayName;
+
+        const fontColorInput = document.createElement("input");
+        fontColorInput.className = "w-full mb-2 px-2 py-1 rounded border";
+        fontColorInput.type = "color";
+        fontColorInput.value = markerProps.fontColor;
+
+        // Create a button to apply changes
+        const applyButton = document.createElement("button");
+        applyButton.textContent = "Apply";
+        applyButton.className =
+          "w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600";
+        applyButton.addEventListener("click", function () {
+          // Retrieve values from input fields
+          const fontSize = fontSizeInput.value;
+          const displayName = displayNameInput.value;
+          const fontColor = fontColorInput.value;
+
+          // Update marker HTML
+          const updatedHtml = `<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.1rem; font-weight: normal;font-size:${fontSize}px; color: ${fontColor} " class="label-container">
+          <p>${displayName}</p>
+          <p style="font-size:${fontSize}px;" >
+      ${value ? prefix : ""}${value ?? ""}${value ? postfix : ""}</p>
+      </div>`;
+          markerIcon.options.html = updatedHtml;
+
+          marker.setIcon(markerIcon);
+
+          // Save marker properties to localStorage
+          const mkrProps = {
+            fontSize,
+            displayName,
+            fontColor,
+          };
+          localStorage.setItem(markerPropsKey, JSON.stringify(mkrProps));
+
+          // Close the popup
+          popupContainer.remove();
+        });
+
+        // Append input fields and button to the popup container
+        popupContainer.appendChild(header);
+        popupContainer.appendChild(fontSizeInput);
+        popupContainer.appendChild(displayNameInput);
+        popupContainer.appendChild(fontColorInput);
+        popupContainer.appendChild(applyButton);
+
+        // Append the popup container to the map container
+        mapRef.current.appendChild(popupContainer);
       });
 
       marker.on("dragend", function () {

@@ -20,7 +20,6 @@ export default function Home() {
             <Card
               title={m.toUpperCase()}
               bordered={true}
-              hoverable={true}
               className="font-sans text-center tracking-wider"
             >
               <div className="aspect-video	">
