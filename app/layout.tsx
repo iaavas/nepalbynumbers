@@ -6,6 +6,7 @@ import "./globals.css";
 import localFont from "@next/font/local";
 import { ColorProvider } from "./context/ColorsContex";
 import { PostfixProvider } from "./context/PostfixContext";
+import { Analytics } from "@vercel/analytics/react";
 
 const segoe = localFont({
   src: "../public/Segoe UI.woff",
@@ -24,10 +25,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${segoe.variable} font-sans `}>
+      <head>
+        <meta
+          name="google-site-verification"
+          content="nvtjxP7bXYX7hRhILhNreHHed7o58-aVX2T8KuVE4IM"
+        />
+      </head>
       <body>
         <ValueProvider>
           <ColorProvider>
-            <PostfixProvider>{children}</PostfixProvider>
+            <PostfixProvider>
+              {children}
+              <Analytics />
+            </PostfixProvider>
           </ColorProvider>
         </ValueProvider>
       </body>
