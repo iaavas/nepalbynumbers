@@ -5,13 +5,14 @@ import { scaleQuantile, scaleOrdinal } from "d3-scale";
 import "leaflet/dist/leaflet.css";
 import { useValues } from "../../context/ValueContext";
 import CreatedBy from "./CreatedBy";
-import { colors } from "@/app/constants/Colors";
+import * as turf from "@turf/turf";
 import Legend from "./Legend";
 import DataSource from "./DataSource";
 import { useData } from "@/app/hooks/useData";
 import OverallStats from "./OverallStats";
 import { useColor } from "@/app/context/ColorsContext";
 import { usePostfix } from "@/app/context/PostfixContext";
+import getContrastColor from "@/app/utils/TextColor";
 
 const Map = ({
   mapType,
@@ -52,14 +53,13 @@ const Map = ({
       L = require("leaflet");
     }
     let zoom: number;
-    let fs: number;
-
+    var scaleFactor: number;
     if (mapType === "district" || mapType === "province") {
       zoom = 7;
-      fs = 20;
+      scaleFactor = 0.00013;
     } else {
       zoom = 8;
-      fs = 12;
+      scaleFactor = 0.0003;
     }
 
     const map = L.map(mapRef.current! as string | HTMLElement, {
@@ -107,7 +107,6 @@ const Map = ({
 
     data.forEach((feature) => {
       const value: any = getEntityValue(mapType, feature.properties.name);
-      let a: string;
 
       const scaledValue: any =
         value !== undefined && value !== null
@@ -124,20 +123,17 @@ const Map = ({
         },
       }).addTo(map);
 
-      const hexColor = scaledValue.replace("#", "");
-      const r = parseInt(hexColor.substring(0, 2), 16) || 0;
-      const g = parseInt(hexColor.substring(2, 4), 16) || 0;
-      const b = parseInt(hexColor.substring(4, 6), 16) || 0;
+      const area = turf.area(feature.geometry);
 
-      const intensity = (r * 299 + g * 587 + b * 114) / 1000;
+      const fs = Math.sqrt(area) * scaleFactor;
 
-      const textColor = intensity < 10 ? "white" : "black";
+      const textColor = getContrastColor(scaledValue);
 
       if (mapType === "district" || mapType === "world") {
         return;
       }
-
       const center = provinceLayer.getBounds().getCenter();
+
       let id = feature.properties.id || feature.id || feature.properties.name;
 
       const markerPositionKey = `markerPosition_${id}`;
@@ -155,22 +151,26 @@ const Map = ({
         markerProps = JSON.parse(markerProps);
       } else {
         markerProps = {
-          fontSize: fs,
+          fontSize: Math.floor(fs),
           displayName: feature.properties.name,
           fontColor: textColor,
         };
       }
       const updatedHtml = `<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.1rem; font-weight: normal;font-size:${
         markerProps.fontSize
-      }px; color: ${markerProps.fontColor} " class="label-container">
+      }px; color: ${
+        markerProps.fontColor
+      };cursor:move; ;  border: 2px solid transparent; transition: border-color 0.1s;width:fit-content;border-radius:10px;padding:3px" onmouseover="this.style.borderColor='black';" onmouseout="this.style.borderColor='transparent';" class="label-container">
             <p>${markerProps.displayName}</p>
             <p style="font-size:${markerProps.fontSize * 0.9}px;" >
         ${value ? prefix : ""}${value ?? ""}${value ? postfix : ""}</p>
         </div>`;
 
       const markerIcon = L.divIcon({
-        className: "label font-sans custom-marker-icon",
+        className: "label font-sans ",
         html: updatedHtml,
+
+        iconAnchor: [50, 20],
       });
 
       const marker = L.marker(markerPosition, {
@@ -189,7 +189,7 @@ const Map = ({
           markerProps = JSON.parse(markerProps);
         } else {
           markerProps = {
-            fontSize: fs,
+            fontSize: Math.floor(fs),
             displayName: feature.properties.name,
             fontColor: textColor,
           };
@@ -240,11 +240,11 @@ const Map = ({
           const fontColor = fontColorInput.value;
 
           // Update marker HTML
-          const updatedHtml = `<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.1rem; font-weight: normal;font-size:${fontSize}px; color: ${fontColor} " class="label-container">
-          <p>${displayName}</p>
-          <p style="font-size:${fontSize}px;" >
-      ${value ? prefix : ""}${value ?? ""}${value ? postfix : ""}</p>
-      </div>`;
+          const updatedHtml = `<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.1rem; font-weight: normal;font-size:${fontSize}px; color: ${fontColor};cursor:move; ;  border: 2px solid transparent; transition: border-color 0.1s;width:fit-content;border-radius:10px;padding:3px" onmouseover="this.style.borderColor='black';" onmouseout="this.style.borderColor='transparent';" class="label-container">
+                <p>${displayName}</p>
+                <p style="font-size:${Number(fontSize) * 0.9}px;" >
+            ${value ? prefix : ""}${value ?? ""}${value ? postfix : ""}</p>
+            </div>`;
           markerIcon.options.html = updatedHtml;
 
           marker.setIcon(markerIcon);
