@@ -39,7 +39,7 @@ const ColorPalette = ({
       >
         <div className="bg-white rounded-lg shadow-lg w-80 h-48 p-4 flex items-center  flex-col  ">
           <h2 className="text-xl font-bold mb-4">Choose Colors</h2>
-          <div className="grid grid-cols-6 gap-4 ">
+          <div className="grid grid-cols-6 gap-4 z-30 ">
             {tcolor.map((_c, i) => (
               <ColorPickerComponent defaultValue={_c} key={i} index={i} />
             ))}

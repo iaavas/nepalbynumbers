@@ -25,7 +25,7 @@ function EditText({ text, setText, css = "", s = "30" }: EditTextProps) {
     <Popover>
       <PopoverTrigger>
         <p
-          className={`font-bold font-sans z-10 break-word  ${css}  `}
+          className={`font-bold font-sans z-10 break-word  ${css}  cursor-move`}
           style={{
             fontSize: `${size}px`,
             maxWidth: "30rem",

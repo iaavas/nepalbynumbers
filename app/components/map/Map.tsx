@@ -306,7 +306,7 @@ const Map = ({
           borderRight: "0.5px solid gray",
           height: "100vh",
         }}
-        className="z-10"
+        className="z-0"
       >
         <Legend scale={scale} content={mapType} />
         <CreatedBy />
