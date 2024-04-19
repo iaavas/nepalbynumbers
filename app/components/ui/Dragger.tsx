@@ -13,7 +13,7 @@ class Dragger extends React.Component<DraggerProps> {
 
   render() {
     return (
-      <div className="cursor-move" ref={this.drgref}>
+      <div className="cursor-move " ref={this.drgref}>
         <Draggable nodeRef={this.drgref}>{this.props.children}</Draggable>
       </div>
     );
