@@ -23,7 +23,7 @@ const Map = ({
   const { getEntityValue, type, getAllEntityValues } = useValues();
   const [scale, setScale] = useState(null);
   const { data, fetchData } = useData(mapType!);
-  const { theme } = useColor();
+  const { colors: tcolor } = useColor();
   const currentPopupRef = useRef<any>(null);
 
   const { postfix, prefix } = usePostfix();
@@ -31,6 +31,10 @@ const Map = ({
   const mapRef: any = useRef(null);
 
   const mctr = useRef<[number, number] | undefined>();
+
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
 
   useEffect(() => {
     mctr.current = ctr;
@@ -77,7 +81,7 @@ const Map = ({
 
     const values = getAllEntityValues(mapType);
     // @ts-ignore
-    const colorRange: any = colors[theme].colors;
+    const colorRange: any = tcolor;
     let colorScale;
     if (type === "reg") {
       const minValue = Math.min(...(filteredValues as number[]));
@@ -129,7 +133,7 @@ const Map = ({
 
       const textColor = intensity < 10 ? "white" : "black";
 
-      if (mapType === "district") {
+      if (mapType === "district" || mapType === "world") {
         return;
       }
 
@@ -196,7 +200,7 @@ const Map = ({
         // Create a custom popup container
         const popupContainer = document.createElement("div");
         popupContainer.className =
-          "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-1.5  shadow-md border border-blue-500 w-32";
+          "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-1.5  shadow-md border border-blue-600 rounded-sm w-32";
         popupContainer.style.zIndex = "9999";
         popupContainer.style.left = `${markerPos.x}px`;
         popupContainer.style.top = `${markerPos.y}px`;
@@ -219,7 +223,8 @@ const Map = ({
         displayNameInput.value = markerProps.displayName;
 
         const fontColorInput = document.createElement("input");
-        fontColorInput.className = "w-full mb-2 px-2 py-1 rounded border";
+        fontColorInput.className =
+          "w-full mb-2 p-1.5 rounded-md border border-blue-200";
         fontColorInput.type = "color";
         fontColorInput.value = markerProps.fontColor;
 
@@ -227,7 +232,7 @@ const Map = ({
         const applyButton = document.createElement("button");
         applyButton.textContent = "Apply";
         applyButton.className =
-          "w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600";
+          "w-full p-1.5 border border-blue-700  text-black rounded-lg font-sans";
         applyButton.addEventListener("click", function () {
           // Retrieve values from input fields
           const fontSize = fontSizeInput.value;
@@ -284,7 +289,7 @@ const Map = ({
     type,
     data,
     mapType,
-    theme,
+    tcolor,
     postfix,
     prefix,
   ]);
@@ -301,6 +306,7 @@ const Map = ({
           borderRight: "0.5px solid gray",
           height: "100vh",
         }}
+        className="z-10"
       >
         <Legend scale={scale} content={mapType} />
         <CreatedBy />

@@ -39,7 +39,7 @@ export const ValueProvider: FC<{ children: React.ReactNode }> = ({
 }) => {
   const [values, setValues] = useState<ValuesState>({});
   const [type, setType] = useState<"reg" | "class">("reg");
-  const [title, setTitle] = useState<string>("Title Here");
+  const [title, setTitle] = useState<string>("Inforgraphic Title");
   const setEntityValue = (
     entityType: EntityType,
     entityId: string,

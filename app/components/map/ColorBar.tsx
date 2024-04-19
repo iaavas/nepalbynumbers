@@ -46,36 +46,24 @@ const ColorBar: React.FC<ColorBarProps> = ({ colorScale, content }) => {
 
     return (
       <div className="color-bar" style={colorBarStyle}>
-        <div
-          style={{ ...labelStyle, left: "0" }}
-          className="font-sans font-bold"
-        >
+        <div style={{ ...labelStyle, left: "0" }} className="font-sans  ">
           {min != -Infinity ? prefix : ""}
-          {min.toFixed(adj)}
+          {min != -Infinity && min.toFixed(adj)}
           {min != -Infinity ? postfix : ""}
         </div>
-        <div
-          style={{ ...labelStyle, left: "30%" }}
-          className="font-sans font-bold"
-        >
+        <div style={{ ...labelStyle, left: "30%" }} className="font-sans  ">
           {onethird ? prefix : ""}
-          {onethird.toFixed(adj)}
+          {!Number.isNaN(onethird) && onethird.toFixed(adj)}
           {onethird ? postfix : ""}
         </div>
-        <div
-          style={{ ...labelStyle, left: "60%" }}
-          className="font-sans font-bold"
-        >
+        <div style={{ ...labelStyle, left: "60%" }} className="font-sans  ">
           {twothird ? prefix : ""}
-          {twothird.toFixed(adj)}
+          {!Number.isNaN(twothird) && twothird.toFixed(adj)}
           {twothird ? postfix : ""}
         </div>
-        <div
-          style={{ ...labelStyle, left: "90%" }}
-          className="font-sans font-bold"
-        >
+        <div style={{ ...labelStyle, left: "90%" }} className="font-sans  ">
           {max != Infinity ? prefix : ""}
-          {max.toFixed(adj)}
+          {max != Infinity && max.toFixed(adj)}
           {max != Infinity ? postfix : ""}
         </div>
       </div>
@@ -102,7 +90,7 @@ const ColorBar: React.FC<ColorBarProps> = ({ colorScale, content }) => {
       {top5Values.map((category: string, index: number) => (
         <div
           key={index}
-          className="font-sans font-bold flex flex-col justify-center items-center"
+          className="font-sans   flex flex-col justify-center items-center"
         >
           <div
             style={{

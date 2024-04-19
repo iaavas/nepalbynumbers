@@ -1,6 +1,7 @@
 export const colors = {
   Casual: {
     colors: [
+      "rgb(240, 249, 180)",
       "rgb(240, 249, 33)",
       "rgb(248, 148, 65)",
       "rgb(203, 71, 120)",
@@ -22,6 +23,7 @@ export const colors = {
 
   Yeti: {
     colors: [
+      "rgb(239, 237, 239)",
       "rgb(234, 237, 236)",
       "rgb(192, 207, 207)",
       "rgb(144, 176, 188)",
@@ -32,6 +34,7 @@ export const colors = {
 
   Cheery: {
     colors: [
+      "rgb(240, 204, 204)",
       "rgb(255, 204, 204)",
       "rgb(255, 153, 153)",
       "rgb(255, 102, 102)",
@@ -42,6 +45,7 @@ export const colors = {
 
   Candy: {
     colors: [
+      "rgb(210, 20, 122)",
       "rgb(247, 39, 142)", // Hot Pink
       "rgb(255, 160, 200)", // Baby Pink
       "rgb(255, 236, 179)", // Lemon Yellow
@@ -51,6 +55,7 @@ export const colors = {
   },
   Rhododendron: {
     colors: [
+      "rgb(208, 55, 92)",
       "rgb(228, 47, 82)",
       "rgb(255, 121, 142)",
       "rgb(255, 240, 165)",
@@ -60,6 +65,7 @@ export const colors = {
   },
   Barsha: {
     colors: [
+      "rgb(224, 239, 245)",
       "rgb(204, 229, 255)",
       "rgb(102, 178, 255)",
       "rgb(0, 153, 255)",

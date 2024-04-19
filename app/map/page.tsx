@@ -3,10 +3,11 @@ import React, { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import PageLayout from "@/app/components/layout/pageLayout";
 import { centers } from "@/app/constants/Centers";
+import Loader from "../components/ui/Loader";
 
 function DynamicContentPage() {
   return (
-    <Suspense fallback={<div>I am sorry babu...........</div>}>
+    <Suspense fallback={<Loader />}>
       <DynamicContent />
     </Suspense>
   );

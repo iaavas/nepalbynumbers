@@ -1,7 +1,7 @@
 import { centers } from "./constants/Centers";
 import { Card, Col, Row } from "antd";
 import Image from "next/image";
-
+import ClipLoader from "react-spinners/ClipLoader";
 import Link from "next/link";
 
 export default function Home() {
