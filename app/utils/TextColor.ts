@@ -1,12 +1,10 @@
 export default function getContrastColor(hex: string): string {
   // Convert hex color to RGB
-  const regexResult = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  if (!regexResult) throw new Error("Invalid hex color format.");
+  hex = hex.replace(/^#/, "");
 
-  const [, red, green, blue] = regexResult;
-  const r = parseInt(red, 16);
-  const g = parseInt(green, 16);
-  const b = parseInt(blue, 16);
+  var r = parseInt(hex.substring(0, 2), 16);
+  var g = parseInt(hex.substring(2, 4), 16);
+  var b = parseInt(hex.substring(4, 6), 16);
 
   // Calculate brightness of the color
   const brightness = r * 0.299 + g * 0.587 + b * 0.114;
