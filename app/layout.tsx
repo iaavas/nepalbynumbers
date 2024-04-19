@@ -4,7 +4,7 @@ import { ValueProvider } from "@/app/context/ValueContext";
 import "./globals.css";
 
 import localFont from "@next/font/local";
-import { ColorProvider } from "./context/ColorsContex";
+import { ColorProvider } from "./context/ColorsContext";
 import { PostfixProvider } from "./context/PostfixContext";
 import { Analytics } from "@vercel/analytics/react";
 

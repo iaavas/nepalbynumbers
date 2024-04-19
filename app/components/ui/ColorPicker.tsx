@@ -1,4 +1,4 @@
-import { useColor } from "@/app/context/ColorsContex";
+import { useColor } from "@/app/context/ColorsContext";
 import { ColorPicker } from "antd";
 import React from "react";
 
@@ -16,11 +16,13 @@ const ColorPickerComponent = ({
   }
 
   return (
-    <ColorPicker
-      defaultValue={defaultValue}
-      className="z-40"
-      onChange={handleChange}
-    />
+    <div className="z-40 ">
+      <ColorPicker
+        defaultValue={defaultValue}
+        className="z-50"
+        onChange={handleChange}
+      />
+    </div>
   );
 };
 

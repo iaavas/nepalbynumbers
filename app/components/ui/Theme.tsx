@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { colors as colorPalettes } from "@/app/constants/Colors";
-import { useColor } from "@/app/context/ColorsContex";
-import Modal from "@mui/material/Modal";
+import { useColor } from "@/app/context/ColorsContext";
+import { Modal } from "antd";
 
 import ColorPickerComponent from "./ColorPicker";
+import { color } from "d3";
 
 const ColorPalette = ({
   paletteName,
@@ -17,27 +18,32 @@ const ColorPalette = ({
   const gradient = `linear-gradient(to right, ${colors.join(", ")})`;
   const { updateTheme, theme } = useColor();
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => {
+    setOpen((prev) => true);
+  };
   const handleClose = () => setOpen(false);
-  const cust = colors as string[];
 
   return (
     <div
       className={`flex justify-center flex-col items-center cursor-pointer ease-in transition-all ${
         theme === paletteName &&
-        "border border-gray-500 border-dotted rounded-xl  p-1"
+        "border border-gray-500 border-dotted rounded-xl  p-1 transition-all ease-in-out"
       }`}
-      onClick={() => updateTheme(paletteName)}
+      onClick={() => {
+        updateTheme(paletteName);
+      }}
       onDoubleClick={handleOpen}
     >
       <Modal
+        title="Customize Color"
         open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        className="  flex items-center justify-center z-10"
+        className="font-sans text-center p-1.5"
+        onCancel={handleClose}
+        onOk={handleClose}
+        footer={null}
+        width={300}
       >
-        <div className="grid grid-cols-6 gap-4 z-50 bg-blue-50 p-8 shadow border-2 border-black">
+        <div className="grid grid-cols-6 z-50 ">
           {tcolor.map((_c, i) => (
             <ColorPickerComponent defaultValue={_c} key={i} index={i} />
           ))}

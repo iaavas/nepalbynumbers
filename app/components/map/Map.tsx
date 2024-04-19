@@ -10,7 +10,7 @@ import Legend from "./Legend";
 import DataSource from "./DataSource";
 import { useData } from "@/app/hooks/useData";
 import OverallStats from "./OverallStats";
-import { useColor } from "@/app/context/ColorsContex";
+import { useColor } from "@/app/context/ColorsContext";
 import { usePostfix } from "@/app/context/PostfixContext";
 
 const Map = ({
