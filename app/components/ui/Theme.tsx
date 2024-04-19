@@ -37,19 +37,10 @@ const ColorPalette = ({
         aria-describedby="modal-modal-description"
         className="  flex items-center justify-center z-10"
       >
-        <div className="bg-white rounded-lg shadow-lg w-80 h-48 p-4 flex items-center  flex-col  ">
-          <h2 className="text-xl font-bold mb-4">Choose Colors</h2>
-          <div className="grid grid-cols-6 gap-4 z-50 ">
-            {tcolor.map((_c, i) => (
-              <ColorPickerComponent defaultValue={_c} key={i} index={i} />
-            ))}
-          </div>
-          <button
-            className="mt-6 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-400"
-            onClick={handleClose}
-          >
-            Close
-          </button>
+        <div className="grid grid-cols-6 gap-4 z-50 bg-blue-50 p-8 shadow border-2 border-black">
+          {tcolor.map((_c, i) => (
+            <ColorPickerComponent defaultValue={_c} key={i} index={i} />
+          ))}
         </div>
       </Modal>
 

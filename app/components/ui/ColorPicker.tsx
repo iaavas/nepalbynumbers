@@ -18,7 +18,7 @@ const ColorPickerComponent = ({
   return (
     <ColorPicker
       defaultValue={defaultValue}
-      className="z-30"
+      className="z-40"
       onChange={handleChange}
     />
   );
