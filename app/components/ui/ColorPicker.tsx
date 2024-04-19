@@ -16,13 +16,11 @@ const ColorPickerComponent = ({
   }
 
   return (
-    <div className="relative">
-      <ColorPicker
-        defaultValue={defaultValue}
-        className="z-50"
-        onChange={handleChange}
-      />
-    </div>
+    <ColorPicker
+      defaultValue={defaultValue}
+      className="z-50"
+      onChange={handleChange}
+    />
   );
 };
 
