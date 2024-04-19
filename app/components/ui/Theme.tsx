@@ -35,7 +35,7 @@ const ColorPalette = ({
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-        className="fixed inset-0 flex items-center justify-center z-10"
+        className=" inset-0 flex items-center justify-center z-10"
       >
         <div className="bg-white rounded-lg shadow-lg w-80 h-48 p-4 flex items-center  flex-col  ">
           <h2 className="text-xl font-bold mb-4">Choose Colors</h2>
