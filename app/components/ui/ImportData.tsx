@@ -42,7 +42,7 @@ function ImportData({ content }: { content: string }) {
   };
 
   const importFromExcel = () => {
-    excelData.forEach((row: any) => {
+    excelData.forEach((row: any, idx) => {
       let state = row[0];
       const value = row[1];
       if (typeof value != "number" && type != "class") {

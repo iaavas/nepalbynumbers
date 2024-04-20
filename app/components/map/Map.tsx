@@ -34,7 +34,7 @@ const Map = ({
   const mctr = useRef<[number, number] | undefined>();
 
   useEffect(() => {
-    localStorage.clear();
+    // localStorage.clear();
   }, []);
 
   useEffect(() => {
@@ -153,16 +153,14 @@ const Map = ({
         markerProps = {
           fontSize: Math.floor(fs),
           displayName: feature.properties.name,
-          fontColor: textColor,
+          valueFontSize: Math.floor(fs) - 4,
         };
       }
       const updatedHtml = `<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.1rem; font-weight: normal;font-size:${
         markerProps.fontSize
-      }px; color: ${
-        markerProps.fontColor
-      };cursor:move; ;  border: 2px solid transparent; transition: border-color 0.1s;width:fit-content;border-radius:10px;padding:3px" onmouseover="this.style.borderColor='black';" onmouseout="this.style.borderColor='transparent';" class="label-container">
+      }px; color: ${textColor};cursor:move; ;  border: 2px solid transparent; transition: border-color 0.1s;width:fit-content;border-radius:10px;padding:3px" onmouseover="this.style.borderColor='black';" onmouseout="this.style.borderColor='transparent';" class="label-container">
             <p>${markerProps.displayName}</p>
-            <p style="font-size:${markerProps.fontSize * 0.9}px;" >
+            <p style="font-size:${markerProps.valueFontSize * 0.9}px;" >
         ${value ? prefix : ""}${value ?? ""}${value ? postfix : ""}</p>
         </div>`;
 
@@ -191,7 +189,7 @@ const Map = ({
           markerProps = {
             fontSize: Math.floor(fs),
             displayName: feature.properties.name,
-            fontColor: textColor,
+            valueFontSize: Math.floor(fs) - 4,
           };
         }
         const markerLatLng = marker.getLatLng();
@@ -200,7 +198,7 @@ const Map = ({
         // Create a custom popup container
         const popupContainer = document.createElement("div");
         popupContainer.className =
-          "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-1.5  shadow-md border border-blue-600 rounded-sm w-32";
+          "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-2  shadow-2xl border-2 border-black  w-32";
         popupContainer.style.zIndex = "9999";
         popupContainer.style.left = `${markerPos.x}px`;
         popupContainer.style.top = `${markerPos.y}px`;
@@ -209,40 +207,46 @@ const Map = ({
         // Create input fields for font size, display name, and font color
         const header = document.createElement("span");
         header.innerText = feature.properties.name;
-        header.className = "font-sans text-md text-left";
-        const fontSizeInput = document.createElement("input");
-        fontSizeInput.className = "w-full mb-2 px-2 py-1 rounded border";
-        fontSizeInput.type = "number";
-        fontSizeInput.placeholder = "Font Size";
-        fontSizeInput.value = markerProps.fontSize.toString();
+        header.className =
+          "font-sans text-md text-center mb-2 font-semibold text-md flex items-center justify-center";
 
         const displayNameInput = document.createElement("input");
-        displayNameInput.className = "w-full mb-2 px-2 py-1 rounded border";
+        displayNameInput.className =
+          "w-full mb-2 px-2 py-1 rounded-lg border border-black";
         displayNameInput.type = "text";
         displayNameInput.placeholder = "Display Name";
         displayNameInput.value = markerProps.displayName;
 
-        const fontColorInput = document.createElement("input");
-        fontColorInput.className =
-          "w-full mb-2 p-1.5 rounded-md border border-blue-200";
-        fontColorInput.type = "color";
-        fontColorInput.value = markerProps.fontColor;
+        const sizes = document.createElement("div");
 
-        // Create a button to apply changes
+        sizes.className = "flex items-center justify-between gap-x-2";
+
+        const fontSizeInput = document.createElement("input");
+        fontSizeInput.className =
+          "w-full mb-2 px-2 py-1 rounded-lg border border-black";
+        fontSizeInput.type = "number";
+        fontSizeInput.placeholder = "Font Size";
+        fontSizeInput.value = markerProps.fontSize.toString();
+
+        const valueSizeInput = document.createElement("input");
+        valueSizeInput.className =
+          "w-full mb-2 px-2 py-1 rounded-lg border border-black";
+        valueSizeInput.type = "number";
+        valueSizeInput.placeholder = "Value Size";
+        valueSizeInput.value = markerProps.valueFontSize.toString();
+
         const applyButton = document.createElement("button");
         applyButton.textContent = "Apply";
         applyButton.className =
-          "w-full p-1.5 border border-blue-700  text-black rounded-lg font-sans";
+          "w-full p-1.5 border-2 border-black font-bold  text-md tracking-wider  text-black rounded-xl font-sans";
         applyButton.addEventListener("click", function () {
-          // Retrieve values from input fields
           const fontSize = fontSizeInput.value;
+          const valueFontSize = valueSizeInput.value;
           const displayName = displayNameInput.value;
-          const fontColor = fontColorInput.value;
 
-          // Update marker HTML
-          const updatedHtml = `<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.1rem; font-weight: normal;font-size:${fontSize}px; color: ${fontColor};cursor:move; ;  border: 2px solid transparent; transition: border-color 0.1s;width:fit-content;border-radius:10px;padding:3px" onmouseover="this.style.borderColor='black';" onmouseout="this.style.borderColor='transparent';" class="label-container">
+          const updatedHtml = `<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.1rem; font-weight: normal;font-size:${fontSize}px; color: ${textColor};cursor:move; ;  border: 2px solid transparent; transition: border-color 0.1s;width:fit-content;border-radius:10px;padding:3px" onmouseover="this.style.borderColor='black';" onmouseout="this.style.borderColor='transparent';" class="label-container">
                 <p>${displayName}</p>
-                <p style="font-size:${Number(fontSize) * 0.9}px;" >
+                <p style="font-size:${Number(valueFontSize) * 0.9}px;" >
             ${value ? prefix : ""}${value ?? ""}${value ? postfix : ""}</p>
             </div>`;
           markerIcon.options.html = updatedHtml;
@@ -253,7 +257,7 @@ const Map = ({
           const mkrProps = {
             fontSize,
             displayName,
-            fontColor,
+            valueFontSize,
           };
           localStorage.setItem(markerPropsKey, JSON.stringify(mkrProps));
 
@@ -263,9 +267,11 @@ const Map = ({
 
         // Append input fields and button to the popup container
         popupContainer.appendChild(header);
-        popupContainer.appendChild(fontSizeInput);
         popupContainer.appendChild(displayNameInput);
-        popupContainer.appendChild(fontColorInput);
+        popupContainer.appendChild(sizes);
+        sizes.appendChild(fontSizeInput);
+        sizes.appendChild(valueSizeInput);
+
         popupContainer.appendChild(applyButton);
 
         // Append the popup container to the map container
