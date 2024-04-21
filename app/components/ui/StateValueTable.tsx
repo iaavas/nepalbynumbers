@@ -4,9 +4,11 @@ import { useValues } from "../../context/ValueContext";
 import Table from "./Table";
 import Postfix from "./Postfix";
 import ImportData from "./ImportData";
+import { useSearch } from "@/app/context/SearchContext";
 
 const StateValueTable = ({ content }: { content: string }) => {
   const { title, setTitle } = useValues();
+  const { query, setQuery } = useSearch();
 
   return (
     <div className="flex  flex-col w-96 py-4 gap-4">
@@ -25,11 +27,24 @@ const StateValueTable = ({ content }: { content: string }) => {
       <Postfix />
       <ImportData content={content} />
 
+      <span className="font-sans font-semibold text-lg">Search Query</span>
+
+      <TextField
+        id="outlined-basic"
+        label="Search"
+        value={query}
+        fullWidth
+        size="small"
+        className="w-48"
+        onChange={(e) => setQuery(e.target.value)}
+      />
+
       <div
         style={{
           overflow: "auto",
           height: "24rem",
-          display: "inline-flex",
+          display: "",
+          marginTop: "12px",
         }}
         className=""
       >

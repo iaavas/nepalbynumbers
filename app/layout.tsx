@@ -7,6 +7,7 @@ import localFont from "@next/font/local";
 import { ColorProvider } from "./context/ColorsContext";
 import { PostfixProvider } from "./context/PostfixContext";
 import { Analytics } from "@vercel/analytics/react";
+import { SearchProvider } from "./context/SearchContext";
 
 const segoe = localFont({
   src: "../public/Segoe UI.woff",
@@ -35,7 +36,7 @@ export default function RootLayout({
         <ValueProvider>
           <ColorProvider>
             <PostfixProvider>
-              {children}
+              <SearchProvider>{children}</SearchProvider>
               <Analytics />
             </PostfixProvider>
           </ColorProvider>
