@@ -51,10 +51,9 @@ function Table({ content }: { content: string }) {
                         const choice = window.confirm(
                           "Do you want to change the type to category (e.g., Rivers, Lakes, etc.)?"
                         );
-
                         if (!choice) return;
+                        setType("class");
                       }
-                      setType("class");
                       setEntityValue(content, d.properties.name, inputValue);
                     }
                   }}
