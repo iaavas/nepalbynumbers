@@ -4,7 +4,6 @@ import { useColor } from "@/app/context/ColorsContext";
 import { Modal } from "antd";
 
 import ColorPickerComponent from "./ColorPicker";
-import { color } from "d3";
 
 const ColorPalette = ({
   paletteName,

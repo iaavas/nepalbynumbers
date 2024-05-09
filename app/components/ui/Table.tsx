@@ -34,17 +34,21 @@ function Table({ content }: { content: string }) {
               <td className="px-4 py-2 border">
                 <input
                   type="text"
-                  step="any"
+                  step={"any"}
                   value={getEntityValue(content, d.properties.name) || ""}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     const inputValue = e.target.value;
                     if (inputValue === "") {
-                      setEntityValue(content, d.properties.name, null);
-                    } else if (Number(inputValue) || inputValue === "0") {
+                      setEntityValue(content, d.properties.name, "");
+                    } else if (
+                      Number(e.target.value) ||
+                      e.target.value == "" ||
+                      Number(e.target.value) == 0
+                    ) {
                       setEntityValue(
                         content,
                         d.properties.name,
-                        Number(inputValue)
+                        e.target.value
                       );
                     } else {
                       if (type != "class") {
