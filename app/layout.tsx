@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+
 import { ValueProvider } from "@/app/context/ValueContext";
 import "./globals.css";
+import { cookies } from "next/headers";
 
 import localFont from "@next/font/local";
 import { ColorProvider } from "./context/ColorsContext";
 import { PostfixProvider } from "./context/PostfixContext";
 import { Analytics } from "@vercel/analytics/react";
 import { SearchProvider } from "./context/SearchContext";
+import { SESSION_COOKIE_NAME } from "@/constants";
 
 const segoe = localFont({
   src: "../public/Segoe UI.woff",
@@ -24,6 +26,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = cookies().get(SESSION_COOKIE_NAME)?.value || null;
+
   return (
     <html lang="en" className={`${segoe.variable} font-sans `}>
       <head>
