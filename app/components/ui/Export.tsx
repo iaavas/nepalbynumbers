@@ -23,7 +23,7 @@ function Export({ map }: { map: string }) {
         <p>Download as PNG</p>
       </button>
 
-      {/* <SaveProjectButton map={map} /> */}
+      <SaveProjectButton map={map} />
     </div>
   );
 }

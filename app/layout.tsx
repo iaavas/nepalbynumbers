@@ -11,6 +11,8 @@ import { Analytics } from "@vercel/analytics/react";
 import { SearchProvider } from "./context/SearchContext";
 import { SESSION_COOKIE_NAME } from "@/constants";
 import { useUserSession } from "./hooks/use-user-session";
+import { ReferenceProvider } from "./context/ReferenceContext";
+import { SessionProvider } from "./context/SessionContext";
 
 const segoe = localFont({
   src: "../public/Segoe UI.woff",
@@ -38,14 +40,18 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <ValueProvider>
-          <ColorProvider>
-            <PostfixProvider>
-              <SearchProvider>{children}</SearchProvider>
-              <Analytics />
-            </PostfixProvider>
-          </ColorProvider>
-        </ValueProvider>
+        <SessionProvider session={session}>
+          <ValueProvider>
+            <ColorProvider>
+              <PostfixProvider>
+                <ReferenceProvider>
+                  <SearchProvider>{children}</SearchProvider>
+                  <Analytics />
+                </ReferenceProvider>
+              </PostfixProvider>
+            </ColorProvider>
+          </ValueProvider>
+        </SessionProvider>
       </body>
     </html>
   );

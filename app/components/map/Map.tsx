@@ -105,9 +105,7 @@ const Map = ({
       const value: any = getEntityValue(mapType, feature.properties.name);
 
       const scaledValue: any =
-        value !== undefined && value !== null
-          ? colorScale(value)
-          : colorRange[0];
+        value !== undefined && value !== null ? colorScale(value) : "#E5E4E2";
 
       const provinceLayer = L.geoJSON(feature, {
         style: {

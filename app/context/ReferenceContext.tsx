@@ -18,8 +18,8 @@ interface ValueContextType {
 export const ReferenceProvider: FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [createdBy, setCreatedBy] = useState<string>("nepal.by.numbers");
-  const [source, setSource] = useState<string>("");
+  const [createdBy, setCreatedBy] = useState<string>("@nepal.by.numbers");
+  const [source, setSource] = useState<string>("https://www.");
   const [statsTitle, setStatsTitle] = useState<string>("Most Common");
   const [statsValue, setStatsValue] = useState<string>("0");
 
