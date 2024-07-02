@@ -1,5 +1,5 @@
 "use client";
-import { useRouter } from "next/navigation";
+
 import { signInWithGoogle } from "../libs/firebase/auth";
 
 import Header from "../components/ui/Header";
