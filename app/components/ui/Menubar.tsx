@@ -55,7 +55,7 @@ function Menubar({ content }: { content: string }) {
           }
           key="3"
         >
-          {selectedTab === "3" && <Export />}
+          {selectedTab === "3" && <Export map={content} />}
         </Tabs.TabPane>
       </Tabs>
     </div>

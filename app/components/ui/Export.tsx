@@ -1,8 +1,9 @@
 import React from "react";
 import * as htmlToImage from "html-to-image";
 import { DownloadOutlined } from "@ant-design/icons";
+import SaveProjectButton from "../SaveProjectButton";
 
-function Export() {
+function Export({ map }: { map: string }) {
   const captureMapImage = () => {
     htmlToImage.toPng(document.getElementById("map")!).then(function (dataUrl) {
       var link = document.createElement("a");
@@ -21,6 +22,8 @@ function Export() {
         <DownloadOutlined />
         <p>Download as PNG</p>
       </button>
+
+      {/* <SaveProjectButton map={map} /> */}
     </div>
   );
 }

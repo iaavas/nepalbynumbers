@@ -3,8 +3,8 @@ import Dragger from "../ui/Dragger";
 import EditText from "./EditText";
 
 function OverallStats() {
-  const [overallTitle, setOverallTitle] = useState<string>("Most Common");
-  const [overallValue, setOverallValue] = useState<string>("0");
+  const [statsTitle, setStatsTitle] = useState<string>("Most Common");
+  const [statsValue, setStatsValue] = useState<string>("0");
   return (
     <Dragger>
       <div
@@ -21,8 +21,8 @@ function OverallStats() {
         }}
         className="font-sans text-lg cursor-move items-center "
       >
-        <EditText text={overallTitle} setText={setOverallTitle} s={"20"} />
-        <EditText text={overallValue} setText={setOverallValue} s={"60"} />
+        <EditText text={statsTitle} setText={setStatsTitle} s={"20"} />
+        <EditText text={statsValue} setText={setStatsValue} s={"60"} />
       </div>
     </Dragger>
   );

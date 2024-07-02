@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import EditText from "./EditText";
 import Dragger from "../ui/Dragger";
+import { useReference } from "@/app/context/ReferenceContext";
 
 function CreatedBy() {
-  const [author, setAuthor] = useState<string>("@nepal.by.numbers");
+  const { createdBy, setCreatedBy } = useReference();
   return (
     <Dragger>
       <div
@@ -35,7 +36,7 @@ function CreatedBy() {
           Created By
         </div>
 
-        <EditText text={author} setText={setAuthor} />
+        <EditText text={createdBy} setText={setCreatedBy} />
       </div>
     </Dragger>
   );
