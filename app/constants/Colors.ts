@@ -25,7 +25,7 @@ export const colors = {
   Candy: {
     colors: ["#d2147a", "#f7278e", "#ffa0c8", "#ffecb3", "#99e550", "#32b4ff"],
   },
-  Rhododendron: {
+  Guras: {
     colors: ["#d0375c", "#e42f52", "#ff798e", "#fff0a5", "#94ffb5", "#00cc6a"],
   },
   Barsha: {

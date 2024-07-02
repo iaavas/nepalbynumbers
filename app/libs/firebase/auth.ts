@@ -20,6 +20,7 @@ export async function signInWithGoogle() {
     if (!result || !result.user) {
       throw new Error("Google sign in failed");
     }
+
     return result.user.uid;
   } catch (error) {
     console.error("Error signing in with Google", error);

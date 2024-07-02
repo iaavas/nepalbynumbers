@@ -34,10 +34,6 @@ const Map = ({
   const mctr = useRef<[number, number] | undefined>();
 
   useEffect(() => {
-    // localStorage.clear();
-  }, []);
-
-  useEffect(() => {
     mctr.current = ctr;
   }, [ctr]);
 

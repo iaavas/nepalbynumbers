@@ -10,6 +10,7 @@ import { PostfixProvider } from "./context/PostfixContext";
 import { Analytics } from "@vercel/analytics/react";
 import { SearchProvider } from "./context/SearchContext";
 import { SESSION_COOKIE_NAME } from "@/constants";
+import { useUserSession } from "./hooks/use-user-session";
 
 const segoe = localFont({
   src: "../public/Segoe UI.woff",
