@@ -1,13 +1,31 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { firebaseAuth } from "@/app/libs/firebase/config";
+import { User } from "firebase/auth";
+import { MoreOutlined } from "@ant-design/icons";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { signOutWithGoogle } from "@/app/libs/firebase/auth";
+import { removeSession } from "@/app/actions/auth-actions";
 
 function UserNav() {
   const router = useRouter();
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
 
-  const currentUser = firebaseAuth.currentUser;
+  useEffect(() => {
+    const unsubscribe = firebaseAuth.onAuthStateChanged((user) => {
+      setCurrentUser(user);
+    });
+    return () => unsubscribe();
+  }, []);
 
   return (
     <div className="w-full h-20 bg-white shadow-sm border-b ">
@@ -31,14 +49,36 @@ function UserNav() {
         </div>
         {/* Right part: Projects button */}
         <div className="md:flex hidden">
-          <button
-            className="p-1.5 border-gray-600 border text-gray-500 rounded-sm ease-in-out hover:border-blue-500 hover:text-blue-500"
-            onClick={() => {
-              router.push("/projects");
-            }}
-          >
-            Projects
-          </button>
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <MoreOutlined size={1} className="text-2xl font-bold" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>
+                <button
+                  onClick={() => {
+                    router.push("/projects");
+                  }}
+                >
+                  Projects
+                </button>
+              </DropdownMenuItem>
+
+              <DropdownMenuItem>
+                <button
+                  onClick={async () => {
+                    await signOutWithGoogle();
+                    await removeSession();
+                    router.push("/");
+                  }}
+                >
+                  Sign Out
+                </button>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
     </div>
