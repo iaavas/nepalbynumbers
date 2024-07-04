@@ -13,7 +13,7 @@ function DynamicContentPage() {
   );
 }
 
-function DynamicContent() {
+export function DynamicContent() {
   const params = useSearchParams();
   const map = params.get("m");
   console.log(map);

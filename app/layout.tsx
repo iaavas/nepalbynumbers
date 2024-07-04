@@ -46,7 +46,7 @@ export default function RootLayout({
               <PostfixProvider>
                 <ReferenceProvider>
                   <SearchProvider>{children}</SearchProvider>
-                  <Analytics />
+                  {/* <Analytics /> */}
                 </ReferenceProvider>
               </PostfixProvider>
             </ColorProvider>
