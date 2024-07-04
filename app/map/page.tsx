@@ -5,7 +5,7 @@ import PageLayout from "@/app/components/layout/pageLayout";
 import { centers } from "@/app/constants/Centers";
 import Loader from "../components/ui/Loader";
 
-function DynamicContentPage() {
+function page() {
   return (
     <Suspense fallback={<Loader />}>
       <DynamicContent />
@@ -26,4 +26,4 @@ export function DynamicContent() {
   );
 }
 
-export default DynamicContentPage;
+export default page;
