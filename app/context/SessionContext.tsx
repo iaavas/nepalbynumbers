@@ -1,7 +1,19 @@
 "use client";
-import React, { createContext, useContext } from "react";
+import React, {
+  Dispatch,
+  SetStateAction,
+  createContext,
+  useContext,
+  useState,
+} from "react";
 
-const SessionContext = createContext<string | null>(null);
+interface sessionType {
+  session: string | null;
+  user: any;
+  setUser: Dispatch<SetStateAction<any>>;
+}
+
+const SessionContext = createContext<sessionType | null>(null);
 
 export const SessionProvider = ({
   session,
@@ -9,8 +21,20 @@ export const SessionProvider = ({
 }: {
   session: string | null;
   children: React.ReactNode;
-}) => (
-  <SessionContext.Provider value={session}>{children}</SessionContext.Provider>
-);
+}) => {
+  const [user, setUser] = useState<any>(null); // Initialize user as null or any appropriate initial value
+  const sessionValue: sessionType = { session, user, setUser };
+  return (
+    <SessionContext.Provider value={sessionValue}>
+      {children}
+    </SessionContext.Provider>
+  );
+};
 
-export const useSession = () => useContext(SessionContext);
+export const useSession = () => {
+  const context = useContext(SessionContext);
+  if (context === null) {
+    throw new Error("useSession must be used within a SessionProvider");
+  }
+  return context;
+};

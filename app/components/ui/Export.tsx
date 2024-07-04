@@ -14,9 +14,9 @@ function Export({ map }: { map: string }) {
   };
   return (
     <div className="flex flex-col  gap-y-2">
-      <h2 className="font-sans font-bold text-xl">Download Map.</h2>
+      <h2 className="font-sans  text-lg">Download Map</h2>
       <button
-        className=" text-gray-700    hover:text-blue-600  p-2  rounded-lg font-sans text-bold text-lg flex items-center justify-center gap-4 border"
+        className={`p-1.5 rounded-lg  transition-all text-sm bg-gray-50/10 text-gray-700 flex  gap-x-2 items-center border-gray-300 border hover:border-blue-500 hover:text-blue-500 ease-in-out max-w-fit shadow-sm`}
         onClick={captureMapImage}
       >
         <DownloadOutlined />

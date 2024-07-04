@@ -4,10 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 
 import Header from "../components/ui/Header";
+import UserNav from "../components/ui/UserNav";
 
 export default function Home() {
   return (
     <main className="flex  flex-col items-center justify-between mb-8 ">
+      <UserNav />
       <Header />
       <h3 className="text-center font-bold text-4xl my-8 font-sans bg-blue-50/15 ">
         Pick a Template

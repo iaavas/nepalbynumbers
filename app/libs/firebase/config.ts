@@ -12,7 +12,7 @@ const firebaseConfig = {
   databaseURL: process.env.NEXT_PUBLIC_DB_URL,
 };
 
-const firebaseApp =
+export const firebaseApp =
   getApps().length == 0 ? initializeApp(firebaseConfig) : getApps()[0];
 
 export const firebaseAuth = getAuth(firebaseApp);

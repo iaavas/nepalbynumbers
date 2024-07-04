@@ -26,20 +26,6 @@ const HeroSection = () => {
             Visualize Nepal in Maps
           </p>
 
-          <button
-            className="px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 ease-in-out md:hidden max-w-md "
-            onClick={async () => {
-              const user = await signInWithGoogle();
-              if (user) {
-                await createSession(user);
-
-                router.push("/templates");
-              }
-            }}
-          >
-            Create your Map Here
-          </button>
-
           <h1 className="text-3xl text-gray-800 font-semibold leading-relaxed transition-transform duration-700 transform hover:scale-105">
             Access over <span className="text-cyan-700 font-bold">9</span> maps,
             including individual maps of{" "}

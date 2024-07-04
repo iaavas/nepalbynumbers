@@ -5,9 +5,9 @@ import { usePostfix } from "../context/PostfixContext";
 import { useColor } from "../context/ColorsContext";
 import { useReference } from "../context/ReferenceContext";
 import { db } from "../libs/firebase/config";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-
+import { SaveOutlined } from "@ant-design/icons";
 function SaveProjectButton({ map }: { map: string }) {
   const { title, type, getAllEntityValues } = useValues();
   const { postfix, prefix } = usePostfix();
@@ -16,7 +16,6 @@ function SaveProjectButton({ map }: { map: string }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
-  const [pName, setPName] = useState("");
 
   const save = async () => {
     setLoading(true);
@@ -25,12 +24,9 @@ function SaveProjectButton({ map }: { map: string }) {
 
     const auth = getAuth();
     const user = auth.currentUser;
+    console.log(user);
 
     try {
-      if (!pName) {
-        setError("Please add project name");
-        return;
-      }
       const data = {
         title,
         type,
@@ -44,7 +40,7 @@ function SaveProjectButton({ map }: { map: string }) {
         statsValue,
         map: map,
         uid: user?.uid,
-        pName, // Adding user ID
+        createdAt: serverTimestamp(),
       };
       const docRef = await addDoc(collection(db, "projects"), data);
       console.log("Document written with ID: ", docRef.id);
@@ -58,23 +54,14 @@ function SaveProjectButton({ map }: { map: string }) {
   };
 
   return (
-    <div className="bg-white rounded-lg p-6  w-full">
-      <input
-        type="text"
-        value={pName}
-        onChange={(e) => setPName(e.target.value)}
-        className="w-full p-4 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-        placeholder="Enter project name"
-      />
+    <div className="bg-white rounded-lg py-2 my-8">
+      <h3 className=" text-lg mb-2 font-sans">Save your Map</h3>
       <button
         onClick={save}
-        className={`w-full p-4 rounded-lg text-white transition-all text-xl ${
-          loading
-            ? "bg-gray-400 cursor-not-allowed"
-            : "bg-blue-600 hover:bg-blue-700"
-        }`}
+        className={` p-1.5 rounded-lg  transition-all text-sm bg-gray-50/10 text-gray-700 flex  gap-x-2 items-center border-gray-300 border hover:border-blue-500 hover:text-blue-500 shadow-sm`}
         disabled={loading}
       >
+        <SaveOutlined />
         {loading ? "Saving..." : "Save Project"}
       </button>
       {error && <p className="mt-4 text-red-600 text-center">{error}</p>}

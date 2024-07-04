@@ -6,6 +6,7 @@ import {
 } from "firebase/auth";
 
 import { firebaseAuth } from "./config";
+import { useSession } from "@/app/context/SessionContext";
 
 export function onAuthStateChanged(callback: (authUser: User | null) => void) {
   return _onAuthStateChanged(firebaseAuth, callback);
@@ -21,7 +22,7 @@ export async function signInWithGoogle() {
       throw new Error("Google sign in failed");
     }
 
-    return result.user.uid;
+    return result.user;
   } catch (error) {
     console.error("Error signing in with Google", error);
   }
