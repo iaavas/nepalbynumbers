@@ -10,7 +10,7 @@ function Signin() {
   const { setUser } = useSession();
   return (
     <button
-      className="px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 ease-in-out  max-w-md "
+      className="px-4 py-3 bg-blue-500 text-white rounded-full hover:bg-blue-700 ease-in-out  max-w-sm "
       onClick={async () => {
         const user = await signInWithGoogle();
         if (user) {
@@ -21,7 +21,7 @@ function Signin() {
         }
       }}
     >
-      Create your Map Here
+      Create your Map
     </button>
   );
 }

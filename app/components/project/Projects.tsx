@@ -1,11 +1,12 @@
 "use client";
 import Image from "next/image";
 import { Card } from "antd";
-import UserNav from "../ui/UserNav";
+
 import useProjects from "../../hooks/useProjects";
 import { useRouter } from "next/navigation";
 import { Router } from "lucide-react";
 import Link from "next/link";
+import Navbar from "../ui/Navbar";
 
 const Projects = () => {
   const { projects, loading, error } = useProjects();
@@ -13,7 +14,7 @@ const Projects = () => {
 
   return (
     <>
-      <UserNav />
+      <Navbar />
       <div className="bg-white rounded-lg py-4 my-8 px-8">
         <h3 className="text-2xl mb-8 font-sans ">Your Saved Projects</h3>
         {loading ? (

@@ -1,32 +1,116 @@
-import React, { useState } from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 
-import Hamburger from "../assets/hamburgerMenu.svg";
-
-import { motion } from "framer-motion";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { signInWithGoogle } from "../../libs/firebase/auth";
-import { createSession } from "@/app/actions/auth-actions";
-import { useUserSession } from "@/app/hooks/use-user-session";
-import { useSession } from "@/app/context/SessionContext";
+import { signOutWithGoogle } from "../../libs/firebase/auth";
+
+import { firebaseAuth } from "@/app/libs/firebase/config";
+import { User } from "firebase/auth";
 import Signin from "./Signin";
+import Link from "next/link";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import Image from "next/image";
+import { removeSession } from "@/app/actions/auth-actions";
 
 const Navbar = () => {
   const router = useRouter();
-  const { setUser } = useSession();
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const unsubscribe = firebaseAuth.onAuthStateChanged((user) => {
+      setCurrentUser(user);
+    });
+    return () => unsubscribe();
+  }, []);
   return (
-    <div className="w-full h-[96px] bg-white shadow-sm border-b">
-      <div className="p-2 md:max-w-[1080px] max-w-[400px] m-auto w-full h-full flex justify-between items-center">
-        {/* <Image src={Logo} alt="logo" className="h-[25px] cursor-pointer" /> */}
-        <div className="flex items-center">
-          <h1 className="font-semibold text-4xl capitalize ">
-            Nepal by Numbers
-          </h1>
-        </div>
+    <div className="p-2  mx-8  flex justify-between items-center">
+      <div className="flex items-center">
+        <Link href={"/"} className="font-semibold text-2xl lowercase ">
+          Nepal.by.Numbers
+        </Link>
+      </div>
+      {!currentUser ? (
         <div className="md:flex hidden">
           <Signin />
         </div>
-      </div>
+      ) : (
+        <div className="">
+          <Sheet>
+            <SheetTrigger>
+              {currentUser?.photoURL && (
+                <Image
+                  src={currentUser!.photoURL}
+                  alt={currentUser!.displayName || "User"}
+                  className="h-[50px] w-[50px] rounded-full mr-4"
+                  width={50}
+                  height={50}
+                />
+              )}
+            </SheetTrigger>
+            <SheetContent className="w-[300px]">
+              <SheetHeader>
+                <SheetTitle>
+                  <div className="flex justify-start gap-x-4 items-center">
+                    {currentUser?.photoURL && (
+                      <Image
+                        src={currentUser!.photoURL}
+                        alt={currentUser!.displayName || "User"}
+                        className="h-[50px] w-[50px] rounded-full mr-4"
+                        width={50}
+                        height={50}
+                      />
+                    )}
+                    <div className="flex flex-col">
+                      <p className="font-normal">{currentUser?.displayName}</p>
+                      <p className="font-normal text-sm text-gray-400">
+                        {currentUser?.email}
+                      </p>
+                    </div>
+                  </div>
+                </SheetTitle>
+                <SheetDescription>
+                  <button
+                    onClick={() => {
+                      router.push("/projects");
+                    }}
+                    className="text-lg my-2 text-stone-900  hover:border-b-2   "
+                  >
+                    Projects
+                  </button>
+                </SheetDescription>
+                <SheetDescription>
+                  <button
+                    onClick={async () => {
+                      await signOutWithGoogle();
+                      await removeSession();
+                      router.push("/");
+                    }}
+                    className="text-lg mb-2 text-stone-900  hover:border-b-2   "
+                  >
+                    Sign Out
+                  </button>
+                </SheetDescription>
+              </SheetHeader>
+            </SheetContent>
+          </Sheet>
+        </div>
+      )}
     </div>
   );
 };
