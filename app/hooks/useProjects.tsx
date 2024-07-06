@@ -13,7 +13,7 @@ export interface ProjectType {
   postfix: string;
   prefix: string;
   theme: string;
-  data: [];
+  data: Record<string, (number | string) | null>;
   createdBy: string;
   source: string;
   statsTitle: string;

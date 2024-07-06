@@ -48,7 +48,7 @@ function UserNav() {
           </h1>
         </div>
         {/* Right part: Projects button */}
-        <div className="md:flex hidden">
+        <div className="">
           <DropdownMenu>
             <DropdownMenuTrigger>
               <MoreOutlined size={1} className="text-2xl font-bold" />

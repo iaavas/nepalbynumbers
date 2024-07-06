@@ -17,6 +17,7 @@ interface ValueContextType {
     entityId: string,
     value: number | null | string
   ) => void;
+  setAllEntityValues: (entityType: EntityType, values: EntityValues) => void;
   getEntityValue: (
     entityType: EntityType,
     entityId: string
@@ -40,6 +41,7 @@ export const ValueProvider: FC<{ children: React.ReactNode }> = ({
   const [values, setValues] = useState<ValuesState>({});
   const [type, setType] = useState<"reg" | "class">("reg");
   const [title, setTitle] = useState<string>("Inforgraphic Title");
+
   const setEntityValue = (
     entityType: EntityType,
     entityId: string,
@@ -54,12 +56,21 @@ export const ValueProvider: FC<{ children: React.ReactNode }> = ({
     }));
   };
 
+  const setAllEntityValues = (
+    entityType: EntityType,
+    newValues: EntityValues
+  ) => {
+    setValues((prevValues: ValuesState) => ({
+      ...prevValues,
+      [entityType]: newValues,
+    }));
+  };
+
   const getEntityValue = (entityType: EntityType, entityId: string) => {
     return values[entityType] ? values[entityType][entityId] : null;
   };
 
   const getAllEntityValues = (entityType: EntityType) => {
-    console.log(values[entityType]);
     if (values[entityType]) {
       return Object.values(values[entityType]) || null;
     }
@@ -67,6 +78,7 @@ export const ValueProvider: FC<{ children: React.ReactNode }> = ({
 
   const contextValue: ValueContextType = {
     setEntityValue,
+    setAllEntityValues,
     getEntityValue,
     getAllEntityValues,
     type,
