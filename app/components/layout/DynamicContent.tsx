@@ -1,5 +1,4 @@
 "use client";
-import React, { Suspense } from "react";
 
 import PageLayout from "@/app/components/layout/pageLayout";
 import { centers } from "@/app/constants/Centers";
@@ -26,7 +25,7 @@ function DynamicContent({ id }: { id: string }) {
   setSource(source);
   setStatsTitle(statsTitle);
   setTitle(title);
-  // setAllEntityValues(map, data);
+  setAllEntityValues(map, data);
   updateTheme(theme);
 
   let center = (centers as { [key: string]: { center: number[] } })[

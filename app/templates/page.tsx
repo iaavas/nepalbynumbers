@@ -5,18 +5,20 @@ import Link from "next/link";
 
 import Header from "../components/ui/Header";
 import Navbar from "../components/ui/Navbar";
+import withAuth from "../components/withAuth";
+import Footer from "../components/ui/Footer";
 
-export default function Home() {
+function Home() {
   return (
     <>
       <Navbar />
-      <main className="flex  flex-col items-center justify-between mb-8 ">
-        <Header />
+      <main className="flex  flex-col items-center justify-between mb-0 ">
+        <Header t={"Create Awesome Maps!"} />
         <h3 className="text-center font-bold text-xl my-8 font-sans bg-blue-50/15 ">
           Pick a Template
         </h3>
 
-        <div className="flex  items-center justify-center flex-wrap gap-8 bg-blue-50/15 ">
+        <div className="flex mb-4 items-center justify-center flex-wrap gap-8 bg-blue-50/15 ">
           {Object.keys(centers).map((m, idx) => (
             <Link href={`/map?m=${m}`} key={idx}>
               <Card
@@ -37,7 +39,10 @@ export default function Home() {
             </Link>
           ))}
         </div>
+        <Footer />
       </main>
     </>
   );
 }
+
+export default withAuth(Home);

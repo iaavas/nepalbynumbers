@@ -1,21 +1,10 @@
 "use client";
-import React, { useEffect, useState } from "react";
 
 import { useRouter } from "next/navigation";
 import { signOutWithGoogle } from "../../libs/firebase/auth";
 
-import { firebaseAuth } from "@/app/libs/firebase/config";
-import { User } from "firebase/auth";
 import Signin from "./Signin";
 import Link from "next/link";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 import {
   Sheet,
@@ -27,17 +16,11 @@ import {
 } from "@/components/ui/sheet";
 import Image from "next/image";
 import { removeSession } from "@/app/actions/auth-actions";
+import useUser from "@/app/hooks/useUser";
 
 const Navbar = () => {
   const router = useRouter();
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
-
-  useEffect(() => {
-    const unsubscribe = firebaseAuth.onAuthStateChanged((user) => {
-      setCurrentUser(user);
-    });
-    return () => unsubscribe();
-  }, []);
+  const currentUser = useUser();
   return (
     <div className="p-2  mx-8  flex justify-between items-center">
       <div className="flex items-center">

@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { Router } from "lucide-react";
 import Link from "next/link";
 import Navbar from "../ui/Navbar";
+import Header from "../ui/Header";
 
 const Projects = () => {
   const { projects, loading, error } = useProjects();
@@ -15,14 +16,14 @@ const Projects = () => {
   return (
     <>
       <Navbar />
-      <div className="bg-white rounded-lg py-4 my-8 px-8">
-        <h3 className="text-2xl mb-8 font-sans ">Your Saved Projects</h3>
+      <div className="bg-white p-4">
+        <Header t={"Your Projects Here"} />
         {loading ? (
           <p>Loading...</p>
         ) : error ? (
           <p className="text-red-600">{error}</p>
         ) : projects.length > 0 ? (
-          <div className="grid grid-cols-3 gap-x-4">
+          <div className="grid grid-cols-4 p-3 m-4">
             {projects.map((project) => (
               <Link
                 key={project!.id}

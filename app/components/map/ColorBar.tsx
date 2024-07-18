@@ -105,7 +105,7 @@ const ColorBar: React.FC<ColorBarProps> = ({ colorScale, content }) => {
             }}
           ></div>
 
-          <p>{category}</p>
+          <p className="text-lg font-bold">{category}</p>
         </div>
       ))}
     </div>
