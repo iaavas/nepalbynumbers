@@ -1,20 +1,8 @@
-"use client";
-
 import SignIn from "./Signin";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
 
 const HeroSection = () => {
-  const [animate, setAnimate] = useState(false);
-  const router = useRouter();
-
-  useEffect(() => {
-    // Trigger animation on mount
-    setAnimate(true);
-  }, []);
-
   return (
     <div className={` mx-8 py-2 grid md:grid-cols-2  items-center `}>
       <div className="flex flex-col justify-start gap-6 ">
@@ -30,7 +18,7 @@ const HeroSection = () => {
       </div>
       <div className="flex justify-center md:justify-end ">
         <Image
-          src="/3.jpg"
+          src="/hero.png"
           alt="Map of Nepal"
           className="rounded-lg transition-all ease-in-out duration-500 grayscale hover:grayscale-0"
           width={400}
