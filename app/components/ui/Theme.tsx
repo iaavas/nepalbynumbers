@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { colors as colorPalettes } from "@/app/constants/Colors";
 import { useColor } from "@/app/context/ColorsContext";
 import { Modal } from "antd";

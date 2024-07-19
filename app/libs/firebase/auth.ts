@@ -6,7 +6,6 @@ import {
 } from "firebase/auth";
 
 import { firebaseAuth } from "./config";
-import { useSession } from "@/app/context/SessionContext";
 
 export function onAuthStateChanged(callback: (authUser: User | null) => void) {
   return _onAuthStateChanged(firebaseAuth, callback);

@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import EditText from "./EditText";
 import Dragger from "../ui/Dragger";
 import { useReference } from "@/app/context/ReferenceContext";

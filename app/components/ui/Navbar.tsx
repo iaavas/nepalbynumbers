@@ -26,10 +26,7 @@ const Navbar = () => {
   return (
     <div className="p-2  mx-8  flex justify-between items-center">
       <div className="flex items-center">
-        <Link
-          href={"/"}
-          className="font-semibold text-2xl lowercase  font-onest"
-        >
+        <Link href={"/"} className="font-semibold text-2xl lowercase  ">
           Nepal.by.Numbers
         </Link>
       </div>

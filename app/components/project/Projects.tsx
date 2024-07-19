@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Card, Button, message } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
-import { collection, deleteDoc, doc } from "firebase/firestore";
+import { deleteDoc, doc } from "firebase/firestore";
 import Link from "next/link";
 import Navbar from "../ui/Navbar";
 import Header from "../ui/Header";

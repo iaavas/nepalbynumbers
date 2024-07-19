@@ -1,7 +1,6 @@
 import React from "react";
 import Map from "@/app/components/map/Map";
 import Menubar from "@/app/components/ui/Menubar";
-import Loader from "../ui/Loader";
 
 function PageLayout({
   mapType,

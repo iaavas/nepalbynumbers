@@ -1,5 +1,5 @@
 import { centers } from "../constants/Centers";
-import { Card, Col, Row } from "antd";
+import { Card } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 

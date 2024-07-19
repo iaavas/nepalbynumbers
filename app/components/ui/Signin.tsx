@@ -1,5 +1,4 @@
 "use client";
-import { createSession } from "@/app/actions/auth-actions";
 
 import useUser from "@/app/hooks/useUser";
 import { signInWithGoogle } from "@/app/libs/firebase/auth";
