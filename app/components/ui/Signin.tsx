@@ -1,6 +1,6 @@
 "use client";
 import { createSession } from "@/app/actions/auth-actions";
-import { useSession } from "@/app/context/SessionContext";
+
 import useUser from "@/app/hooks/useUser";
 import { signInWithGoogle } from "@/app/libs/firebase/auth";
 import { useRouter } from "next/navigation";
