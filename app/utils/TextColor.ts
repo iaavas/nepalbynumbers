@@ -1,4 +1,5 @@
 export default function getContrastColor(hex: string): string {
+  if (!hex) return "#000000";
   // Convert hex color to RGB
   hex = hex.replace(/^#/, "");
 

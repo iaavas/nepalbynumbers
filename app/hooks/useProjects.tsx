@@ -13,7 +13,7 @@ export interface ProjectType {
   postfix: string;
   prefix: string;
   theme: string;
-  data: Record<string, (number | string) | null>;
+  data: [];
   createdBy: string;
   source: string;
   statsTitle: string;
@@ -26,44 +26,44 @@ const useProjects = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchProjects = async () => {
-      setLoading(true);
-      setError(null);
+  const fetchProjects = async () => {
+    setLoading(true);
+    setError(null);
 
-      const auth = getAuth();
-      const user = auth.currentUser;
-      console.log(user);
+    const auth = getAuth();
+    const user = auth.currentUser;
+    console.log(user);
 
-      if (user) {
-        try {
-          const q = query(
-            collection(db, "projects"),
-            where("uid", "==", user.uid)
-          );
-          const querySnapshot = await getDocs(q);
+    if (user) {
+      try {
+        const q = query(
+          collection(db, "projects"),
+          where("uid", "==", user.uid)
+        );
+        const querySnapshot = await getDocs(q);
 
-          const projectList = querySnapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }));
+        const projectList = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
 
-          setProjects(projectList as ProjectType[]);
-        } catch (e) {
-          console.error("Error fetching projects: ", e);
-          setError("Failed to fetch projects. Please try again.");
-        }
-      } else {
-        setError("No user is logged in.");
+        setProjects(projectList as ProjectType[]);
+      } catch (e) {
+        console.error("Error fetching projects: ", e);
+        setError("Failed to fetch projects. Please try again.");
       }
+    } else {
+      setError("No user is logged in.");
+    }
 
-      setLoading(false);
-    };
+    setLoading(false);
+  };
 
+  useEffect(() => {
     fetchProjects();
   }, []);
 
-  return { projects, loading, error };
+  return { projects, loading, error, fetchProjects };
 };
 
 export default useProjects;

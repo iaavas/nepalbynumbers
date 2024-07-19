@@ -6,10 +6,17 @@ import React, {
   FC,
   Dispatch,
   SetStateAction,
+  useCallback,
 } from "react";
 
 type EntityType = string;
 type EntityValues = Record<string, (number | string) | null>;
+
+interface EntityValue {
+  entityType: EntityType;
+  entityId: string;
+  value: number | null | string;
+}
 
 interface ValueContextType {
   setEntityValue: (
@@ -17,14 +24,12 @@ interface ValueContextType {
     entityId: string,
     value: number | null | string
   ) => void;
-  setAllEntityValues: (entityType: EntityType, values: EntityValues) => void;
+  setAllEntityValues: (entityType: EntityType, values: EntityValue[]) => void;
   getEntityValue: (
     entityType: EntityType,
     entityId: string
   ) => number | null | string;
-  getAllEntityValues: (
-    entityType: EntityType
-  ) => (string | number | null)[] | undefined;
+  getAllEntityValues: (entityType: EntityType) => EntityValue[] | undefined;
   type: "reg" | "class";
   setType: Dispatch<SetStateAction<"reg" | "class">>;
   setTitle: Dispatch<SetStateAction<string>>;
@@ -42,37 +47,45 @@ export const ValueProvider: FC<{ children: React.ReactNode }> = ({
   const [type, setType] = useState<"reg" | "class">("reg");
   const [title, setTitle] = useState<string>("Inforgraphic Title");
 
-  const setEntityValue = (
-    entityType: EntityType,
-    entityId: string,
-    value: number | null | string
-  ) => {
-    setValues((prevValues: ValuesState) => ({
-      ...prevValues,
-      [entityType]: {
-        ...(prevValues[entityType] || {}),
-        [entityId]: value,
-      },
-    }));
-  };
+  const setEntityValue = useCallback(
+    (
+      entityType: EntityType,
+      entityId: string,
+      value: number | null | string
+    ) => {
+      setValues((prevValues: ValuesState) => ({
+        ...prevValues,
+        [entityType]: {
+          ...(prevValues[entityType] || {}),
+          [entityId]: value,
+        },
+      }));
+    },
+    []
+  );
 
-  const setAllEntityValues = (
-    entityType: EntityType,
-    newValues: EntityValues
-  ) => {
-    setValues((prevValues: ValuesState) => ({
-      ...prevValues,
-      [entityType]: newValues,
-    }));
-  };
+  const setAllEntityValues = useCallback(
+    (entityType: EntityType, newValues: EntityValue[]) => {
+      newValues.forEach((n) => {
+        setEntityValue(entityType, n.entityId, n.value);
+      });
+    },
+    [setEntityValue] // Assuming setEntityValue is stable or memoized
+  );
 
   const getEntityValue = (entityType: EntityType, entityId: string) => {
     return values[entityType] ? values[entityType][entityId] : null;
   };
 
-  const getAllEntityValues = (entityType: EntityType) => {
+  const getAllEntityValues = (
+    entityType: EntityType
+  ): EntityValue[] | undefined => {
     if (values[entityType]) {
-      return Object.values(values[entityType]) || null;
+      return Object.entries(values[entityType]).map(([entityId, value]) => ({
+        entityType,
+        entityId,
+        value,
+      }));
     }
   };
 

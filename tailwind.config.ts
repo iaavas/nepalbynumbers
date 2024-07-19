@@ -20,6 +20,7 @@ const config = {
     extend: {
       fontFamily: {
         sans: ["var(--font-SegoeUI)"],
+        onest: ["var(--font-Onest)"],
       },
       colors: {
         border: "hsl(var(--border))",

@@ -16,7 +16,7 @@ import Footer from "./components/ui/Footer";
 
 export default function Page() {
   return (
-    <main className="p-0 h-screen">
+    <main className="p-0  ">
       <Navbar />
       <HeroSection />
       <Footer />

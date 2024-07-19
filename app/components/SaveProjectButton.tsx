@@ -24,7 +24,6 @@ function SaveProjectButton({ map }: { map: string }) {
 
     const auth = getAuth();
     const user = auth.currentUser;
-    console.log(user);
 
     try {
       const data = {
@@ -42,8 +41,9 @@ function SaveProjectButton({ map }: { map: string }) {
         uid: user?.uid,
         createdAt: serverTimestamp(),
       };
-      const docRef = await addDoc(collection(db, "projects"), data);
-      console.log("Document written with ID: ", docRef.id);
+
+      await addDoc(collection(db, "projects"), data);
+
       setSuccess(true);
     } catch (e) {
       console.error("Error adding document: ", e);

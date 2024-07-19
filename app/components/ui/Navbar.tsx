@@ -2,9 +2,11 @@
 
 import { useRouter } from "next/navigation";
 import { signOutWithGoogle } from "../../libs/firebase/auth";
+import { PiSignOutLight } from "react-icons/pi";
 
 import Signin from "./Signin";
 import Link from "next/link";
+import { GrProjects } from "react-icons/gr";
 
 import {
   Sheet,
@@ -24,7 +26,10 @@ const Navbar = () => {
   return (
     <div className="p-2  mx-8  flex justify-between items-center">
       <div className="flex items-center">
-        <Link href={"/"} className="font-semibold text-2xl lowercase ">
+        <Link
+          href={"/"}
+          className="font-semibold text-2xl lowercase  font-onest"
+        >
           Nepal.by.Numbers
         </Link>
       </div>
@@ -49,7 +54,7 @@ const Navbar = () => {
             <SheetContent className="w-[300px]">
               <SheetHeader>
                 <SheetTitle>
-                  <div className="flex justify-start gap-x-4 items-center">
+                  <div className="flex justify-start  items-center border-b border-stone-400 pb-4 font-onest ">
                     {currentUser?.photoURL && (
                       <Image
                         src={currentUser!.photoURL}
@@ -59,9 +64,9 @@ const Navbar = () => {
                         height={50}
                       />
                     )}
-                    <div className="flex flex-col">
+                    <div className="flex flex-col ">
                       <p className="font-normal">{currentUser?.displayName}</p>
-                      <p className="font-normal text-sm text-gray-400">
+                      <p className="font-thin text-sm text-gray-400">
                         {currentUser?.email}
                       </p>
                     </div>
@@ -72,9 +77,10 @@ const Navbar = () => {
                     onClick={() => {
                       router.push("/projects");
                     }}
-                    className="text-lg my-2 text-stone-900  hover:border-b-2   "
+                    className="text-base  text-stone-900  hover:bg-stone-100 p-2.5 w-full flex items-center  gap-x-8  transition-all duration-75 ease-in-out font-onest font-normal"
                   >
-                    Projects
+                    <GrProjects />
+                    <span>Projects</span>
                   </button>
                 </SheetDescription>
                 <SheetDescription>
@@ -84,9 +90,10 @@ const Navbar = () => {
                       await removeSession();
                       router.push("/");
                     }}
-                    className="text-lg mb-2 text-stone-900  hover:border-b-2   "
+                    className="text-base	  text-stone-900  hover:bg-stone-100 p-2.5 w-full flex items-center   gap-x-8 transition-all duration-75 ease-in-out font-onest font-normal"
                   >
-                    Sign Out
+                    <PiSignOutLight />
+                    <span>Sign Out</span>
                   </button>
                 </SheetDescription>
               </SheetHeader>

@@ -76,7 +76,8 @@ const ColorBar: React.FC<ColorBarProps> = ({ colorScale, content }) => {
 
   const top5Values: string[] = Object.entries(
     values.reduce((acc: any, val: any) => {
-      acc[val] = (acc[val] || 0) + 1;
+      acc[val.value] = (acc[val.value] || 0) + 1;
+      console.log(acc);
       return acc;
     }, {})
   )
@@ -105,7 +106,7 @@ const ColorBar: React.FC<ColorBarProps> = ({ colorScale, content }) => {
             }}
           ></div>
 
-          <p className="text-lg font-bold">{category}</p>
+          <p className="text-[1.1rem] font-normal ">{category}</p>
         </div>
       ))}
     </div>

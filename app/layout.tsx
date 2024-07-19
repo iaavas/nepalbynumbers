@@ -1,18 +1,21 @@
 import type { Metadata } from "next";
-
 import { ValueProvider } from "@/app/context/ValueContext";
 import "./globals.css";
 import { cookies } from "next/headers";
-
 import localFont from "@next/font/local";
 import { ColorProvider } from "./context/ColorsContext";
 import { PostfixProvider } from "./context/PostfixContext";
 import { Analytics } from "@vercel/analytics/react";
 import { SearchProvider } from "./context/SearchContext";
 import { SESSION_COOKIE_NAME } from "@/constants";
-import { useUserSession } from "./hooks/use-user-session";
 import { ReferenceProvider } from "./context/ReferenceContext";
-import { SessionProvider } from "./context/SessionContext";
+import { Onest } from "next/font/google";
+
+const onest = Onest({
+  weight: ["400", "600", "800"],
+  subsets: ["latin"],
+  variable: "--font-Onest",
+});
 
 const segoe = localFont({
   src: "../public/Segoe UI.woff",
@@ -32,7 +35,7 @@ export default function RootLayout({
   const session = cookies().get(SESSION_COOKIE_NAME)?.value || null;
 
   return (
-    <html lang="en" className={`${segoe.variable} font-sans `}>
+    <html lang="en" className={`${segoe.variable} ${onest.variable}   `}>
       <head>
         <meta
           name="google-site-verification"
@@ -40,18 +43,16 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <SessionProvider session={session}>
-          <ValueProvider>
-            <ColorProvider>
-              <PostfixProvider>
-                <ReferenceProvider>
-                  <SearchProvider>{children}</SearchProvider>
-                  {/* <Analytics /> */}
-                </ReferenceProvider>
-              </PostfixProvider>
-            </ColorProvider>
-          </ValueProvider>
-        </SessionProvider>
+        <ValueProvider>
+          <ColorProvider>
+            <PostfixProvider>
+              <ReferenceProvider>
+                <SearchProvider>{children}</SearchProvider>
+                <Analytics />
+              </ReferenceProvider>
+            </PostfixProvider>
+          </ColorProvider>
+        </ValueProvider>
       </body>
     </html>
   );
