@@ -12,7 +12,7 @@ import React, {
 type EntityType = string;
 type EntityValues = Record<string, (number | string) | null>;
 
-interface EntityValue {
+export interface EntityValue {
   entityType: EntityType;
   entityId: string;
   value: number | null | string;

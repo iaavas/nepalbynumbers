@@ -5,6 +5,7 @@ import Table from "./Table";
 import Postfix from "./Postfix";
 import ImportData from "./ImportData";
 import { useSearch } from "@/app/context/SearchContext";
+import Collapsibles from "./Collapsibles";
 
 const StateValueTable = ({ content }: { content: string }) => {
   const { title, setTitle } = useValues();
@@ -50,6 +51,7 @@ const StateValueTable = ({ content }: { content: string }) => {
       >
         <Table content={content} />
       </div>
+      <Collapsibles map={content as string} />
     </div>
   );
 };

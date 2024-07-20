@@ -39,7 +39,7 @@ function Table({ content }: { content: string }) {
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     const inputValue = e.target.value;
                     if (inputValue === "") {
-                      setEntityValue(content, d.properties.name, "");
+                      setEntityValue(content, d.properties.name, null);
                     } else if (
                       Number(e.target.value) ||
                       e.target.value == "" ||
