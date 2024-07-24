@@ -4,11 +4,12 @@ import { Card, Button, message } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 import { deleteDoc, doc } from "firebase/firestore";
-import Link from "next/link";
+
 import Navbar from "../ui/Navbar";
 import Header from "../ui/Header";
 import useProjects from "../../hooks/useProjects";
 import { db } from "@/app/libs/firebase/config";
+import Loader from "../ui/Loader";
 
 const Projects = () => {
   const { projects, loading, error, fetchProjects } = useProjects();
@@ -31,7 +32,9 @@ const Projects = () => {
       <div className="bg-white">
         <Header t={"Your Projects Here"} />
         {loading ? (
-          <p className="p-4">Loading...</p>
+          <div className="flex items-center justify-center p-4">
+            <Loader />
+          </div>
         ) : error ? (
           <p className="text-red-600">{error}</p>
         ) : projects.length > 0 ? (
