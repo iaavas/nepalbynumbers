@@ -16,8 +16,7 @@ function FeaturesSection() {
         className="grid md:grid-cols-3 grid-cols-1 gap-x-16 mb-16 "
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.5 }}
-        transition={{ duration: 0.8 }}
+        transition={{ duration: 1, ease: "easeInOut" }}
       >
         <FeatureBox image="/features/data.png" n={1}>
           <h1 className="text-2xl ">Paste your data</h1>
