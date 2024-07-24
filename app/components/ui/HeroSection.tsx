@@ -28,8 +28,8 @@ const HeroSection = () => {
       window.requestAnimationFrame(step);
     };
 
-    animateValue(0, 11, 500, setTemplates);
-    animateValue(0, 7, 500, setColorPalette);
+    animateValue(0, 11, 800, setTemplates);
+    animateValue(0, 7, 800, setColorPalette);
   }, []);
 
   return (

@@ -9,6 +9,7 @@ import {
 import { getAuth, onAuthStateChanged, User } from "firebase/auth";
 import { firebaseApp } from "@/app/libs/firebase/config";
 import Loading from "../loading";
+import { useRouter } from "next/navigation";
 
 const auth = getAuth(firebaseApp);
 
@@ -25,6 +26,7 @@ export function AuthContextProvider({
 }: AuthContextProviderProps): JSX.Element {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -32,6 +34,7 @@ export function AuthContextProvider({
         setUser(user);
       } else {
         setUser(null);
+        router.push("/");
       }
 
       setLoading(false);

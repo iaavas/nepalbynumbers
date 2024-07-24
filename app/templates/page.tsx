@@ -7,14 +7,15 @@ import Link from "next/link";
 import Header from "../components/ui/Header";
 import Navbar from "../components/ui/Navbar";
 import withAuth from "../components/withAuth";
+import Footer from "../components/ui/Footer";
 
 function Home() {
   return (
     <>
       <Navbar />
-      <main className="flex  flex-col items-center justify-between mb-8 ">
+      <main className="flex  flex-col items-center justify-between mb-8 bg-[#f9fafc]/5">
         <Header t={"Create Awesome Maps!"} />
-        <h3 className="text-center font-bold text-xl my-8 font-sans bg-blue-50/15 ">
+        <h3 className="text-center font-bold text-xl my-8 font-sans tracking-wide ">
           Pick a Template
         </h3>
 
@@ -41,6 +42,7 @@ function Home() {
           ))}
         </div>
       </main>
+      <Footer />
     </>
   );
 }

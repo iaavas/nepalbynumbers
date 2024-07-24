@@ -38,7 +38,7 @@ const Projects = () => {
         ) : error ? (
           <p className="text-red-600">{error}</p>
         ) : projects.length > 0 ? (
-          <div className="grid grid-cols-4 p-3 m-4 gap-5">
+          <div className="grid md:grid-cols-4 grid-cols-1 p-3 m-4 gap-5">
             {projects.map((project) => (
               <div key={project!.id} className="relative mb-2">
                 <Card
