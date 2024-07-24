@@ -24,7 +24,7 @@ interface ValueContextType {
 export const ColorProvider: FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [theme, setTheme] = useState<string>("Danfe");
+  const [theme, setTheme] = useState<string>("Gurans");
 
   function updateTheme(t: string) {
     setTheme(() => t);

@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { Card, Button, message } from "antd";
-import { DeleteOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 import { deleteDoc, doc } from "firebase/firestore";
 import Link from "next/link";
@@ -35,39 +35,49 @@ const Projects = () => {
         ) : error ? (
           <p className="text-red-600">{error}</p>
         ) : projects.length > 0 ? (
-          <div className="grid grid-cols-4 p-3 m-4">
+          <div className="grid grid-cols-4 p-3 m-4 gap-5">
             {projects.map((project) => (
               <div key={project!.id} className="relative mb-2">
-                <Link href={`/projects/${project.id}`} className="">
-                  <Card
-                    title={project?.title.toUpperCase()}
-                    bordered={true}
-                    className="font-sans text-center tracking-wider w-72 h-80 hover:scale-105 transition-all ease-in-out hover:shadow-md relative border border-gray-300"
-                  >
-                    <div className="aspect-video">
-                      <strong className="text-sm">
-                        Saved on: {/* @ts-ignore */}
-                        {project?.createdAt?.toDate().toLocaleString()}
-                      </strong>
-                      <Image
-                        src={`/home/${project?.map}.png`}
-                        alt="map"
-                        height={500}
-                        width={500}
-                      />
-                    </div>
+                <Card
+                  title={project?.title.toUpperCase()}
+                  bordered={true}
+                  className="font-sans  tracking-wider   border border-gray-300 text-center"
+                >
+                  <div className="aspect-video">
+                    <Image
+                      src={`/home/${project?.map}.png`}
+                      alt="map"
+                      height={500}
+                      width={500}
+                    />
+                  </div>
+                  <p className="text-sm mb-8 border-b py-4 border-gray-400">
+                    Saved on: {/* @ts-ignore */}
+                    {project?.createdAt?.toDate().toLocaleString()}
+                  </p>
+
+                  <div className="flex items-center justify-between ">
                     <Button
-                      type="primary"
-                      danger
+                      icon={<EditOutlined />}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        router.push(`/projects/${project.id}`);
+                      }}
+                    >
+                      Edit
+                    </Button>
+                    <Button
                       icon={<DeleteOutlined />}
-                      className="absolute bottom-2 right-8"
                       onClick={(e) => {
                         e.preventDefault();
                         handleDelete(project.id);
                       }}
-                    />
-                  </Card>
-                </Link>
+                      danger={true}
+                    >
+                      Delete
+                    </Button>
+                  </div>
+                </Card>
               </div>
             ))}
           </div>

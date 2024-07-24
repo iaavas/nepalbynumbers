@@ -7,8 +7,16 @@ import { ColorProvider } from "./context/ColorsContext";
 import { PostfixProvider } from "./context/PostfixContext";
 import { Analytics } from "@vercel/analytics/react";
 import { SearchProvider } from "./context/SearchContext";
-import { SESSION_COOKIE_NAME } from "@/constants";
+
 import { ReferenceProvider } from "./context/ReferenceContext";
+
+import { Inter } from "next/font/google";
+
+const poppins = Inter({
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-Roboto",
+  subsets: ["latin"],
+});
 
 const segoe = localFont({
   src: "../public/Segoe UI.woff",
@@ -26,7 +34,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${segoe.variable}    `}>
+    <html lang="en" className={`${segoe.variable} ${poppins.variable}  `}>
       <head>
         <meta
           name="google-site-verification"

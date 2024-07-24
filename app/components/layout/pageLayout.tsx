@@ -1,6 +1,7 @@
 import React from "react";
 import Map from "@/app/components/map/Map";
 import Menubar from "@/app/components/ui/Menubar";
+import Sidebar from "../ui/Sidebar";
 
 function PageLayout({
   mapType,
@@ -15,8 +16,9 @@ function PageLayout({
         <Map mapType={mapType} ctr={center} />
       </div>
 
-      <div className="sm:flex-1  overflow-y-scroll items-center justify-center px-8  ">
+      <div className="sm:flex-1  overflow-y-scroll items-center justify-center px-8  relative">
         <Menubar content={mapType} />
+        <Sidebar css="absolute top-2 right-10 h-0" />
       </div>
     </main>
   );

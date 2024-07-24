@@ -58,6 +58,12 @@ function ImportData({ content }: { content: string }) {
 
   return (
     <div className="flex   flex-col ">
+      <button
+        className=" text-gray-700  border border-gray-400 hover:text-blue-600 hover:border-blue-600 p-1.5 m-2 rounded-md font-sans "
+        onClick={randomizeValue}
+      >
+        Randomize
+      </button>
       <div className="flex items-center  gap-8 mb-4">
         <div className="mt-4">
           <div className="mt-1 flex items-center justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
@@ -94,12 +100,6 @@ function ImportData({ content }: { content: string }) {
           Import
         </button>
       </div>
-      <button
-        className=" text-gray-700  border border-gray-400 hover:text-blue-600 hover:border-blue-600 p-1.5 m-2 rounded-md font-sans "
-        onClick={randomizeValue}
-      >
-        Randomize
-      </button>
     </div>
   );
 }
