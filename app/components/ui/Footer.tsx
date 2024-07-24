@@ -20,7 +20,7 @@ const Footer = () => {
             </p>
           </div>
 
-          <div className="flex flex-col">
+          <div className="flex flex-col ml-16 sm:ml-0">
             <h3 className="text-lg font-semibold mb-4">Connect</h3>
             <div className="flex space-x-4">
               <a

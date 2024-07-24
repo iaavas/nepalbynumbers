@@ -5,16 +5,18 @@ import { motion } from "framer-motion";
 
 function FeaturesSection() {
   return (
-    <motion.section className="px-20 py-4 flex flex-col gap-y-12 mt-8 font-robo ">
+    <motion.section className="sm:px-20 px-4 py-4 flex flex-col gap-y-12 mt-8 f ">
       <div className="flex items-center justify-center flex-col">
-        <h1 className="text-4xl font-bold ">How to create your map?</h1>
+        <h1 className="text-4xl font-bold mb-8 tracking-wide ">
+          How to create your map?
+        </h1>
         <p className="text-lg text-gray-400">It&apos;s just three step away.</p>
       </div>
       <motion.div
-        className="grid grid-cols-3 grid-rows-1 gap-x-16 mb-16"
+        className="grid md:grid-cols-3 grid-cols-1 gap-x-16 mb-16 "
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: false, amount: 0.5 }}
+        viewport={{ once: true, amount: 0.5 }}
         transition={{ duration: 0.8 }}
       >
         <FeatureBox image="/features/data.png" n={1}>

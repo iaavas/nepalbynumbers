@@ -9,7 +9,7 @@ import Sidebar from "./Sidebar";
 const Navbar = () => {
   const currentUser = useUser();
   return (
-    <div className="py-3  px-20   flex justify-between items-center ">
+    <div className="py-3  sm:px-20 px-4   flex justify-between items-center ">
       <div className="flex items-center">
         <Link
           href={"/"}
@@ -19,7 +19,7 @@ const Navbar = () => {
         </Link>
       </div>
       {!currentUser ? (
-        <div className="md:flex hidden">
+        <div className="md:flex ">
           <Signin />
         </div>
       ) : (
