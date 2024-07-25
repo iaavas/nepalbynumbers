@@ -11,7 +11,7 @@ function PageLayout({
   center?: [number, number];
 }) {
   return (
-    <main className="flex justify-between xl:h-screen xl:flex-row h-full flex-col gap-y-8 xl:gap-0  ">
+    <main className="flex justify-between md:h-screen md:flex-row h-full flex-col gap-y-8 md:gap-0   ">
       <div className="flex-1 h-full w-screen  ">
         <Map mapType={mapType} ctr={center} />
       </div>

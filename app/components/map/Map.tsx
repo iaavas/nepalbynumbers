@@ -156,7 +156,7 @@ const Map = ({
         markerProps.fontSize
       }px; color: ${textColor};cursor:move; ;  border: 2px solid transparent; transition: border-color 0.1s;width:fit-content;border-radius:10px;padding:3px" onmouseover="this.style.borderColor='black';" onmouseout="this.style.borderColor='transparent';" class="label-container">
             <p>${markerProps.displayName}</p>
-            <p style="font-size:${markerProps.valueFontSize * 0.9}px;" >
+            <p style="font-size:${markerProps.valueFontSize * 0.8}px;" >
         ${value ? prefix : ""}${value ?? ""}${value ? postfix : ""}</p>
         </div>`;
 

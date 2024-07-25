@@ -29,7 +29,7 @@ const ColorBar: React.FC<ColorBarProps> = ({ colorScale, content }) => {
         onethird
       )}, ${colorScale(mid)},${colorScale(twothird)}, ${colorScale(max)})`,
       height: "18.62px",
-      width: "300px",
+      width: "250px",
       borderRadius: "10px",
       border: "none",
       boxShadow: "0 0 0 1px #efefef",

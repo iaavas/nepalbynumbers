@@ -18,6 +18,7 @@ interface ValueContextType {
   colors: string[];
   updateColor: (arg0: number, arg1: string) => void;
   setColors: Dispatch<SetStateAction<string[]>>;
+  setTheme: Dispatch<SetStateAction<string>>;
   reset: () => void;
 }
 
@@ -56,6 +57,7 @@ export const ColorProvider: FC<{ children: React.ReactNode }> = ({
   const contextValue: ValueContextType = {
     theme,
     updateTheme,
+    setTheme,
     colors,
     setColors,
     updateColor,

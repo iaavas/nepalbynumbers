@@ -15,7 +15,7 @@ const ColorPalette = ({
   const { colors: tcolor } = useColor();
 
   const gradient = `linear-gradient(to right, ${colors.join(", ")})`;
-  const { updateTheme, theme } = useColor();
+  const { setTheme, theme } = useColor();
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen((prev) => true);
@@ -29,7 +29,9 @@ const ColorPalette = ({
         "border border-gray-500 border-dotted rounded-xl  p-1 transition-all ease-in-out"
       }`}
       onClick={() => {
-        updateTheme(paletteName);
+        console.log("first");
+
+        setTheme(() => paletteName);
       }}
       onDoubleClick={handleOpen}
     >

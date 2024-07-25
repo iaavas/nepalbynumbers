@@ -2,12 +2,14 @@ import React from "react";
 import * as htmlToImage from "html-to-image";
 import { DownloadOutlined } from "@ant-design/icons";
 import SaveProjectButton from "../SaveProjectButton";
+import { useValues } from "@/app/context/ValueContext";
 
 function Export({ map }: { map: string }) {
+  const { title } = useValues();
   const captureMapImage = () => {
     htmlToImage.toPng(document.getElementById("map")!).then(function (dataUrl) {
       var link = document.createElement("a");
-      link.download = "my-image-name.png";
+      link.download = `${title}.png`;
       link.href = dataUrl;
       link.click();
     });

@@ -36,7 +36,9 @@ const Projects = () => {
             <Loader />
           </div>
         ) : error ? (
-          <p className="text-red-600">{error}</p>
+          <div className="flex flex-col gap-4 justify-center items-center p-4">
+            <p className="text-red-600">{error}</p>
+          </div>
         ) : projects.length > 0 ? (
           <div className="grid md:grid-cols-4 grid-cols-1 p-3 m-4 gap-5">
             {projects.map((project) => (
@@ -85,9 +87,19 @@ const Projects = () => {
             ))}
           </div>
         ) : (
-          <h1 className="font-onest font-semibold text-2xl text-center mx-auto mt-40">
-            No projects found. Please create and save :) 🙏
-          </h1>
+          <div className="flex flex-col gap-4 p-4  justify-center items-center">
+            <Image
+              src={"/error.webp"}
+              alt="error"
+              height={100}
+              width={100}
+              className="animate-bounce"
+            />
+            <h1 className="font-onest font-semibold text-2xl text-center mx-auto italic text-stone-900 tracking-wide">
+              <span className="text-blue-800 ">No projects found.</span> Time to
+              roll up those sleeves and invent something fabulous! 🛠️💡
+            </h1>
+          </div>
         )}
       </div>
     </>

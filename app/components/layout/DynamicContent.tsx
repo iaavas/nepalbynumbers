@@ -16,7 +16,7 @@ function DynamicContent({ id }: { id: string }) {
   const { projects } = useProjects();
   const project = projects.find((p) => p.id === id);
 
-  const { updateTheme } = useColor();
+  const { setTheme } = useColor();
   useEffect(() => {
     if (project) {
       const {
@@ -38,14 +38,14 @@ function DynamicContent({ id }: { id: string }) {
       setTitle(title);
 
       setAllEntityValues(map, data);
-      updateTheme(theme);
+      setTheme(theme);
     }
   }, [
     project,
     setCreatedBy,
     setStatsValue,
     setTitle,
-    updateTheme,
+    setTheme,
     setSource,
     setStatsTitle,
     setAllEntityValues,

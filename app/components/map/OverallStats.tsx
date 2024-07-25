@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+"use client";
+
 import Dragger from "../ui/Dragger";
 import EditText from "./EditText";
+import { useReference } from "@/app/context/ReferenceContext";
 
 function OverallStats() {
-  const [statsTitle, setStatsTitle] = useState<string>("Most Common");
-  const [statsValue, setStatsValue] = useState<string>("0");
+  const { setStatsTitle, statsTitle, statsValue, setStatsValue } =
+    useReference();
   return (
     <Dragger>
       <div
