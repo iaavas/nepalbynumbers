@@ -19,13 +19,13 @@ function Home() {
           Pick a Template
         </h3>
 
-        <div className="flex mb-4 items-center justify-center flex-wrap gap-8 bg-blue-50/15 ">
+        <div className="grid grid-cols-1 md:grid-cols-3  mb-4  gap-8 bg-blue-50/15 ">
           {Object.keys(centers).map((m, idx) => (
             <Link href={`/map?m=${m}`} key={idx}>
               <Card
                 title={m.toUpperCase()}
                 bordered={true}
-                className="font-sans text-center tracking-wider"
+                className="font-sans text-center tracking-wider "
               >
                 <div className="aspect-video	">
                   <Image

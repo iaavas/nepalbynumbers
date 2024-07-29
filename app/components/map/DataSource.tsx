@@ -15,7 +15,7 @@ function DataSource() {
           fontStyle: "italic",
           cursor: "move",
         }}
-        className="font-sans text-lg cursor-move"
+        className="font-sans text-lg hover:cursor-move hover:border-2 hover:border-black hover:p-1 rounded-lg "
       >
         <p>Source</p>
         <EditText text={source} setText={setSource} s={"20"} />

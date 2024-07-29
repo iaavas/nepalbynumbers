@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/popover";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import TextArea from "antd/es/input/TextArea";
 
 interface EditTextProps {
   text: string;
@@ -24,15 +25,16 @@ function EditText({ text, setText, css = "", s = "30" }: EditTextProps) {
   return (
     <Popover>
       <PopoverTrigger>
-        <p
-          className={`font-bold font-sans z-10 break-word  ${css}  cursor-move`}
+        <pre
+          className={`font-bold font-sans z-10   ${css}  cursor-move`}
           style={{
             fontSize: `${size}px`,
             maxWidth: "30rem",
+            textAlign: "left",
           }}
         >
           {text}
-        </p>
+        </pre>
       </PopoverTrigger>
 
       <PopoverContent className="w-80 z-50">
@@ -42,14 +44,12 @@ function EditText({ text, setText, css = "", s = "30" }: EditTextProps) {
               { label: "Display Name", id: "name", value: text },
               { label: "Size", id: "textsize", value: size.toString() },
             ].map(({ label, id, value }) => (
-              <div
-                key={id}
-                className="grid grid-cols-3 items-center gap-4 font-sans"
-              >
+              <div key={id} className="grid grid-cols-3  gap-4 font-sans">
                 <Label htmlFor={id}>{label}</Label>
-                <Input
+                <TextArea
                   id={id}
                   value={value}
+                  rows={2}
                   className="col-span-2 h-8"
                   onChange={(e) =>
                     id === "name"

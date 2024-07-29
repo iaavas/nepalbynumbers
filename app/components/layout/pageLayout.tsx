@@ -11,14 +11,14 @@ function PageLayout({
   center?: [number, number];
 }) {
   return (
-    <main className="flex justify-between md:h-screen md:flex-row h-full flex-col gap-y-8 md:gap-0   ">
-      <div className="flex-1 h-full w-screen  ">
+    <main className="grid grid-cols-6 md:h-screen     ">
+      <div className=" h-full  col-span-4 bg-red-700">
         <Map mapType={mapType} ctr={center} />
       </div>
 
-      <div className="sm:flex-1  overflow-y-scroll items-center justify-center px-8  relative">
+      <div className="  overflow-y-scroll p-2  relative col-span-2 bg-cyan-100/5 ">
         <Menubar content={mapType} />
-        <Sidebar css="absolute top-2 right-10 h-0" />
+        <Sidebar css="absolute top-5 right-10 h-0" />
       </div>
     </main>
   );

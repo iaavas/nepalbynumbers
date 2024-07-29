@@ -57,7 +57,7 @@ const Map = ({
       scaleFactor = 0.00013;
     } else {
       zoom = 8;
-      scaleFactor = 0.0003;
+      scaleFactor = 0.0006;
     }
 
     const map = L.map(mapRef.current! as string | HTMLElement, {
@@ -303,7 +303,7 @@ const Map = ({
         ref={mapRef}
         style={{
           position: "relative",
-          width: "800px",
+          width: "100%",
           backgroundColor: "white",
           borderRight: "0.5px solid gray",
           height: "100vh",
