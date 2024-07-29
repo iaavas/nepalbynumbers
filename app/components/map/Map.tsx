@@ -57,7 +57,7 @@ const Map = ({
       scaleFactor = 0.00013;
     } else {
       zoom = 8;
-      scaleFactor = 0.0006;
+      scaleFactor = 0.0003;
     }
 
     const map = L.map(mapRef.current! as string | HTMLElement, {
