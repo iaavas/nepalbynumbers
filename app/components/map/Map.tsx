@@ -54,7 +54,7 @@ const Map = ({
     var scaleFactor: number;
     if (mapType === "district" || mapType === "province") {
       zoom = 7;
-      scaleFactor = 0.00013;
+      scaleFactor = 0.00014;
     } else {
       zoom = 8;
       scaleFactor = 0.0003;
