@@ -13,13 +13,13 @@ function Home() {
   return (
     <>
       <Navbar />
-      <main className="flex  flex-col items-center justify-between mb-8 bg-[#f9fafc]/5">
+      <main className="flex  flex-col items-center justify-between mb-8 ">
         <Header t={"Create Awesome Maps!"} />
         <h3 className="text-center font-bold text-xl my-8 font-sans tracking-wide ">
           Pick a Template
         </h3>
 
-        <div className="grid grid-cols-1 md:grid-cols-3  mb-4  gap-8 bg-blue-50/15 ">
+        <div className="grid grid-cols-1 md:grid-cols-3  mb-4  gap-8 ">
           {Object.keys(centers).map((m, idx) => (
             <Link href={`/map?m=${m}`} key={idx}>
               <Card

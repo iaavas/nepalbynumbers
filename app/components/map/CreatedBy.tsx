@@ -22,7 +22,7 @@ function CreatedBy() {
         <div
           style={{
             position: "absolute",
-            bottom: "50px",
+            bottom: "40px",
             right: "",
             padding: "",
             fontStyle: "italic",
@@ -35,7 +35,7 @@ function CreatedBy() {
           Created By
         </div>
 
-        <EditText text={createdBy} setText={setCreatedBy} />
+        <EditText text={createdBy} setText={setCreatedBy} css="font-bold" />
       </div>
     </Dragger>
   );

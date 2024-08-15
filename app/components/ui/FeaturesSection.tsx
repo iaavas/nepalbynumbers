@@ -1,42 +1,72 @@
 "use client";
+
 import React from "react";
 import FeatureBox from "./FeatureBox";
 import { motion } from "framer-motion";
 
 function FeaturesSection() {
+  const features = [
+    {
+      image: "/features/data.png",
+      title: "Paste your data",
+      description: "Easily paste your data or upload from an Excel file",
+    },
+    {
+      image: "/features/theme.png",
+      title: "Style your Map",
+      description: "Customize your map with various color palettes",
+    },
+    {
+      image: "/features/export.png",
+      title: "Export & Save",
+      description: "Export as PNG or save as a project for future use",
+    },
+  ];
+
   return (
-    <motion.section className="sm:px-20 px-4 py-4 flex flex-col gap-y-12 mt-8 f ">
-      <div className="flex items-center justify-center flex-col">
-        <h1 className="text-4xl font-bold mb-8 tracking-wide ">
-          How to create your map?
-        </h1>
-        <p className="text-lg text-gray-400">It&apos;s just three step away.</p>
+    <motion.section
+      className="py-20 bg-gradient-to-b from-white"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+    >
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          className="text-center mb-16"
+          initial={{ y: -50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.8 }}
+        >
+          <h2 className="text-4xl font-bold mb-4 text-gray-900">
+            Create Your Map in{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">
+              Three Simple Steps
+            </span>
+          </h2>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Discover how easy it is to bring your data to life with our
+            intuitive map creation process.
+          </p>
+        </motion.div>
+
+        <div className="grid md:grid-cols-3 gap-8">
+          {features.map((feature, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 + index * 0.2, duration: 0.8 }}
+            >
+              <FeatureBox image={feature.image} n={index + 1}>
+                <h3 className="text-2xl  mb-3 text-gray-900">
+                  {feature.title}
+                </h3>
+                <p className="text-lg text-gray-600">{feature.description}</p>
+              </FeatureBox>
+            </motion.div>
+          ))}
+        </div>
       </div>
-      <motion.div
-        className="grid md:grid-cols-3 grid-cols-1 gap-x-16 mb-16 "
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, ease: "easeInOut" }}
-      >
-        <FeatureBox image="/features/data.png" n={1}>
-          <h1 className="text-2xl ">Paste your data</h1>
-          <p className="text-lg font-thin text-stone-500">
-            Either paste your data or upload from a excel file
-          </p>
-        </FeatureBox>
-        <FeatureBox image="/features/theme.png" n={2}>
-          <h1 className="text-2xl ">Style your Map</h1>
-          <p className="text-lg font-thin text-stone-500">
-            Style your map with various color palette
-          </p>
-        </FeatureBox>
-        <FeatureBox image="/features/export.png" n={3}>
-          <h1 className="text-2xl ">Export & Save your project</h1>
-          <p className="text-lg font-thin text-stone-500">
-            Either export your map as png or save it as a project for future use
-          </p>
-        </FeatureBox>
-      </motion.div>
     </motion.section>
   );
 }

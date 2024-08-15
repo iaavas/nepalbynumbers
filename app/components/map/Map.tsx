@@ -149,7 +149,7 @@ const Map = ({
         markerProps = {
           fontSize: Math.floor(fs),
           displayName: feature.properties.name,
-          valueFontSize: Math.floor(fs) - 4,
+          valueFontSize: Math.floor(fs) * 0.95,
         };
       }
       const updatedHtml = `<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.1rem; font-weight: normal;font-size:${
@@ -185,7 +185,7 @@ const Map = ({
           markerProps = {
             fontSize: Math.floor(fs),
             displayName: feature.properties.name,
-            valueFontSize: Math.floor(fs) - 4,
+            valueFontSize: Math.floor(fs) * 0.95,
           };
         }
         const markerLatLng = marker.getLatLng();
@@ -204,7 +204,7 @@ const Map = ({
         const header = document.createElement("span");
         header.innerText = feature.properties.name;
         header.className =
-          "font-sans text-md text-center mb-2 font-semibold text-md flex items-center justify-center";
+          "font-sans text-md text-center mb-2  text-md flex items-center justify-center";
 
         const displayNameInput = document.createElement("input");
         displayNameInput.className =
@@ -234,7 +234,7 @@ const Map = ({
         const applyButton = document.createElement("button");
         applyButton.textContent = "Apply";
         applyButton.className =
-          "w-full p-1.5 border-2 border-black font-bold  text-md tracking-wider  text-black rounded-xl font-sans";
+          "w-full p-1.5 border-2 border-black   text-md tracking-wider  text-black rounded-xl font-sans";
         applyButton.addEventListener("click", function () {
           const fontSize = fontSizeInput.value;
           const valueFontSize = valueSizeInput.value;
@@ -305,7 +305,7 @@ const Map = ({
           position: "relative",
           width: "100%",
           backgroundColor: "white",
-          borderRight: "0.5px solid gray",
+
           height: "100vh",
         }}
         className="z-0"

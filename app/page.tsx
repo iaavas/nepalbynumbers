@@ -6,10 +6,10 @@ import SubHero from "./components/ui/SubHero";
 
 export default function Page() {
   return (
-    <main className="p-0 h-screen flex flex-col gap-x-12">
+    <main className="p-0 h-screen flex flex-col gap-x-12 bg-[#f9fafc]">
       <Navbar />
       <HeroSection />
-      <SubHero />
+      {/* <SubHero /> */}
       <FeaturesSection />
       <Footer />
     </main>

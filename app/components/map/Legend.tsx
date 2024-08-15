@@ -7,8 +7,12 @@ function Legend({ scale, content }: { scale: any; content: string }) {
   const { title, setTitle } = useValues();
   return (
     <Dragger>
-      <div className="flex flex-col justify-end items-center font-sans p-2.5 gap-y-2">
-        <EditText text={title} setText={setTitle} css="font-semibold " />
+      <div className="flex flex-col justify-end items-center font-sans p-2.5 gap-y-2 text-center">
+        <EditText
+          text={title}
+          setText={setTitle}
+          css="text-center tracking-tight"
+        />
         {scale && <ColorBar colorScale={scale} content={content} />}
       </div>
     </Dragger>

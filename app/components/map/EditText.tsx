@@ -26,11 +26,10 @@ function EditText({ text, setText, css = "", s = "30" }: EditTextProps) {
     <Popover>
       <PopoverTrigger>
         <pre
-          className={`font-bold font-sans z-10   ${css}  cursor-move`}
+          className={` font-sans z-10   ${css}  cursor-move`}
           style={{
             fontSize: `${size}px`,
             maxWidth: "30rem",
-            textAlign: "left",
           }}
         >
           {text}

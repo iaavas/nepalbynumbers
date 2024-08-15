@@ -24,7 +24,12 @@ function OverallStats() {
         className="font-sans text-lg cursor-move items-center "
       >
         <EditText text={statsTitle} setText={setStatsTitle} s={"20"} />
-        <EditText text={statsValue} setText={setStatsValue} s={"60"} />
+        <EditText
+          text={statsValue}
+          setText={setStatsValue}
+          s={"60"}
+          css="font-bold"
+        />
       </div>
     </Dragger>
   );

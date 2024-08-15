@@ -10,16 +10,12 @@ import { SearchProvider } from "./context/SearchContext";
 
 import { ReferenceProvider } from "./context/ReferenceContext";
 
-import { Inter } from "next/font/google";
+import { Roboto } from "next/font/google";
 
-const poppins = Inter({
-  weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-Roboto",
-  subsets: ["latin"],
-});
+//
 
 const segoe = localFont({
-  src: "../public/Segoe UI.woff",
+  src: "../public/Regular.woff",
   variable: "--font-SegoeUI",
 });
 
@@ -34,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${segoe.variable} ${poppins.variable}  `}>
+    <html lang="en" className={`${segoe.variable}  `}>
       <head>
         <meta
           name="google-site-verification"

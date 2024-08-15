@@ -10,7 +10,7 @@ function Signin() {
   const user = useUser();
   return (
     <button
-      className="px-4 py-3 bg-blue-800 text-white rounded-3xl hover:bg-blue-700 ease-in-out  w-40 "
+      className="px-4 py-3 bg-blue-500 text-white rounded-3xl hover:bg-blue-400 ease-in-out  w-40 "
       onClick={async () => {
         if (user) {
           router.push("/templates");

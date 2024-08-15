@@ -22,13 +22,11 @@ const StateValueTable = ({ content }: { content: string }) => {
         size="medium"
         onChange={(e) => setTitle(e.target.value)}
       />
-      <span className="font-sans font-semibold text-md">
-        Add Perfix or Postfix
-      </span>
+      <span className="font-sans  text-md">Add Perfix or Postfix</span>
       <Postfix />
       <ImportData content={content} />
 
-      <span className="font-sans font-semibold text-lg">Search Query</span>
+      <span className="font-sans text-lg">Search Query</span>
 
       <TextField
         id="outlined-basic"

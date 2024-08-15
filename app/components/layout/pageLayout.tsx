@@ -16,9 +16,9 @@ function PageLayout({
         <Map mapType={mapType} ctr={center} />
       </div>
 
-      <div className="  overflow-y-scroll p-2  relative col-span-2 bg-cyan-100/5 ">
+      <div className="  overflow-y-scroll   relative col-span-2 bg-cyan-100/5 ">
         <Menubar content={mapType} />
-        <Sidebar css="absolute top-5 right-10 h-0" />
+        <Sidebar css="absolute top-2 right-10 h-0" />
       </div>
     </main>
   );
