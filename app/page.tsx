@@ -2,7 +2,6 @@ import HeroSection from "./components/ui/HeroSection";
 import Navbar from "./components/ui/Navbar";
 import Footer from "./components/ui/Footer";
 import FeaturesSection from "./components/ui/FeaturesSection";
-import SubHero from "./components/ui/SubHero";
 
 export default function Page() {
   return (
