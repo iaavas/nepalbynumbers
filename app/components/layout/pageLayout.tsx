@@ -18,7 +18,7 @@ function PageLayout({
 
       <div className="  overflow-y-scroll   relative col-span-2 bg-cyan-100/5 ">
         <Menubar content={mapType} />
-        <Sidebar css="absolute top-2 right-10 h-0" />
+        <Sidebar css="absolute top-1 right-10 h-0" />
       </div>
     </main>
   );
