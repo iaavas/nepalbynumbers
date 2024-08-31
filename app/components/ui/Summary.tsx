@@ -13,6 +13,7 @@ type Statistics = {
   median: number;
   lowest: number;
   highest: number;
+  total: number;
 };
 
 const CalculateStatistics = ({
@@ -25,6 +26,7 @@ const CalculateStatistics = ({
       median: 0,
       lowest: 0,
       highest: 0,
+      total: 0,
     };
   const valuesArray = entityValues!.map((e) => Number(e.value));
   console.log(valuesArray);
@@ -41,6 +43,7 @@ const CalculateStatistics = ({
         : sortedValues[Math.floor(valuesArray.length / 2)];
     const lowest = Math.min(...valuesArray);
     const highest = Math.max(...valuesArray);
+    const total = valuesArray.reduce((acc, num) => acc + num, 0);
 
     console.log(sortedValues, sum, mean);
 
@@ -49,6 +52,7 @@ const CalculateStatistics = ({
       median,
       lowest,
       highest,
+      total,
     };
   }
   return {
@@ -56,10 +60,10 @@ const CalculateStatistics = ({
     median: 0,
     lowest: 0,
     highest: 0,
+    total: 0,
   };
 };
 
-// Summary component
 const Summary = ({ entityType }: { entityType: string }) => {
   const { getAllEntityValues, type } = useValues();
   const [stats, setStats] = useState<Statistics>({
@@ -67,6 +71,7 @@ const Summary = ({ entityType }: { entityType: string }) => {
     median: 0,
     lowest: 0,
     highest: 0,
+    total: 0,
   });
 
   useEffect(() => {
@@ -95,6 +100,9 @@ const Summary = ({ entityType }: { entityType: string }) => {
       </p>
       <p>
         Highest:<strong> {stats.highest}</strong>
+      </p>
+      <p>
+        Total:<strong> {stats.total}</strong>
       </p>
     </div>
   );

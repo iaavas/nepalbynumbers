@@ -38,8 +38,8 @@ const ColorBar: React.FC<ColorBarProps> = ({ colorScale, content }) => {
 
     const labelStyle: React.CSSProperties = {
       position: "absolute",
-      bottom: "-20px",
-      fontSize: "12px",
+      bottom: "-24px",
+      fontSize: "0.9rem",
       textAlign: "left",
       width: "50px",
     };

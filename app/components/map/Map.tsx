@@ -86,7 +86,7 @@ const Map = ({
       const maxValue = Math.max(...(filteredValues as number[]));
       colorScale = scaleQuantile()
         .domain([minValue, maxValue])
-        .range(colorRange.slice(1));
+        .range(colorRange);
     } else {
       const top5Values: string[] = Object.entries(
         values!.reduce((acc: any, val: any) => {
@@ -123,7 +123,11 @@ const Map = ({
 
       const fs = Math.sqrt(area) * scaleFactor;
 
-      const textColor = getContrastColor(scaledValue);
+      let textColor = getContrastColor(scaledValue);
+
+      if (feature.properties.name == "Madhesh") {
+        textColor = "black";
+      }
 
       if (mapType === "district" || mapType === "world") {
         return;

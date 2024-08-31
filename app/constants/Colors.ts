@@ -21,6 +21,19 @@ export const colors = {
   Cheery: {
     colors: ["#f0cccc", "#ffcccc", "#ff9999", "#ff6666", "#ff3333", "#ff0000"],
   },
+  Sunset: {
+    colors: [
+      "#2c7bb6",
+      "#00a6ca",
+      "#00ccbc",
+      "#90eb9d",
+      "#ffff8c",
+      "#f9d057",
+      "#f29e2e",
+      "#e76818",
+      "#d7191c",
+    ],
+  },
 
   Candy: {
     colors: ["#d2147a", "#f7278e", "#ffa0c8", "#ffecb3", "#99e550", "#32b4ff"],
