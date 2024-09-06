@@ -8,11 +8,7 @@ function Legend({ scale, content }: { scale: any; content: string }) {
   return (
     <Dragger>
       <div className="flex flex-col justify-end items-center font-sans p-2.5 gap-y-2 text-center">
-        <EditText
-          text={title}
-          setText={setTitle}
-          css="text-center tracking-tight"
-        />
+        <EditText text={title} setText={setTitle} css="text-center" s="20" />
         {scale && <ColorBar colorScale={scale} content={content} />}
       </div>
     </Dragger>

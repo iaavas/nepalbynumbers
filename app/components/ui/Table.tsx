@@ -1,25 +1,66 @@
+import React, { useEffect, useCallback } from "react";
 import { useSearch } from "@/app/context/SearchContext";
 import { useValues } from "@/app/context/ValueContext";
 import { useData } from "@/app/hooks/useData";
-import React, { useEffect } from "react";
+import { useHighlight } from "@/app/context/HighlightContext";
 
-function Table({ content }: { content: string }) {
-  let { data, fetchData } = useData(content);
+interface TableProps {
+  content: string;
+}
+
+interface DataType {
+  properties: {
+    name: string;
+  };
+}
+
+function Table({ content }: TableProps) {
+  const { setHighlight } = useHighlight();
+  const { data, fetchData } = useData(content);
   const { setEntityValue, getEntityValue, setType, type } = useValues();
   const { query } = useSearch();
 
-  if (query.length > 0) {
-    data = data.filter((d, idx) =>
-      d.properties.name.toUpperCase().includes(query.toUpperCase())
-    );
-  }
+  const filteredData =
+    query.length > 0
+      ? data.filter((d: DataType) =>
+          d.properties.name.toUpperCase().includes(query.toUpperCase())
+        )
+      : data;
+
+  const handleInputChange = useCallback(
+    (name: string, value: string) => {
+      if (value === "") {
+        setEntityValue(content, name, null);
+      } else if (Number(value) || value === "0") {
+        setEntityValue(content, name, value);
+      } else {
+        if (type !== "class") {
+          const confirmChange = window.confirm(
+            "Do you want to change the type to category (e.g., Rivers, Lakes, etc.)?"
+          );
+          if (!confirmChange) return;
+          setType("class");
+        }
+        setEntityValue(content, name, value);
+      }
+    },
+    [content, setEntityValue, setType, type]
+  );
+
+  const handleFocus = (name: string) => {
+    setHighlight(name);
+  };
+
+  const handleBlur = () => {
+    setHighlight(null);
+  };
 
   useEffect(() => {
     fetchData();
   }, [fetchData]);
 
   return (
-    <table className="table border border-collapse border-gray-300 w-full ">
+    <table className="table border border-collapse border-gray-300 w-full">
       <thead>
         <tr className="bg-gray-100">
           <th className="px-4 py-2 text-center font-normal border">State</th>
@@ -27,46 +68,24 @@ function Table({ content }: { content: string }) {
         </tr>
       </thead>
       <tbody>
-        {data.map((d: any, idx: number) => {
-          return (
-            <tr key={idx} className="border cursor-cell">
-              <td className="px-4 py-2 border">{d.properties.name}</td>
-              <td className="px-4 py-2 border">
-                <input
-                  type="text"
-                  step={"any"}
-                  value={getEntityValue(content, d.properties.name) || ""}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    const inputValue = e.target.value;
-                    if (inputValue === "") {
-                      setEntityValue(content, d.properties.name, null);
-                    } else if (
-                      Number(e.target.value) ||
-                      e.target.value == "" ||
-                      Number(e.target.value) == 0
-                    ) {
-                      setEntityValue(
-                        content,
-                        d.properties.name,
-                        e.target.value
-                      );
-                    } else {
-                      if (type != "class") {
-                        const choice = window.confirm(
-                          "Do you want to change the type to category (e.g., Rivers, Lakes, etc.)?"
-                        );
-                        if (!choice) return;
-                        setType("class");
-                      }
-                      setEntityValue(content, d.properties.name, inputValue);
-                    }
-                  }}
-                  className="w-full px-2 py-1 text-right border border-gray-300 rounded cursor-cell"
-                />
-              </td>
-            </tr>
-          );
-        })}
+        {filteredData.map((d: DataType, idx: number) => (
+          <tr key={idx} className="border cursor-cell">
+            <td className="px-4 py-2 border">{d.properties.name}</td>
+            <td className="px-4 py-2 border">
+              <input
+                type="text"
+                step="any"
+                value={getEntityValue(content, d.properties.name) || ""}
+                onFocus={() => handleFocus(d.properties.name)}
+                onBlur={handleBlur}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  handleInputChange(d.properties.name, e.target.value);
+                }}
+                className="w-full px-2 py-1 text-right border border-gray-300 rounded cursor-cell"
+              />
+            </td>
+          </tr>
+        ))}
       </tbody>
     </table>
   );

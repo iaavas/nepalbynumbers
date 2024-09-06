@@ -11,6 +11,7 @@ import { SearchProvider } from "./context/SearchContext";
 import { ReferenceProvider } from "./context/ReferenceContext";
 
 import { Roboto } from "next/font/google";
+import { HighlightProvider } from "./context/HighlightContext";
 
 //
 
@@ -42,8 +43,10 @@ export default function RootLayout({
           <ColorProvider>
             <PostfixProvider>
               <ReferenceProvider>
-                <SearchProvider>{children}</SearchProvider>
-                <Analytics />
+                <HighlightProvider>
+                  <SearchProvider>{children}</SearchProvider>
+                  <Analytics />
+                </HighlightProvider>
               </ReferenceProvider>
             </PostfixProvider>
           </ColorProvider>

@@ -12,7 +12,7 @@ function PageLayout({
 }) {
   return (
     <main className="grid grid-cols-6 md:h-screen     ">
-      <div className=" h-full  col-span-4 bg-red-700">
+      <div className=" h-full  col-span-4 ">
         <Map mapType={mapType} ctr={center} />
       </div>
 

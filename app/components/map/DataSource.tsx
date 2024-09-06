@@ -18,7 +18,7 @@ function DataSource() {
         className="font-sans text-lg hover:cursor-move hover:border hover:border-black hover:p-1 rounded-lg  "
       >
         <p>Source</p>
-        <EditText text={source} setText={setSource} s={"20"} css="text-left" />
+        <EditText text={source} setText={setSource} s={"15"} css="text-left" />
       </div>
     </Dragger>
   );

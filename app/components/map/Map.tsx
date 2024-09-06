@@ -10,7 +10,7 @@ import Legend from "./Legend";
 import DataSource from "./DataSource";
 import { useData } from "@/app/hooks/useData";
 import OverallStats from "./OverallStats";
-import { Watermark } from "antd";
+import { useHighlight } from "@/app/context/HighlightContext"; // Add this import
 
 import { useColor } from "@/app/context/ColorsContext";
 import { usePostfix } from "@/app/context/PostfixContext";
@@ -27,6 +27,9 @@ const Map = ({
   const [scale, setScale] = useState(null);
   const { data, fetchData } = useData(mapType!);
   const { colors: tcolor } = useColor();
+
+  const { highlight } = useHighlight();
+
   const currentPopupRef = useRef<any>(null);
 
   const { postfix, prefix } = usePostfix();
@@ -54,10 +57,10 @@ const Map = ({
     var scaleFactor: number;
     if (mapType === "district" || mapType === "province") {
       zoom = 7;
-      scaleFactor = 0.00014;
+      scaleFactor = 0.00012;
     } else {
       zoom = 8;
-      scaleFactor = 0.0003;
+      scaleFactor = 0.00015;
     }
 
     const map = L.map(mapRef.current! as string | HTMLElement, {
@@ -103,6 +106,9 @@ const Map = ({
     // @ts-ignore
     setScale(() => colorScale);
 
+    map.createPane("highlightPane");
+    map.getPane("highlightPane").style.zIndex = 450; // Above other layers but below popups
+
     data.forEach((feature) => {
       const value: any = getEntityValue(mapType, feature.properties.name);
 
@@ -112,12 +118,24 @@ const Map = ({
       const provinceLayer = L.geoJSON(feature, {
         style: {
           fillColor: scaledValue,
-          weight: 1.4,
+          weight: 1.5,
           color: "black",
           fillOpacity: 1,
           transition: "fill 0.5s ease", // Add transition
         },
       }).addTo(map);
+
+      if (feature.properties.name === highlight) {
+        L.geoJSON(feature, {
+          style: {
+            fillColor: "transparent",
+            weight: 16,
+            color: " #FFFF00",
+            opacity: 0.3,
+          },
+          pane: "highlightPane",
+        }).addTo(map);
+      }
 
       const area = turf.area(feature.geometry);
 
@@ -195,7 +213,6 @@ const Map = ({
         const markerLatLng = marker.getLatLng();
         const markerPos = map.latLngToContainerPoint(markerLatLng);
 
-        // Create a custom popup container
         const popupContainer = document.createElement("div");
         popupContainer.className =
           "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-2  shadow-2xl border-2 border-black  w-32";
@@ -298,6 +315,7 @@ const Map = ({
     tcolor,
     postfix,
     prefix,
+    highlight,
   ]);
 
   return (

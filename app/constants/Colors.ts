@@ -44,4 +44,7 @@ export const colors = {
   Barsha: {
     colors: ["#e0eff5", "#cce5ff", "#66b2ff", "#0099ff", "#0066cc", "#003366"],
   },
+  Hariyali: {
+    colors: ["#FFFFE5", "#FCFDC6", "#81D08B", "#11A556", "#0C733B", "#073D20"],
+  },
 };
