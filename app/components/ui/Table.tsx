@@ -31,7 +31,7 @@ function Table({ content }: TableProps) {
     (name: string, value: string) => {
       if (value === "") {
         setEntityValue(content, name, null);
-      } else if (Number(value) || value === "0") {
+      } else if (Number(value) || Number(value) === 0) {
         setEntityValue(content, name, value);
       } else {
         if (type !== "class") {

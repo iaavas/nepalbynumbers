@@ -45,7 +45,7 @@ export const ValueProvider: FC<{ children: React.ReactNode }> = ({
 }) => {
   const [values, setValues] = useState<ValuesState>({});
   const [type, setType] = useState<"reg" | "class">("reg");
-  const [title, setTitle] = useState<string>("Inforgraphic Title");
+  const [title, setTitle] = useState<string>("Infographic Title");
 
   const setEntityValue = useCallback(
     (

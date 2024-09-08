@@ -25,6 +25,7 @@ const Map = ({
 }) => {
   const { getEntityValue, type, getAllEntityValues } = useValues();
   const [scale, setScale] = useState(null);
+  const [mapScale, setMapScale] = useState(100);
   const { data, fetchData } = useData(mapType!);
   const { colors: tcolor } = useColor();
 
@@ -54,13 +55,16 @@ const Map = ({
       L = require("leaflet");
     }
     let zoom: number;
+
     var scaleFactor: number;
     if (mapType === "district" || mapType === "province") {
       zoom = 7;
       scaleFactor = 0.00012;
+      setMapScale(100);
     } else {
-      zoom = 8;
-      scaleFactor = 0.00015;
+      zoom = 9;
+      scaleFactor = 0.0005;
+      setMapScale(70);
     }
 
     const map = L.map(mapRef.current! as string | HTMLElement, {
@@ -319,25 +323,40 @@ const Map = ({
   ]);
 
   return (
-    <>
-      <div
-        id="map"
-        ref={mapRef}
-        style={{
-          position: "relative",
-          width: "100%",
-          backgroundColor: "white",
+    <div
+      id="map"
+      style={{
+        position: "relative",
+        width: "100%",
+        maxHeight: "100vh",
+        backgroundColor: "white",
 
-          height: "100vh",
-        }}
+        height: "100vh",
+      }}
+    >
+      <div
+        ref={mapRef}
         className="z-0"
-      >
-        <Legend scale={scale} content={mapType} />
-        <CreatedBy />
-        <OverallStats />
-        <DataSource />
-      </div>
-    </>
+        style={{
+          backgroundColor: "white",
+          position: "absolute",
+          top: `${25}%`,
+          left: `${22}%`,
+          transform: "translate(-50%, -50%)",
+          scale: `${mapScale * 0.95}%`,
+          width: "1500px",
+          height: "1000px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      ></div>
+
+      <Legend scale={scale} content={mapType} />
+      <CreatedBy />
+      <OverallStats />
+      <DataSource />
+    </div>
   );
 };
 

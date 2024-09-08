@@ -7,12 +7,26 @@ import { useValues } from "@/app/context/ValueContext";
 function Export({ map }: { map: string }) {
   const { title } = useValues();
   const captureMapImage = () => {
-    htmlToImage.toPng(document.getElementById("map")!).then(function (dataUrl) {
-      var link = document.createElement("a");
-      link.download = `${title}.png`;
-      link.href = dataUrl;
-      link.click();
-    });
+    const element = document.getElementById("map");
+    if (!element) {
+      console.error("Map element not found");
+      return;
+    }
+
+    htmlToImage
+      .toPng(element, {
+        quality: 1.0,
+        pixelRatio: 10, // Increase this for even higher resolution
+      })
+      .then((dataUrl) => {
+        const link = document.createElement("a");
+        link.download = `${title}.png`;
+        link.href = dataUrl;
+        link.click();
+      })
+      .catch((error) => {
+        console.error("Error capturing image:", error);
+      });
   };
   return (
     <div className="flex flex-col  gap-y-2 ">

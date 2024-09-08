@@ -20,7 +20,7 @@ function Menubar({ content }: { content: string }) {
 
   return (
     <>
-      <div className="flex items-center justify-between px-4 border-l">
+      <div className="flex items-center justify-between px-4 border-l ">
         <Tabs
           defaultActiveKey="1"
           activeKey={selectedTab}
