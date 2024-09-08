@@ -11,8 +11,8 @@ function PageLayout({
   center?: [number, number];
 }) {
   return (
-    <main className="grid grid-cols-12 md:h-screen     ">
-      <div className=" h-full  col-span-8">
+    <main className="grid grid-cols-12 md:h-screen    ">
+      <div className=" h-full max-h-screen overflow-hidden  col-span-8">
         <Map mapType={mapType} ctr={center} />
       </div>
 

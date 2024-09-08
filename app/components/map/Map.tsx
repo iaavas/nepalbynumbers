@@ -64,7 +64,7 @@ const Map = ({
     } else {
       zoom = 9;
       scaleFactor = 0.0005;
-      setMapScale(70);
+      setMapScale(65);
     }
 
     const map = L.map(mapRef.current! as string | HTMLElement, {
@@ -340,12 +340,12 @@ const Map = ({
         style={{
           backgroundColor: "white",
           position: "absolute",
-          top: `${25}%`,
-          left: `${22}%`,
+          top: `${mapScale == 65 ? 18 : 50}%`,
+          left: `${mapScale == 65 ? 22 : 50}%`,
           transform: "translate(-50%, -50%)",
-          scale: `${mapScale * 0.95}%`,
+          scale: `${mapScale}%`,
           width: "1500px",
-          height: "1000px",
+          height: "1100px",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
