@@ -5,7 +5,7 @@ import FeaturesSection from "./components/ui/FeaturesSection";
 
 export default function Page() {
   return (
-    <main className="p-0 h-screen flex flex-col gap-x-12 bg-[#f9fafc]">
+    <main className="p-0  flex flex-col gap-x-12 ">
       <Navbar />
       <HeroSection />
       {/* <SubHero /> */}

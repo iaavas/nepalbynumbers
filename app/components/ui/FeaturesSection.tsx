@@ -8,8 +8,8 @@ function FeaturesSection() {
   const features = [
     {
       image: "/features/data.png",
-      title: "Paste your data",
-      description: "Easily paste your data or upload from an Excel file",
+      title: "Enter your data",
+      description: "Easily enter your data or upload from an Excel file",
     },
     {
       image: "/features/theme.png",
@@ -38,14 +38,10 @@ function FeaturesSection() {
           transition={{ delay: 0.2, duration: 0.8 }}
         >
           <h2 className="text-4xl font-bold mb-4 text-gray-900">
-            Create Your Map in{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">
-              Three Simple Steps
-            </span>
+            How to create the infographic?
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Discover how easy it is to bring your data to life with our
-            intuitive map creation process.
+            It&apos;s just three simple steps.
           </p>
         </motion.div>
 
@@ -58,7 +54,7 @@ function FeaturesSection() {
               transition={{ delay: 0.4 + index * 0.2, duration: 0.8 }}
             >
               <FeatureBox image={feature.image} n={index + 1}>
-                <h3 className="text-2xl  mb-3 text-gray-900">
+                <h3 className="text-2xl  mb-3 text-black    drop-shadow-sm">
                   {feature.title}
                 </h3>
                 <p className="text-lg text-gray-600">{feature.description}</p>

@@ -1,101 +1,89 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { useState, useEffect } from "react";
 import SignIn from "./Signin";
+import Image from "next/image";
 
 const HeroSection = () => {
-  const [templates, setTemplates] = useState(0);
-  const [colorPalette, setColorPalette] = useState(0);
+  const [templateCount, setTemplateCount] = useState(0);
+  const [paletteCount, setPaletteCount] = useState(0);
 
   useEffect(() => {
-    const animateValue = (
+    const animateNumbers = (
       start: number,
       end: number,
       duration: number,
-      setter: React.Dispatch<React.SetStateAction<number>>
+      setValue: React.Dispatch<React.SetStateAction<number>>
     ) => {
-      let startTimestamp: number | null = null;
+      let startTime: number | null = null;
+
       const step = (timestamp: number) => {
-        if (!startTimestamp) startTimestamp = timestamp;
-        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-        setter(Math.floor(progress * (end - start) + start));
-        if (progress < 1) {
-          window.requestAnimationFrame(step);
-        }
+        if (!startTime) startTime = timestamp;
+        const progress = Math.min((timestamp - startTime) / duration, 1);
+        setValue(Math.floor(progress * (end - start) + start));
+        if (progress < 1) window.requestAnimationFrame(step);
       };
+
       window.requestAnimationFrame(step);
     };
 
-    animateValue(0, 11, 800, setTemplates);
-    animateValue(0, 7, 800, setColorPalette);
+    animateNumbers(0, 15, 1000, setTemplateCount);
+    animateNumbers(0, 8, 1000, setPaletteCount);
   }, []);
 
   return (
-    <motion.section
-      className="min-h-screen flex items-center bg-gradient-to-br from-indigo-50 via-blue-50 to-cyan-50 px-6 py-20 overflow-hidden"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1.5 }}
-    >
-      <div className="container mx-auto flex flex-col lg:flex-row items-center justify-between gap-12">
+    <section className="min-h-screen  flex  justify-center items-center px-8 py-16 gap-10 border-b border-gray-200 shadow-sm">
+      <div className="flex flex-col  justify-center items-center">
         <motion.div
-          className="flex-1 "
-          initial={{ x: -100, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ delay: 0.5, duration: 1 }}
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className="text-center max-w-2xl "
         >
-          <h1 className="text-4xl lg:text-5xl font-extrabold text-gray-900 leading-tight mb-8 ">
-            NEPAL BY NUMBERS
+          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+            Discover Nepal in Numbers
           </h1>
-          <p className="text-xl text-gray-700 mb-10">
-            Explore and customize maps of Nepalese provinces and districts with
-            our intuitive no-code system.
+          <p className="text-lg text-gray-600 mb-8">
+            Easily customize maps and created Nepal based Infographics.
           </p>
           <SignIn />
-          <div className="flex items-center justify-between mt-16">
-            {[
-              { value: templates, label: "Templates" },
-              { value: colorPalette, label: "Color Palettes" },
-              { value: "Free", label: "Starting Price" },
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                className="text-center"
-                initial={{ y: 50, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 1 + index * 0.2, duration: 0.8 }}
-              >
-                <h3 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-800">
-                  {item.value}
-                </h3>
-                <p className="text-sm text-gray-600 uppercase tracking-wide">
-                  {item.label}
-                </p>
-              </motion.div>
-            ))}
-          </div>
         </motion.div>
-        <motion.div className="flex-1 relative">
-          <motion.div
-            className="relative w-full max-w-lg mx-auto mix-blend-multiply"
-            initial={{ x: 100, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.5, duration: 1 }}
-          >
-            <Image
-              src="/hero.png"
-              alt="Map of Nepal"
-              className="relative rounded-lg  mix-blend-multiply"
-              width={500}
-              height={500}
-              priority
-            />
-          </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3, duration: 1 }}
+          className="flex flex-col md:flex-row justify-center gap-12 mt-12"
+        >
+          <StatisticCard value={templateCount} label="Map Templates" />
+          <StatisticCard value={paletteCount} label="Color Palettes" />
+          <StatisticCard value={"Free"} label="Starting Price" />
         </motion.div>
       </div>
-    </motion.section>
+      <div>
+        <Image src="/hero.png" alt="Hero Image" width={1500} height={1500} />
+      </div>
+    </section>
+  );
+};
+
+const StatisticCard = ({
+  value,
+  label,
+}: {
+  value: number | string;
+  label: string;
+}) => {
+  return (
+    <motion.div
+      whileHover={{ scale: 1.05 }}
+      transition={{ duration: 0.3 }}
+      className="bg-white  rounded-lg p-8 text-center"
+    >
+      <h3 className="text-5xl font-semibold text-gray-800 mb-2">{value}</h3>
+      <p className="text-sm text-gray-500 tracking-wider uppercase">{label}</p>
+    </motion.div>
   );
 };
 

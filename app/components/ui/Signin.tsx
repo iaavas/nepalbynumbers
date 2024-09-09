@@ -8,9 +8,10 @@ import React from "react";
 function Signin() {
   const router = useRouter();
   const user = useUser();
+
   return (
     <button
-      className="px-4 py-3 bg-blue-500 text-white rounded-3xl hover:bg-blue-400 ease-in-out  w-40 "
+      className="px-6 py-3 text-black hover:text-white rounded-full border-2 border-blue-500 hover:bg-blue-600 transition ease-in-out duration-300 shadow-lg  text-xl   "
       onClick={async () => {
         if (user) {
           router.push("/templates");

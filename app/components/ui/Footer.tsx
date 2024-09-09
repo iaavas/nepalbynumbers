@@ -10,18 +10,18 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#1F2937] text-white p-4   mx-auto   w-full ">
+    <footer className="bg-[#1F2937] text-white p-4     mx-8 rounded-xl mb-4  ">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-2 ">
           <div className="flex flex-col">
-            <h2 className="text-2xl font-bold mb-4">nepal.by.numbers</h2>
+            <h2 className="text-2xl  mb-4">nepal.by.numbers</h2>
             <p className="text-sm text-gray-300">
               Exploring Nepal through data and visualizations.
             </p>
           </div>
 
           <div className="flex flex-col ml-16 sm:ml-0">
-            <h3 className="text-lg font-semibold mb-4">Connect</h3>
+            <h3 className="text-lg  mb-4">Connect</h3>
             <div className="flex space-x-4">
               <a
                 href="https://instagram.com/imaavas"

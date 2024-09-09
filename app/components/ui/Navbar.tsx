@@ -9,10 +9,10 @@ import Sidebar from "./Sidebar";
 const Navbar = () => {
   const currentUser = useUser();
   return (
-    <div className="py-3  sm:px-20 px-4   flex justify-between items-center  bg-transparent">
+    <div className="py-3  sm:px-20 px-4   flex justify-between items-center  bg-transparent border-b border-gray-200 shadow-sm">
       <div className="flex items-center">
-        <Link href={"/"} className=" text-2xl uppercase font-bold  ">
-          nbn
+        <Link href={"/"} className=" text-2xl  font-bold  ">
+          nepal.by.numbers
         </Link>
       </div>
       {!currentUser ? (
