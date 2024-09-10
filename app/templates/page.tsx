@@ -19,7 +19,7 @@ function Home() {
           Pick a Template
         </h3>
 
-        <div className="grid grid-cols-1 md:grid-cols-3  mb-4  gap-8 ">
+        <div className="grid grid-cols-1 md:grid-cols-3  mb-4  gap-12 ">
           {Object.keys(centers).map((m, idx) => (
             <Link href={`/map?m=${m}`} key={idx}>
               <Card

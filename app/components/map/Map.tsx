@@ -134,8 +134,8 @@ const Map = ({
           style: {
             fillColor: "transparent",
             weight: 16,
-            color: " #FFFF00",
-            opacity: 0.3,
+            color: "#ff4d00",
+            opacity: 0.5,
           },
           pane: "highlightPane",
         }).addTo(map);
@@ -340,7 +340,7 @@ const Map = ({
         style={{
           backgroundColor: "white",
           position: "absolute",
-          top: `${mapScale == 65 ? 20 : 50}%`,
+          top: `${mapScale == 65 ? 22 : 50}%`,
           left: `${mapScale == 65 ? 22 : 50}%`,
           transform: "translate(-50%, -50%)",
           scale: `${mapScale}%`,

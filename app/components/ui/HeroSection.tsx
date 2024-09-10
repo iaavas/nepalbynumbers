@@ -28,24 +28,27 @@ const HeroSection = () => {
       window.requestAnimationFrame(step);
     };
 
-    animateNumbers(0, 15, 1000, setTemplateCount);
-    animateNumbers(0, 8, 1000, setPaletteCount);
+    animateNumbers(0, 9, 1000, setTemplateCount);
+    animateNumbers(0, 9, 1000, setPaletteCount);
   }, []);
 
   return (
-    <section className="min-h-screen  flex  justify-center items-center px-8 py-16 gap-10 border-b border-gray-200 shadow-sm">
+    <section className="min-h-screen  flex  justify-center items-center px-8 py-16 gap-10 border-b border-gray-200 shadow-sm ">
       <div className="flex flex-col  justify-center items-center">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-center max-w-2xl "
+          className=" max-w-2xl "
         >
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-            Discover Nepal in Numbers
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+            Discover Nepal in <span className="text-blue-600">Numbers</span>
           </h1>
+          <p className="text-lg text-gray-600 ">
+            Easily customize maps and create Nepal based Infographics.
+          </p>
           <p className="text-lg text-gray-600 mb-8">
-            Easily customize maps and created Nepal based Infographics.
+            The best no-code map customization tool for Nepal.
           </p>
           <SignIn />
         </motion.div>
@@ -54,7 +57,7 @@ const HeroSection = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 1 }}
-          className="flex flex-col md:flex-row justify-center gap-12 mt-12"
+          className="flex flex-col md:flex-row justify-center gap-12 mt-12  "
         >
           <StatisticCard value={templateCount} label="Map Templates" />
           <StatisticCard value={paletteCount} label="Color Palettes" />
@@ -62,7 +65,7 @@ const HeroSection = () => {
         </motion.div>
       </div>
       <div>
-        <Image src="/hero.png" alt="Hero Image" width={500} height={500} />
+        <Image src="/hero.png" alt="Hero Image" width={600} height={600} />
       </div>
     </section>
   );
@@ -81,7 +84,7 @@ const StatisticCard = ({
       transition={{ duration: 0.3 }}
       className="bg-white  rounded-lg p-8 text-center"
     >
-      <h3 className="text-5xl font-semibold text-gray-800 mb-2">{value}</h3>
+      <h3 className="text-3xl font-semibold text-gray-800 mb-2">{value}</h3>
       <p className="text-sm text-gray-500 tracking-wider uppercase">{label}</p>
     </motion.div>
   );

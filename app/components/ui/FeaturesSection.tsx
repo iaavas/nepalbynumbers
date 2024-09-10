@@ -25,7 +25,7 @@ function FeaturesSection() {
 
   return (
     <motion.section
-      className="py-20 bg-gradient-to-b from-white"
+      className="py-10 px-12 bg-gradient-to-b from-white"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
@@ -37,15 +37,16 @@ function FeaturesSection() {
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.8 }}
         >
-          <h2 className="text-4xl font-bold mb-4 text-gray-900">
-            How to create the infographic?
+          <h2 className="text-3xl  mb-4 text-gray-900 ">
+            How to create the infographic
+            {""}?
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto ">
             It&apos;s just three simple steps.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {features.map((feature, index) => (
             <motion.div
               key={index}
@@ -54,7 +55,7 @@ function FeaturesSection() {
               transition={{ delay: 0.4 + index * 0.2, duration: 0.8 }}
             >
               <FeatureBox image={feature.image} n={index + 1}>
-                <h3 className="text-2xl  mb-3 text-black    drop-shadow-sm">
+                <h3 className="text-2xl  mb-3 text-black    drop-shadow-sm ">
                   {feature.title}
                 </h3>
                 <p className="text-lg text-gray-600">{feature.description}</p>

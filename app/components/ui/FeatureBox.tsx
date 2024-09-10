@@ -10,10 +10,10 @@ interface IFeatureBox {
 const FeatureBox: React.FC<IFeatureBox> = ({ children, n, image }) => {
   return (
     <div className="flex flex-col gap-y-5 ">
-      <p className="rounded-full p-2 bg-blue-500 text-white text-center mx-auto w-10">
+      <p className="rounded-full p-2 bg-blue-600 text-white text-center mx-auto w-10">
         {n}
       </p>
-      <div className="gap-y-4 border  p-4 mb-8 rounded-lg">
+      <div className="gap-y-4 border  p-4 mb-8 rounded-md bg-blue-100/5 shadow-sm">
         <div>
           <Image
             src={image}
