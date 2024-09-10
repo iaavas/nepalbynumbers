@@ -11,7 +11,7 @@ import DataSource from "./DataSource";
 import { useData } from "@/app/hooks/useData";
 import OverallStats from "./OverallStats";
 import { useHighlight } from "@/app/context/HighlightContext"; // Add this import
-
+import { WatermarkCanvas } from "./Watermark";
 import { useColor } from "@/app/context/ColorsContext";
 import { usePostfix } from "@/app/context/PostfixContext";
 import getContrastColor from "@/app/utils/TextColor";
@@ -59,7 +59,7 @@ const Map = ({
     var scaleFactor: number;
     if (mapType === "district" || mapType === "province") {
       zoom = 7;
-      scaleFactor = 0.00012;
+      scaleFactor = 0.00013;
       setMapScale(100);
     } else {
       zoom = 9;
@@ -336,21 +336,23 @@ const Map = ({
     >
       <div
         ref={mapRef}
-        className="z-0"
+        className="z-[0]"
         style={{
           backgroundColor: "white",
           position: "absolute",
-          top: `${mapScale == 65 ? 18 : 50}%`,
+          top: `${mapScale == 65 ? 20 : 50}%`,
           left: `${mapScale == 65 ? 22 : 50}%`,
           transform: "translate(-50%, -50%)",
           scale: `${mapScale}%`,
           width: "1500px",
           height: "1100px",
-          display: "flex",
+          display: "block",
           justifyContent: "center",
           alignItems: "center",
         }}
-      ></div>
+      >
+        <WatermarkCanvas />
+      </div>
 
       <Legend scale={scale} content={mapType} />
       <CreatedBy />

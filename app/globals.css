@@ -145,3 +145,10 @@
 .ldio-x2uulkbinbj div {
   box-sizing: content-box;
 }
+
+@font-face {
+  font-family: "Segoe";
+  src: url("/Segoe UI.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}

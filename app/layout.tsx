@@ -12,6 +12,7 @@ import { ReferenceProvider } from "./context/ReferenceContext";
 
 import { Roboto } from "next/font/google";
 import { HighlightProvider } from "./context/HighlightContext";
+import { WatermarkProvider } from "./context/WatermarkContext";
 
 //
 
@@ -44,7 +45,9 @@ export default function RootLayout({
             <PostfixProvider>
               <ReferenceProvider>
                 <HighlightProvider>
-                  <SearchProvider>{children}</SearchProvider>
+                  <WatermarkProvider>
+                    <SearchProvider>{children}</SearchProvider>
+                  </WatermarkProvider>
                   <Analytics />
                 </HighlightProvider>
               </ReferenceProvider>

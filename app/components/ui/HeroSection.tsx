@@ -62,7 +62,7 @@ const HeroSection = () => {
         </motion.div>
       </div>
       <div>
-        <Image src="/hero.png" alt="Hero Image" width={1500} height={1500} />
+        <Image src="/hero.png" alt="Hero Image" width={500} height={500} />
       </div>
     </section>
   );
