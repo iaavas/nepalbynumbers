@@ -10,11 +10,11 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className=" bg-[#282828] text-blawhiteck p-4 px-8     mx-8 rounded-xl mb-4  ">
+    <footer className=" bg-[#282828] text-white p-4 px-8     mx-8 rounded-xl mb-4  ">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-2 ">
           <div className="flex flex-col">
-            <h2 className="text-2xl  mb-4">nepal.by.numbers</h2>
+            <h2 className="text-2xl  mb-4 text">nepal.by.numbers</h2>
             <p className="text-sm text-white">
               Exploring Nepal through data and visualizations.
             </p>
@@ -27,7 +27,7 @@ const Footer = () => {
                 href="https://instagram.com/imaavas"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-gray-500 transition-colors"
+                className="hover:text-gray-500 transition-colors text-white"
               >
                 <InstagramOutlined className="text-2xl" />
               </a>
@@ -35,7 +35,7 @@ const Footer = () => {
                 href="https://github.com/iaavas"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-gray-300 transition-colors"
+                className="hover:text-gray-300 transition-colors text-white"
               >
                 <GithubOutlined className="text-2xl" />
               </a>
@@ -43,7 +43,7 @@ const Footer = () => {
                 href="https://linkedin.com/in/aavashbaral"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-gray-300 transition-colors"
+                className="hover:text-gray-300 transition-colors text-white"
               >
                 <LinkedinOutlined className="text-2xl" />
               </a>
