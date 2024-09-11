@@ -10,18 +10,18 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className=" bg-blue-100 text-black p-4 px-8     mx-8 rounded-xl mb-4  ">
+    <footer className=" bg-[#282828] text-blawhiteck p-4 px-8     mx-8 rounded-xl mb-4  ">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-2 ">
           <div className="flex flex-col">
             <h2 className="text-2xl  mb-4">nepal.by.numbers</h2>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-white">
               Exploring Nepal through data and visualizations.
             </p>
           </div>
 
           <div className="flex flex-col ml-16 sm:ml-0">
-            <h3 className="text-lg  mb-4">Connect</h3>
+            <h3 className="text-lg  mb-4 text-white">Connect</h3>
             <div className="flex space-x-4">
               <a
                 href="https://instagram.com/imaavas"
@@ -50,7 +50,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="mt-4 pt-3 border-t border-gray-800 text-sm text-gray-600 flex flex-col md:flex-row justify-between items-center">
+        <div className="mt-4 pt-3 border-t border-gray-800 text-sm text-white flex flex-col md:flex-row justify-between items-center">
           <p>&copy; {currentYear} nepal.by.numbers. All rights reserved.</p>
           <p className="mt-2 md:mt-0">
             Created by{" "}
