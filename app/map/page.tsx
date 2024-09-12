@@ -16,7 +16,7 @@ function page() {
 function DynamicContent() {
   const params = useSearchParams();
   const map = params.get("m");
-  console.log(map);
+
   let center = (centers as { [key: string]: { center: number[] } })[
     map! as string
   ].center;

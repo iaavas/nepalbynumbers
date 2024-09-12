@@ -29,8 +29,6 @@ const ColorPalette = ({
         "border border-gray-500 border-dotted rounded-xl  p-1 transition-all ease-in-out"
       }`}
       onClick={() => {
-        console.log("first");
-
         setTheme(() => paletteName);
       }}
       onDoubleClick={handleOpen}

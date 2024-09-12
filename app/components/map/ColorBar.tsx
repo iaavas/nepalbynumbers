@@ -26,7 +26,8 @@ const ColorBar: React.FC<ColorBarProps> = ({ colorScale, content }) => {
     const onethird = min + (max - min) / 3;
     const mid = min + (max - min) / 2;
     const twothird = min + ((max - min) * 2) / 3;
-    const adj = min >= 0 && max <= 1 ? 2 : 0;
+    const isAllInteger = domain.every((value) => Number.isInteger(value));
+    const adj = isAllInteger ? 0 : 2;
 
     const colorBarStyle: React.CSSProperties = {
       background: `linear-gradient(to right, ${quantileScale(

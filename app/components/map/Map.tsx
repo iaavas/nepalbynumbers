@@ -61,6 +61,10 @@ const Map = ({
       zoom = 7;
       scaleFactor = 0.00013;
       setMapScale(100);
+    } else if (mapType === "madhesh") {
+      zoom = 9;
+      scaleFactor = 0.00055;
+      setMapScale(85);
     } else {
       zoom = 9;
       scaleFactor = 0.0005;
@@ -340,8 +344,8 @@ const Map = ({
         style={{
           backgroundColor: "white",
           position: "absolute",
-          top: `${mapScale == 65 ? 22 : 50}%`,
-          left: `${mapScale == 65 ? 22 : 50}%`,
+          top: `${mapScale == 65 ? 22 : mapScale == 85 ? 40 : 50}%`,
+          left: `${mapScale == 65 ? 22 : mapScale == 85 ? 35 : 50}%`,
           transform: "translate(-50%, -50%)",
           scale: `${mapScale}%`,
           width: "1500px",

@@ -21,9 +21,7 @@ const Collapsibles = ({ map }: { map: string }) => {
     },
   ];
 
-  const onChange = (key: string | string[]) => {
-    console.log(key);
-  };
+  const onChange = (key: string | string[]) => {};
 
   return <Collapse items={items} onChange={onChange} />;
 };

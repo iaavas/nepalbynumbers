@@ -29,7 +29,6 @@ const CalculateStatistics = ({
       total: 0,
     };
   const valuesArray = entityValues!.map((e) => Number(e.value));
-  console.log(valuesArray);
 
   if (type === "reg") {
     const sortedValues = [...valuesArray].sort((a, b) => a - b);
@@ -44,8 +43,6 @@ const CalculateStatistics = ({
     const lowest = Math.min(...valuesArray);
     const highest = Math.max(...valuesArray);
     const total = valuesArray.reduce((acc, num) => acc + num, 0);
-
-    console.log(sortedValues, sum, mean);
 
     return {
       mean,
@@ -76,7 +73,7 @@ const Summary = ({ entityType }: { entityType: string }) => {
 
   useEffect(() => {
     const entityValues = getAllEntityValues(entityType);
-    console.log(entityValues);
+
     const v = CalculateStatistics({ entityType, entityValues, type });
     if (!v) return;
 
