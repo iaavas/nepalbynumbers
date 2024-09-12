@@ -25,7 +25,7 @@ function FeaturesSection() {
 
   return (
     <motion.section
-      className="py-10 px-12 bg-gradient-to-b from-white"
+      className="py-10 sm:px-12 px-2 bg-gradient-to-b from-white"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}

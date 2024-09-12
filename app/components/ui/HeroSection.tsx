@@ -33,8 +33,8 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="min-h-screen  flex  justify-center items-center px-8 py-16 gap-10 border-b border-gray-200 shadow-sm ">
-      <div className="flex flex-col  justify-center items-center">
+    <section className="min-h-screen  flex sm:flex-row flex-col-reverse justify-center items-center px-8 py-16 gap-10 border-b border-gray-200 shadow-sm ">
+      <div className="flex flex-col justify-center items-center">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}

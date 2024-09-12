@@ -10,7 +10,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className=" bg-[#282828] text-white p-4 px-8     mx-8 rounded-xl mb-4  ">
+    <footer className=" bg-[#1F2937] text-white p-4 sm:px-8  px-2 flex items-center justify-center   sm:mx-8 mx-0 rounded-xl sm:mb-4  mb-0">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-2 ">
           <div className="flex flex-col">
@@ -20,7 +20,7 @@ const Footer = () => {
             </p>
           </div>
 
-          <div className="flex flex-col ml-16 sm:ml-0">
+          <div className="flex flex-col ml-16 sm:ml-8">
             <h3 className="text-lg  mb-4 text-white">Connect</h3>
             <div className="flex space-x-4">
               <a
@@ -50,7 +50,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="mt-4 pt-3 border-t border-gray-800 text-sm text-white flex flex-col md:flex-row justify-between items-center">
+        <div className="mt-4 pt-3 border-t border-stone-200 text-sm text-white flex flex-col md:flex-row justify-between items-center ">
           <p>&copy; {currentYear} nepal.by.numbers. All rights reserved.</p>
           <p className="mt-2 md:mt-0">
             Created by{" "}
