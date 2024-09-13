@@ -3,6 +3,8 @@ import { useData } from "@/app/hooks/useData";
 import React, { useEffect, useState } from "react";
 import * as XLSX from "xlsx";
 import { LinkOutlined } from "@ant-design/icons";
+import CSVPasteComponent from "./CSVPasteComponent";
+import { Dices } from "lucide-react";
 
 function ImportData({ content }: { content: string }) {
   const { setEntityValue, setType, type } = useValues();
@@ -58,12 +60,16 @@ function ImportData({ content }: { content: string }) {
 
   return (
     <div className="flex   flex-col ">
-      <button
-        className=" text-gray-700  border border-gray-400 hover:text-blue-600 hover:border-blue-600 p-1.5 m-2 rounded-md font-sans "
-        onClick={randomizeValue}
-      >
-        Randomize
-      </button>
+      <div className="flex gap-5">
+        <CSVPasteComponent content={content} />
+        <button
+          className=" p-1.5 rounded-lg transition-all text-sm bg-gray-50/10 text-gray-700 flex gap-x-2 items-center border-gray-300 border hover:border-blue-500 hover:text-blue-500 ease-in-out max-w-full shadow-sm my-3"
+          onClick={randomizeValue}
+        >
+          <Dices size={16} />
+          Randomize
+        </button>
+      </div>
       <div className="flex items-center  gap-8 mb-4">
         <div className="mt-4">
           <div className="mt-1 flex items-center justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">

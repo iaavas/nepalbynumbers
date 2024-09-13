@@ -23,7 +23,8 @@ const segoe = localFont({
 
 export const metadata: Metadata = {
   title: "Nepal By Numbers",
-  description: "Nepal is beyond words",
+  description:
+    "Explore Nepal through data with stunning map visualizations, custom infographics, and high-quality exports. Unlock the beauty of Nepal's numbers with easy-to-use templates and themes, ",
 };
 
 export default function RootLayout({

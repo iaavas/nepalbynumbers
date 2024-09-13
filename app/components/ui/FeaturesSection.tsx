@@ -8,18 +8,21 @@ function FeaturesSection() {
   const features = [
     {
       image: "/features/data.png",
-      title: "Enter your data",
-      description: "Easily enter your data or upload from an Excel file",
+      title: "Enter Your Data",
+      description:
+        "Easily input your data or upload directly from an Excel file for quick and accurate visualizations.",
     },
     {
       image: "/features/theme.png",
-      title: "Style your Map",
-      description: "Customize your map with various color palettes",
+      title: "Style Your Map",
+      description:
+        "Customize your map using a variety of color palettes and themes tailored to Nepal.",
     },
     {
       image: "/features/export.png",
       title: "Export & Save",
-      description: "Export as PNG or save as a project for future use",
+      description:
+        "Export your final infographic as a high-quality PNG, or save your project for future edits.",
     },
   ];
 
@@ -37,12 +40,11 @@ function FeaturesSection() {
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.8 }}
         >
-          <h2 className="text-3xl  mb-4 text-gray-900 ">
-            How to create the infographic
-            {""}?
+          <h2 className="text-3xl mb-4 text-gray-900">
+            How to Create Your Infographic
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto ">
-            It&apos;s just three simple steps.
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Follow these three simple steps to visualize data for Nepal.
           </p>
         </motion.div>
 
@@ -55,7 +57,7 @@ function FeaturesSection() {
               transition={{ delay: 0.4 + index * 0.2, duration: 0.8 }}
             >
               <FeatureBox image={feature.image} n={index + 1}>
-                <h3 className="text-2xl  mb-3 text-black    drop-shadow-sm ">
+                <h3 className="text-2xl mb-3 text-black drop-shadow-sm">
                   {feature.title}
                 </h3>
                 <p className="text-lg text-gray-600">{feature.description}</p>

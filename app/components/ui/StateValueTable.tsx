@@ -6,6 +6,7 @@ import Postfix from "./Postfix";
 import ImportData from "./ImportData";
 import { useSearch } from "@/app/context/SearchContext";
 import Collapsibles from "./Collapsibles";
+import CSVPasteComponent from "./CSVPasteComponent";
 
 const StateValueTable = ({ content }: { content: string }) => {
   const { title, setTitle } = useValues();
@@ -25,9 +26,7 @@ const StateValueTable = ({ content }: { content: string }) => {
       <span className="font-sans  text-md">Add Perfix or Postfix</span>
       <Postfix />
       <ImportData content={content} />
-
       <span className="font-sans text-lg">Search Query</span>
-
       <TextField
         id="outlined-basic"
         label="Search"
