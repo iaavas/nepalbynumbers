@@ -4,7 +4,7 @@ import { Collapse } from "antd";
 import Summary from "./Summary";
 
 const text = `
-  Thankyou.
+  Available soon.
 `;
 
 const Collapsibles = ({ map }: { map: string }) => {

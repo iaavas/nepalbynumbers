@@ -102,7 +102,7 @@ const ColorBar: React.FC<ColorBarProps> = ({ colorScale, content }) => {
                 alignItems: "center",
               }}
             />
-            <p className="text-[1.1rem] font-normal">{category}</p>
+            <p className="text-[0.95rem] font-sgbold ">{category}</p>
           </div>
         ))}
     </div>

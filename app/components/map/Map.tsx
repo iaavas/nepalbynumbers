@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState, useRef } from "react";
 import L from "leaflet";
-import { scaleQuantile, scaleOrdinal } from "d3-scale";
+import { scaleQuantile, scaleOrdinal, scaleLog, scaleQuantize } from "d3-scale";
 import "leaflet/dist/leaflet.css";
 import { useValues } from "../../context/ValueContext";
 import CreatedBy from "./CreatedBy";
@@ -95,7 +95,7 @@ const Map = ({
     if (type === "reg") {
       const minValue = Math.min(...(filteredValues as number[]));
       const maxValue = Math.max(...(filteredValues as number[]));
-      colorScale = scaleQuantile()
+      colorScale = scaleQuantize()
         .domain([minValue, maxValue])
         .range(colorRange);
     } else {
@@ -109,7 +109,9 @@ const Map = ({
         .slice(0, 5)
         .map((x) => x[0]);
 
-      colorScale = scaleOrdinal().domain(top5Values).range(colorRange);
+      const extractedValues = values!.map((item) => item.value);
+
+      colorScale = scaleOrdinal(colorRange).domain(extractedValues as string[]);
     }
     // @ts-ignore
     setScale(() => colorScale);
@@ -126,10 +128,11 @@ const Map = ({
       const provinceLayer = L.geoJSON(feature, {
         style: {
           fillColor: scaledValue,
-          weight: 1.5,
+          weight: 1.4,
           color: "black",
           fillOpacity: 1,
-          transition: "fill 0.5s ease", // Add transition
+          smoothFactor: 1.2,
+          className: "animated-layer",
         },
       }).addTo(map);
 
@@ -138,7 +141,7 @@ const Map = ({
           style: {
             fillColor: "transparent",
             weight: 16,
-            color: "#ff4d00",
+            color: "#66D6FF",
             opacity: 0.5,
           },
           pane: "highlightPane",

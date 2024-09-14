@@ -9,31 +9,27 @@ import Collapsibles from "./Collapsibles";
 import CSVPasteComponent from "./CSVPasteComponent";
 
 const StateValueTable = ({ content }: { content: string }) => {
-  const { title, setTitle } = useValues();
+  const { setTitle } = useValues();
   const { query, setQuery } = useSearch();
 
   return (
     <div className="flex  flex-col w-96 py-4 gap-4">
-      <TextField
-        id="outlined-basic"
-        label="Infographic Title"
-        variant="outlined"
-        value={title}
-        fullWidth
-        size="medium"
+      <textarea
         onChange={(e) => setTitle(e.target.value)}
+        onResize={() => {}}
+        wrap="hard"
+        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 resize-none"
+        placeholder="Infographic Title"
+        cols={100}
+        rows={1}
       />
       <span className="font-sans  text-md">Add Perfix or Postfix</span>
       <Postfix />
       <ImportData content={content} />
       <span className="font-sans text-lg">Search Query</span>
-      <TextField
-        id="outlined-basic"
-        label="Search"
+      <input
         value={query}
-        fullWidth
-        size="small"
-        className="w-48"
+        className="w-2/3 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 "
         onChange={(e) => setQuery(e.target.value)}
       />
 

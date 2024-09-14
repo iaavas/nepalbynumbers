@@ -5,20 +5,16 @@ function Postfix() {
   const { postfix, prefix, setPostfix, setPrefix } = usePostfix();
   return (
     <div className="flex gap-4 items-center justify-between ">
-      <TextField
-        id="outlined-basic"
-        label="Postfix"
-        variant="outlined"
+      <input
         value={postfix}
-        size="small"
+        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+        placeholder="Postfix"
         onChange={(e) => setPostfix(e.target.value)}
       />
-      <TextField
-        id="outlined-basic"
-        label="Prefix"
-        variant="outlined"
+      <input
         value={prefix}
-        size="small"
+        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+        placeholder="Prefix"
         onChange={(e) => setPrefix(e.target.value)}
       />
     </div>

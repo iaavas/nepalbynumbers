@@ -65,15 +65,21 @@ function Table({ content }: TableProps) {
       <table className="table border border-collapse border-gray-300 w-full">
         <thead>
           <tr className="bg-gray-100">
-            <th className="px-4 py-2 text-center font-normal border">State</th>
-            <th className="px-4 py-2 text-center font-normal border">Value</th>
+            <th className="px-4 py-2  font-bold border uppercase text-left">
+              State
+            </th>
+            <th className="px-4 py-2 text-right font-bold uppercase border">
+              Value
+            </th>
           </tr>
         </thead>
         <tbody>
           {filteredData.map((d: DataType, idx: number) => (
             <tr key={idx} className="border cursor-cell">
-              <td className="px-4 py-2 border">{d.properties.name}</td>
-              <td className="px-4 py-2 border">
+              <td className="px-4 py-2 border bg-gray-100">
+                {d.properties.name}
+              </td>
+              <td className="">
                 <input
                   type="text"
                   step="any"
@@ -83,7 +89,7 @@ function Table({ content }: TableProps) {
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     handleInputChange(d.properties.name, e.target.value);
                   }}
-                  className="w-full px-2 py-1 text-right border border-gray-300 rounded cursor-cell"
+                  className="w-full h-full p-2.5 text-right cursor-cell"
                 />
               </td>
             </tr>

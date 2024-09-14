@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -15,7 +15,7 @@ import { FileText } from "lucide-react";
 const CSVPasteComponent = ({ content }: { content: string }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [csvData, setCSVData] = useState("");
-  const { setEntityValue, getEntityValue } = useValues();
+  const { setEntityValue, getEntityValue, setType, type } = useValues();
   const { data, fetchData } = useData(content);
   const [placeholderText, setPlaceholderText] = useState("");
 
@@ -46,12 +46,35 @@ const CSVPasteComponent = ({ content }: { content: string }) => {
     setCSVData(event.target.value);
   };
 
+  const handleInputChange = useCallback(
+    (name: string, value: string) => {
+      if (value === "") {
+        setEntityValue(content, name, null);
+      } else if (Number(value) || Number(value) === 0) {
+        setEntityValue(content, name, value);
+      } else {
+        if (type !== "class") {
+          const confirmChange = window.confirm(
+            "Do you want to change the type to category (e.g., Rivers, Lakes, etc.)?"
+          );
+          if (confirmChange) {
+            setType("class");
+          } else {
+            return;
+          }
+        }
+        setEntityValue(content, name, value);
+      }
+    },
+    [content, setEntityValue, setType, type]
+  );
+
   const handleSubmit = () => {
     const rows = csvData.trim().split("\n");
     rows.forEach((row) => {
       const [name, value] = row.split(",").map((item) => item.trim());
       if (name) {
-        setEntityValue(content, name, value);
+        handleInputChange(name, value);
       }
     });
     handleCloseDialog();
@@ -75,6 +98,8 @@ const CSVPasteComponent = ({ content }: { content: string }) => {
             <Textarea
               value={csvData}
               onChange={handleCSVChange}
+              className="resize-none"
+              style={{ fontWeight: "normal" }}
               placeholder={placeholderText}
               rows={10}
             />

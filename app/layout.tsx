@@ -21,6 +21,11 @@ const segoe = localFont({
   variable: "--font-SegoeUI",
 });
 
+const segoe_bold = localFont({
+  src: "../public/Bold.woff",
+  variable: "--font-SegoeUIBold",
+});
+
 export const metadata: Metadata = {
   title: "Nepal By Numbers",
   description:
@@ -33,7 +38,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${segoe.variable}  `}>
+    <html lang="en" className={`${segoe.variable}  ${segoe_bold.variable} `}>
       <head>
         <meta
           name="google-site-verification"

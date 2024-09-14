@@ -20,7 +20,7 @@ const config = {
     extend: {
       fontFamily: {
         sans: ["var(--font-SegoeUI)"],
-        robo: ["var(--font-Roboto)"],
+        sgbold: ["var(--font-SegoeUIBold)"],
       },
       colors: {
         border: "hsl(var(--border))",
