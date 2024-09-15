@@ -2,7 +2,7 @@ import React from "react";
 import { EntityValue, useValues } from "../../context/ValueContext";
 import ColorBarProps from "../../interfaces/ColorBarTypes";
 import { usePostfix } from "@/app/context/PostfixContext";
-import { scaleQuantile } from "d3-scale";
+import { scaleQuantile, scaleLinear } from "d3-scale";
 
 const ColorBar: React.FC<ColorBarProps> = ({ colorScale, content }) => {
   const { type, getAllEntityValues } = useValues();
@@ -18,15 +18,19 @@ const ColorBar: React.FC<ColorBarProps> = ({ colorScale, content }) => {
 
   if (type !== "class") {
     const domain: number[] = colorScale.domain() as number[];
-    const quantileScale = scaleQuantile()
+    console.log(domain);
+    console.log(colorScale.range());
+    const quantileScale = scaleLinear<string>()
       .domain(domain)
       .range(colorScale.range());
 
-    const [min, max] = domain;
+    const min = domain[0];
+    const max = domain[domain.length - 1];
     const onethird = min + (max - min) / 3;
     const mid = min + (max - min) / 2;
     const twothird = min + ((max - min) * 2) / 3;
-    const isAllInteger = domain.every((value) => Number.isInteger(value));
+    const quartiles = [min, onethird, twothird, max];
+    const isAllInteger = quartiles.every((value) => Number.isInteger(value));
     const adj = isAllInteger ? 0 : 2;
 
     const colorBarStyle: React.CSSProperties = {
@@ -82,7 +86,10 @@ const ColorBar: React.FC<ColorBarProps> = ({ colorScale, content }) => {
     .map((x) => x[0]);
 
   return (
-    <div className="p-4 flex" style={{ columnGap: "12px", rowGap: "12px" }}>
+    <div
+      className="px-4 py-1 flex"
+      style={{ columnGap: "12px", rowGap: "12px" }}
+    >
       {top5Values
         .filter((category) => category !== "null")
         .map((category, index) => (

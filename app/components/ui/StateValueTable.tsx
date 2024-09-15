@@ -6,10 +6,9 @@ import Postfix from "./Postfix";
 import ImportData from "./ImportData";
 import { useSearch } from "@/app/context/SearchContext";
 import Collapsibles from "./Collapsibles";
-import CSVPasteComponent from "./CSVPasteComponent";
 
 const StateValueTable = ({ content }: { content: string }) => {
-  const { setTitle } = useValues();
+  const { title, setTitle } = useValues();
   const { query, setQuery } = useSearch();
 
   return (
@@ -18,6 +17,7 @@ const StateValueTable = ({ content }: { content: string }) => {
         onChange={(e) => setTitle(e.target.value)}
         onResize={() => {}}
         wrap="hard"
+        value={title}
         className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 resize-none"
         placeholder="Infographic Title"
         cols={100}

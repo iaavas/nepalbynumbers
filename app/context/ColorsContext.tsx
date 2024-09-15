@@ -25,7 +25,7 @@ interface ValueContextType {
 export const ColorProvider: FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [theme, setTheme] = useState<string>("Gurans");
+  const [theme, setTheme] = useState<string>("Parva");
 
   function updateTheme(t: string) {
     setTheme(() => t);
@@ -43,8 +43,8 @@ export const ColorProvider: FC<{ children: React.ReactNode }> = ({
       newColors[index] = color;
       return newColors;
     });
-    // @ts-ignore
-    clrs[theme].colors[index] = color;
+
+    clrs[theme as keyof typeof clrs].colors[index] = color;
   }
 
   const reset = () => {

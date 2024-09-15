@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState, useRef } from "react";
 import L from "leaflet";
-import { scaleQuantile, scaleOrdinal, scaleLog, scaleQuantize } from "d3-scale";
+import { scaleQuantile, scaleOrdinal, scaleLinear } from "d3-scale";
 import "leaflet/dist/leaflet.css";
 import { useValues } from "../../context/ValueContext";
 import CreatedBy from "./CreatedBy";
@@ -15,6 +15,45 @@ import { WatermarkCanvas } from "./Watermark";
 import { useColor } from "@/app/context/ColorsContext";
 import { usePostfix } from "@/app/context/PostfixContext";
 import getContrastColor from "@/app/utils/TextColor";
+import { interpolateRgb } from "d3-interpolate";
+import { rgb, hsl } from "d3-color";
+import { rgbStringToHex } from "@/app/utils/rgb2hex";
+
+function createInterpolatedColorScale(
+  categories: string[],
+  initialColorRange: string[]
+) {
+  const numCategories = categories.length;
+  const numInitialColors = initialColorRange.length;
+
+  function generateDistinctColors(
+    baseColors: string[],
+    targetCount: number
+  ): string[] {
+    const result = [...baseColors];
+    while (result.length < targetCount) {
+      const index = result.length % numInitialColors;
+      const baseColor = hsl(result[index]);
+
+      // Rotate hue and adjust lightness
+      baseColor.h += 137.508; // Use golden angle for maximum distribution
+      baseColor.h %= 360; // Keep within 0-360 range
+      baseColor.l = Math.min(Math.max(baseColor.l * 0.8, 0.2), 0.8); // Adjust lightness
+
+      result.push(baseColor.toString());
+    }
+    return result;
+  }
+
+  const extendedColorRange = generateDistinctColors(
+    initialColorRange,
+    numCategories
+  );
+
+  return scaleOrdinal<string, string>()
+    .domain(categories)
+    .range(extendedColorRange);
+}
 
 const Map = ({
   mapType,
@@ -90,28 +129,32 @@ const Map = ({
 
     const values = getAllEntityValues(mapType);
     // @ts-ignore
+    function linspace(start: number, end: number, n: number): number[] {
+      const result = [];
+      const step = (end - start) / (n - 1);
+      for (let i = 0; i < n; i++) {
+        result.push(start + i * step);
+      }
+      return result;
+    }
+
     const colorRange: any = tcolor;
-    let colorScale;
+    let colorScale: any;
     if (type === "reg") {
       const minValue = Math.min(...(filteredValues as number[]));
       const maxValue = Math.max(...(filteredValues as number[]));
-      colorScale = scaleQuantize()
-        .domain([minValue, maxValue])
-        .range(colorRange);
+      colorScale = scaleLinear<string>()
+        .domain(linspace(minValue, maxValue, colorRange.length))
+        .range(colorRange)
+        .interpolate(interpolateRgb);
     } else {
-      const top5Values: string[] = Object.entries(
-        values!.reduce((acc: any, val: any) => {
-          acc[val] = (acc[val] || 0) + 1;
-          return acc;
-        }, {})
-      )
-        .sort((a: [string, any], b: [string, any]) => b[1] - a[1])
-        .slice(0, 5)
-        .map((x) => x[0]);
+      const extractedValues = values!
+        .map((item) => item.value)
+        .filter((value) => value !== undefined && value !== null);
 
-      const extractedValues = values!.map((item) => item.value);
+      const uniqueCategories = Array.from(new Set(extractedValues as string[]));
 
-      colorScale = scaleOrdinal(colorRange).domain(extractedValues as string[]);
+      colorScale = createInterpolatedColorScale(uniqueCategories, colorRange);
     }
     // @ts-ignore
     setScale(() => colorScale);
@@ -131,28 +174,35 @@ const Map = ({
           weight: 1.4,
           color: "black",
           fillOpacity: 1,
+          opacity: 1,
           smoothFactor: 1.2,
           className: "animated-layer",
         },
       }).addTo(map);
 
       if (feature.properties.name === highlight) {
-        L.geoJSON(feature, {
+        // @ts-ignore
+        const buffered = turf.buffer(feature, 0.05, { units: "kilometers" });
+        L.geoJSON(buffered, {
           style: {
             fillColor: "transparent",
-            weight: 16,
+            weight: 10,
             color: "#66D6FF",
-            opacity: 0.5,
+            opacity: 0.7,
           },
           pane: "highlightPane",
         }).addTo(map);
       }
 
+      console.log(scaledValue);
+
       const area = turf.area(feature.geometry);
 
       const fs = Math.sqrt(area) * scaleFactor;
 
-      let textColor = getContrastColor(scaledValue);
+      let textColor = getContrastColor(
+        type == "class" ? scaledValue : rgbStringToHex(scaledValue.toString())
+      );
 
       if (feature.properties.name == "Madhesh") {
         textColor = "black";
@@ -188,8 +238,10 @@ const Map = ({
       const updatedHtml = `<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.1rem; font-weight: normal;font-size:${
         markerProps.fontSize
       }px; color: ${textColor};cursor:move; ;  border: 2px solid transparent; transition: border-color 0.1s;width:fit-content;border-radius:10px;padding:3px" onmouseover="this.style.borderColor='black';" onmouseout="this.style.borderColor='transparent';" class="label-container">
-            <p>${markerProps.displayName}</p>
-            <p style="font-size:${markerProps.valueFontSize * 0.8}px;" >
+            <p style="font-size:${markerProps.valueFontSize * 1}px;">${
+        markerProps.displayName
+      }</p>
+            <p style="font-size:${markerProps.valueFontSize}px;" >
         ${value ? prefix : ""}${value ?? ""}${value ? postfix : ""}</p>
         </div>`;
 
@@ -273,8 +325,10 @@ const Map = ({
           const displayName = displayNameInput.value;
 
           const updatedHtml = `<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.1rem; font-weight: normal;font-size:${fontSize}px; color: ${textColor};cursor:move; ;  border: 2px solid transparent; transition: border-color 0.1s;width:fit-content;border-radius:10px;padding:3px" onmouseover="this.style.borderColor='black';" onmouseout="this.style.borderColor='transparent';" class="label-container">
-                <p>${displayName}</p>
-                <p style="font-size:${Number(valueFontSize) * 0.9}px;" >
+                <p style="font-size:${
+                  Number(valueFontSize) * 1
+                }px;">${displayName}</p>
+                <p  >
             ${value ? prefix : ""}${value ?? ""}${value ? postfix : ""}</p>
             </div>`;
           markerIcon.options.html = updatedHtml;
