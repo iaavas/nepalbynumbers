@@ -3,7 +3,7 @@
   "features": [
     {
       "type": "Feature",
-      "properties": { "id": 1, "name": "Koshi", "capital": "Biratnagar" },
+      "properties": { "id": 1, "name": "KOSHI", "capital": "Biratnagar" },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -3107,7 +3107,7 @@
       "type": "Feature",
       "properties": {
         "id": 2,
-        "name": "Madhesh",
+        "name": "MADHESH",
         "capital": "Janakpur"
       },
       "geometry": {
@@ -4927,7 +4927,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "id": 3, "name": "Bagmati", "capital": "Hetauda" },
+      "properties": { "id": 3, "name": "BAGMATI", "capital": "Hetauda" },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -7637,7 +7637,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "id": 4, "name": "Gandaki", "capital": "Pokhara" },
+      "properties": { "id": 4, "name": "GANDAKI", "capital": "Pokhara" },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -10581,7 +10581,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "id": 5, "name": "Lumbini", "capital": "Deukhuri" },
+      "properties": { "id": 5, "name": "LUMBINI", "capital": "Deukhuri" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -13553,7 +13553,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "id": 6, "name": "Karnali", "capital": "Birendranagar" },
+      "properties": { "id": 6, "name": "KARNALI", "capital": "Birendranagar" },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -17672,7 +17672,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "id": 7, "name": "Sudurpashchim", "capital": "Godawari" },
+      "properties": { "id": 7, "name": "SUDURPASCHIM", "capital": "Godawari" },
       "geometry": {
         "type": "Polygon",
         "coordinates": [

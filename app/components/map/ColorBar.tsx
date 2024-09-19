@@ -29,7 +29,7 @@ const ColorBar: React.FC<ColorBarProps> = ({ colorScale, content }) => {
     const onethird = min + (max - min) / 3;
     const mid = min + (max - min) / 2;
     const twothird = min + ((max - min) * 2) / 3;
-    const quartiles = [min, onethird, twothird, max];
+    const quartiles = [min, max];
     const isAllInteger = quartiles.every((value) => Number.isInteger(value));
     const adj = isAllInteger ? 0 : 2;
 
@@ -40,7 +40,7 @@ const ColorBar: React.FC<ColorBarProps> = ({ colorScale, content }) => {
         min + (max - min) * 0.5
       )}, ${quantileScale(min + (max - min) * 0.75)}, ${quantileScale(max)})`,
       height: "18.62px",
-      width: "250px",
+      width: "300px",
       borderRadius: "10px",
       border: "none",
       boxShadow: "0 0 0 1px #efefef",

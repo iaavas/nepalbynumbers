@@ -18,7 +18,8 @@ import getContrastColor from "@/app/utils/TextColor";
 import { interpolateRgb } from "d3-interpolate";
 import { rgb, hsl } from "d3-color";
 import { rgbStringToHex } from "@/app/utils/rgb2hex";
-
+import withAuth from "../withAuth";
+import SETTINGS from "./settings";
 function createInterpolatedColorScale(
   categories: string[],
   initialColorRange: string[]
@@ -79,6 +80,10 @@ const Map = ({
   const mctr = useRef<[number, number] | undefined>();
 
   useEffect(() => {
+    setMapScale(SETTINGS[mapType as keyof typeof SETTINGS].scale);
+  }, [mapType]);
+
+  useEffect(() => {
     mctr.current = ctr;
   }, [ctr]);
 
@@ -93,22 +98,8 @@ const Map = ({
     if (typeof window !== "undefined") {
       L = require("leaflet");
     }
-    let zoom: number;
 
-    var scaleFactor: number;
-    if (mapType === "district" || mapType === "province") {
-      zoom = 7;
-      scaleFactor = 0.00013;
-      setMapScale(100);
-    } else if (mapType === "madhesh") {
-      zoom = 9;
-      scaleFactor = 0.00055;
-      setMapScale(85);
-    } else {
-      zoom = 9;
-      scaleFactor = 0.0005;
-      setMapScale(65);
-    }
+    const settings = SETTINGS[mapType as keyof typeof SETTINGS];
 
     const map = L.map(mapRef.current! as string | HTMLElement, {
       attributionControl: false,
@@ -117,7 +108,7 @@ const Map = ({
       scrollWheelZoom: false,
       doubleClickZoom: false,
       dragging: false,
-    }).setView(mctr.current, zoom);
+    }).setView(mctr.current, settings.zoom);
 
     const provinceValues = data.map((feature) =>
       getEntityValue(mapType, feature.properties.name)
@@ -171,12 +162,10 @@ const Map = ({
       const provinceLayer = L.geoJSON(feature, {
         style: {
           fillColor: scaledValue,
-          weight: 1.4,
+          weight: 1.3,
           color: "black",
-          fillOpacity: 1,
-          opacity: 1,
-          smoothFactor: 1.2,
-          className: "animated-layer",
+          fillOpacity: 2,
+          opacity: 5,
         },
       }).addTo(map);
 
@@ -198,13 +187,13 @@ const Map = ({
 
       const area = turf.area(feature.geometry);
 
-      const fs = Math.sqrt(area) * scaleFactor;
+      const fs = Math.sqrt(area) * settings.scaleFactor;
 
       let textColor = getContrastColor(
         type == "class" ? scaledValue : rgbStringToHex(scaledValue.toString())
       );
 
-      if (feature.properties.name == "Madhesh") {
+      if (feature.properties.name == "MADHESH") {
         textColor = "black";
       }
 
@@ -278,7 +267,7 @@ const Map = ({
 
         const popupContainer = document.createElement("div");
         popupContainer.className =
-          "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-2  shadow-2xl border-2 border-black  w-32";
+          "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-2.5  shadow-2xl border-2 border-black  w-32 font-sans";
         popupContainer.style.zIndex = "9999";
         popupContainer.style.left = `${markerPos.x}px`;
         popupContainer.style.top = `${markerPos.y}px`;
@@ -288,7 +277,7 @@ const Map = ({
         const header = document.createElement("span");
         header.innerText = feature.properties.name;
         header.className =
-          "font-sans text-md text-center mb-2  text-md flex items-center justify-center";
+          "font-sans text-sm text-center mb-2   flex items-center justify-center";
 
         const displayNameInput = document.createElement("input");
         displayNameInput.className =
@@ -401,8 +390,8 @@ const Map = ({
         style={{
           backgroundColor: "white",
           position: "absolute",
-          top: `${mapScale == 65 ? 22 : mapScale == 85 ? 40 : 50}%`,
-          left: `${mapScale == 65 ? 22 : mapScale == 85 ? 35 : 50}%`,
+          top: `${SETTINGS[mapType as keyof typeof SETTINGS].y}%`,
+          left: `${SETTINGS[mapType as keyof typeof SETTINGS].x}%`,
           transform: "translate(-50%, -50%)",
           scale: `${mapScale}%`,
           width: "1500px",
@@ -423,4 +412,4 @@ const Map = ({
   );
 };
 
-export default Map;
+export default withAuth(Map);

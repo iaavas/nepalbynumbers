@@ -4,15 +4,22 @@ export const colors = {
   },
 
   Kagbeni: {
-    colors: ["#efedef", "#eaedec", "#c0cfcf", "#90b0bc", "#648daa", "#346288"],
+    colors: ["#F4EEFF", "#DCD6F7", "#A6B1E1", "#424874"],
   },
 
   Gulab: {
-    colors: ["#f0cccc", "#ffcccc", "#ff9999", "#ff6666", "#ff3333", "#ff0000"],
+    colors: ["#ffccf2", "#ff99d8", "#ff66bf", "#ff33a6", "#ff0094", "#ff007a"],
   },
 
   Gurans: {
-    colors: ["#d0375c", "#e42f52", "#ff798e", "#fff0a5", "#94ffb5", "#00cc6a"],
+    colors: [
+      "#ff0055", // Electric red
+      "#ff0044", // Bright pinkish-red
+      "#ff3399", // Neon pink
+      "#ffdd00", // Neon yellow
+      "#00ff66", // Bright neon green
+      "#00ff66", // Vibrant green
+    ],
   },
   Barsha: {
     colors: ["#e0eff5", "#cce5ff", "#66b2ff", "#0099ff", "#0066cc", "#003366"],
@@ -28,10 +35,7 @@ export const colors = {
     colors: ["#ffe500", "#ffbf00", "#ff5a00", "#ff007a", "#da007d", "#a80073"],
   },
 
-  candyRush: {
-    colors: ["#FFE6F0", "#FF3F7F", "#FF6F61", "#FFA500", "#FFEE00", "#98FB98"],
-  },
-  test: {
-    colors: ["#F4EEFF", "#DCD6F7", "#A6B1E1", "#424874"],
+  Jacaranda: {
+    colors: ["#fcb214", "#fbe290", "#ffffff", "#e29cff", "#ac15ee"],
   },
 };
