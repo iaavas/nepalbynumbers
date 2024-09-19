@@ -13,12 +13,11 @@ export const colors = {
 
   Gurans: {
     colors: [
-      "#ff0055", // Electric red
-      "#ff0044", // Bright pinkish-red
-      "#ff3399", // Neon pink
-      "#ffdd00", // Neon yellow
-      "#00ff66", // Bright neon green
-      "#00ff66", // Vibrant green
+      "#fa246d", // Electric red
+      "#f86e8e", // Bright pinkish-red
+      "#ffffff", // Neon pink
+      "#6bf898", // Neon yellow
+      "#1df572",
     ],
   },
   Barsha: {
