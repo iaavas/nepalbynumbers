@@ -131,11 +131,10 @@ To set up Nepal By Numbers locally, follow these steps:
 
 - Excel (.xlsx, .xls)
 - CSV (.csv)
-- JSON (via API integration)
 
 ### Data Structure Requirements
 
-- First column: Unique identifier for each geographical entity (e.g., district code)
+- First column: Unique identifier for each geographical entity (e.g., district name)
 - Subsequent columns: Statistical data (e.g., population, GDP, literacy rate)
 
 ## Customization Options
@@ -185,7 +184,6 @@ We welcome contributions from the community! Here's how you can help:
 
 1. **Map Not Rendering**
 
-   - Ensure your browser supports SVG rendering
    - Clear your browser cache and reload the page
    - Check console for any JavaScript errors
 
