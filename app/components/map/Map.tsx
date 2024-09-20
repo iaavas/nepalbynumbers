@@ -33,27 +33,26 @@ function createInterpolatedColorScale(
     baseColors: string[],
     targetCount: number
   ): string[] {
-    if (targetCount <= baseColors.length) {
-      return baseColors.slice(0, targetCount);
-    }
+    const result: string[] = [...baseColors];
 
-    const result: string[] = [];
-    const step = (baseColors.length - 1) / (targetCount - 1);
+    while (result.length < targetCount) {
+      const step = (baseColors.length - 1) / (targetCount - 1);
 
-    for (let i = 0; i < targetCount; i++) {
-      const index = i * step;
-      const lowIndex = Math.floor(index);
-      const highIndex = Math.ceil(index);
+      for (let i = 0; i < targetCount; i++) {
+        const index = i * step;
+        const lowIndex = Math.floor(index);
+        const highIndex = Math.ceil(index);
 
-      if (lowIndex === highIndex) {
-        result.push(baseColors[lowIndex]);
-      } else {
-        const t = index - lowIndex;
-        const interpolated = interpolateHsl(
-          baseColors[lowIndex],
-          baseColors[highIndex]
-        )(t);
-        result.push(interpolated);
+        if (lowIndex === highIndex) {
+          result.push(baseColors[lowIndex]);
+        } else {
+          const t = index - lowIndex;
+          const interpolated = interpolateHsl(
+            baseColors[lowIndex],
+            baseColors[highIndex]
+          )(t);
+          result.push(interpolated);
+        }
       }
     }
 
@@ -169,9 +168,15 @@ const Map = ({
 
     data.forEach((feature) => {
       const value: any = getEntityValue(mapType, feature.properties.name);
+      console.log(value);
 
       const scaledValue: any =
         value !== undefined && value !== null ? colorScale(value) : "#E5E4E2";
+
+      let a = colorScale(value);
+      console.log(a);
+
+      console.log(scaledValue);
 
       const provinceLayer = L.geoJSON(feature, {
         style: {
@@ -204,7 +209,9 @@ const Map = ({
       const fs = Math.sqrt(area) * settings.scaleFactor;
 
       let textColor = getContrastColor(
-        type == "class" ? scaledValue : rgbStringToHex(scaledValue.toString())
+        type == "class"
+          ? scaledValue
+          : rgbStringToHex(scaledValue ? scaledValue.toString() : "")
       );
 
       if (feature.properties.name == "MADHESH") {
@@ -280,7 +287,7 @@ const Map = ({
 
         const popupContainer = document.createElement("div");
         popupContainer.className =
-          "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-2.5  shadow-2xl border-2 border-black  w-32 font-sans";
+          "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-2.5  shadow-2xl border-2 border-black  w-40 font-sans text-lg";
         popupContainer.style.zIndex = "9999";
         popupContainer.style.left = `${markerPos.x}px`;
         popupContainer.style.top = `${markerPos.y}px`;

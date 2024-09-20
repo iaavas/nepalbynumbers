@@ -16,9 +16,9 @@ const SETTINGS = {
   bagmati: {
     zoom: 9,
     scaleFactor: 0.0004,
-    scale: 75,
+    scale: 70,
     y: 37,
-    x: 33,
+    x: 30,
   },
   gandaki: {
     zoom: 9,
@@ -30,8 +30,8 @@ const SETTINGS = {
   karnali: {
     zoom: 9,
     scaleFactor: 0.00045,
-    scale: 62,
-    y: 12,
+    scale: 61,
+    y: 10,
     x: 20,
   },
   sudurpaschim: {
@@ -45,7 +45,7 @@ const SETTINGS = {
     zoom: 9,
     scaleFactor: 0.00045,
     scale: 65,
-    y: 20,
+    y: 15,
     x: 20,
   },
   province: {

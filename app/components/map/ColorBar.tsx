@@ -110,7 +110,7 @@ const ColorBar: React.FC<ColorBarProps> = ({ colorScale, content }) => {
               }}
               className="shadow-md"
             />
-            <p className="text-[1.05rem]  ">
+            <p className="text-[0.8rem]  ">
               {prefix}
               {category}
               {postfix}

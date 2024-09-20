@@ -8,12 +8,14 @@ import { useReference } from "@/app/context/ReferenceContext";
 import { useValues } from "@/app/context/ValueContext";
 import { useColor } from "@/app/context/ColorsContext";
 import { useEffect } from "react";
+import { usePostfix } from "@/app/context/PostfixContext";
 
 function DynamicContent({ id }: { id: string }) {
   const { setCreatedBy, setSource, setStatsTitle, setStatsValue } =
     useReference();
-  const { setAllEntityValues, setTitle } = useValues();
+  const { setAllEntityValues, setTitle, setType } = useValues();
   const { projects } = useProjects();
+  const { setPostfix, setPrefix } = usePostfix();
   const project = projects.find((p) => p.id === id);
 
   const { setTheme } = useColor();
@@ -28,14 +30,19 @@ function DynamicContent({ id }: { id: string }) {
         title,
         data,
         theme,
+        type,
+        postfix,
+        prefix,
       } = project;
 
       setCreatedBy(createdBy);
       setStatsValue(statsValue);
       setSource(source);
       setStatsTitle(statsTitle);
-
+      setType(type as "reg" | "class");
       setTitle(title);
+      setPostfix(postfix);
+      setPrefix(prefix);
 
       setAllEntityValues(map, data);
       setTheme(theme);
@@ -49,6 +56,9 @@ function DynamicContent({ id }: { id: string }) {
     setSource,
     setStatsTitle,
     setAllEntityValues,
+    setType,
+    setPostfix,
+    setPrefix,
   ]);
   if (!project) return;
   const { map } = project;
