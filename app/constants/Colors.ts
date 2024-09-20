@@ -1,5 +1,5 @@
 export const colors = {
-  Padma: {
+  Janakpur: {
     colors: ["#f0f9b4", "#f0f921", "#f89441", "#cb4778", "#7e03a8", "#0d0887"],
   },
 
@@ -11,14 +11,8 @@ export const colors = {
     colors: ["#ffccf2", "#ff99d8", "#ff66bf", "#ff33a6", "#ff0094", "#ff007a"],
   },
 
-  Gurans: {
-    colors: [
-      "#fa246d", // Electric red
-      "#f86e8e", // Bright pinkish-red
-      "#ffffff", // Neon pink
-      "#6bf898", // Neon yellow
-      "#1df572",
-    ],
+  Chitwan: {
+    colors: ["#fffd01", "#faf890", "#FDFBCE", "#a6f66f", "#78f51d"],
   },
   Barsha: {
     colors: ["#e0eff5", "#cce5ff", "#66b2ff", "#0099ff", "#0066cc", "#003366"],

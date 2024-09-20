@@ -108,8 +108,13 @@ const ColorBar: React.FC<ColorBarProps> = ({ colorScale, content }) => {
                 justifyContent: "center",
                 alignItems: "center",
               }}
+              className="shadow-md"
             />
-            <p className="text-[0.95rem] font-sgbold ">{category}</p>
+            <p className="text-[1.05rem]  ">
+              {prefix}
+              {category}
+              {postfix}
+            </p>
           </div>
         ))}
     </div>

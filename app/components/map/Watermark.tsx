@@ -19,9 +19,9 @@ export const WatermarkCanvas = () => {
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     // @ts-ignore
-    for (let x = -40; x < canvas.width; x += 200) {
+    for (let x = -100; x < canvas.width + 500; x += 200) {
       // @ts-ignore
-      for (let y = 0; y < canvas.height; y += 50) {
+      for (let y = -500; y < canvas.height + 500; y += 50) {
         ctx.save();
         ctx.translate(x, y);
 

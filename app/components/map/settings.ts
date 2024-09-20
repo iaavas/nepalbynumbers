@@ -31,7 +31,7 @@ const SETTINGS = {
     zoom: 9,
     scaleFactor: 0.00045,
     scale: 62,
-    y: 15,
+    y: 12,
     x: 20,
   },
   sudurpaschim: {
@@ -49,18 +49,18 @@ const SETTINGS = {
     x: 20,
   },
   province: {
-    zoom: 7,
-    scaleFactor: 0.00013,
-    scale: 100,
-    y: 50,
-    x: 50,
+    zoom: 8,
+    scaleFactor: 0.0002,
+    scale: 55,
+    y: 10,
+    x: 10,
   },
   district: {
-    zoom: 7,
-    scaleFactor: 0.00013,
-    scale: 100,
-    x: 50,
-    y: 50,
+    zoom: 8,
+    scaleFactor: 0.00012,
+    scale: 55,
+    x: 10,
+    y: 10,
   },
 };
 

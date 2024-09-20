@@ -16,7 +16,9 @@ import { useColor } from "@/app/context/ColorsContext";
 import { usePostfix } from "@/app/context/PostfixContext";
 import getContrastColor from "@/app/utils/TextColor";
 import { interpolateRgb } from "d3-interpolate";
-import { rgb, hsl } from "d3-color";
+
+import { interpolateHsl } from "d3-interpolate";
+
 import { rgbStringToHex } from "@/app/utils/rgb2hex";
 import withAuth from "../withAuth";
 import SETTINGS from "./settings";
@@ -27,26 +29,38 @@ function createInterpolatedColorScale(
   const numCategories = categories.length;
   const numInitialColors = initialColorRange.length;
 
-  function generateDistinctColors(
+  function interpolateColors(
     baseColors: string[],
     targetCount: number
   ): string[] {
-    const result = [...baseColors];
-    while (result.length < targetCount) {
-      const index = result.length % numInitialColors;
-      const baseColor = hsl(result[index]);
-
-      // Rotate hue and adjust lightness
-      baseColor.h += 137.508; // Use golden angle for maximum distribution
-      baseColor.h %= 360; // Keep within 0-360 range
-      baseColor.l = Math.min(Math.max(baseColor.l * 0.8, 0.2), 0.8); // Adjust lightness
-
-      result.push(baseColor.toString());
+    if (targetCount <= baseColors.length) {
+      return baseColors.slice(0, targetCount);
     }
+
+    const result: string[] = [];
+    const step = (baseColors.length - 1) / (targetCount - 1);
+
+    for (let i = 0; i < targetCount; i++) {
+      const index = i * step;
+      const lowIndex = Math.floor(index);
+      const highIndex = Math.ceil(index);
+
+      if (lowIndex === highIndex) {
+        result.push(baseColors[lowIndex]);
+      } else {
+        const t = index - lowIndex;
+        const interpolated = interpolateHsl(
+          baseColors[lowIndex],
+          baseColors[highIndex]
+        )(t);
+        result.push(interpolated);
+      }
+    }
+
     return result;
   }
 
-  const extendedColorRange = generateDistinctColors(
+  const extendedColorRange = interpolateColors(
     initialColorRange,
     numCategories
   );
@@ -162,7 +176,7 @@ const Map = ({
       const provinceLayer = L.geoJSON(feature, {
         style: {
           fillColor: scaledValue,
-          weight: 1.3,
+          weight: 1.4,
           color: "black",
           fillOpacity: 2,
           opacity: 5,
@@ -175,8 +189,8 @@ const Map = ({
         L.geoJSON(buffered, {
           style: {
             fillColor: "transparent",
-            weight: 10,
-            color: "#66D6FF",
+            weight: 20,
+            color: "#E5E4E2",
             opacity: 0.7,
           },
           pane: "highlightPane",
@@ -237,7 +251,6 @@ const Map = ({
       const markerIcon = L.divIcon({
         className: "label font-sans ",
         html: updatedHtml,
-
         iconAnchor: [50, 20],
       });
 
@@ -395,7 +408,7 @@ const Map = ({
           transform: "translate(-50%, -50%)",
           scale: `${mapScale}%`,
           width: "1500px",
-          height: "1100px",
+          height: "200vh",
           display: "block",
           justifyContent: "center",
           alignItems: "center",

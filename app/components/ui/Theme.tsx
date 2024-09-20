@@ -45,7 +45,7 @@ const ColorPalette = ({
                 height: "80px",
                 backgroundColor: color,
               }}
-              className="shadow-md"
+              className="border-0"
             />
           ))}
         </div>
