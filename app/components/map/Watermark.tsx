@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 
 export const WatermarkCanvas = () => {
-  useEffect(() => {
+  useLayoutEffect(() => {
     const canvas = document.getElementById("watermark-canvas");
     if (!canvas) return;
     // @ts-ignore

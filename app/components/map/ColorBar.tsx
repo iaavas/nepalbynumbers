@@ -18,8 +18,7 @@ const ColorBar: React.FC<ColorBarProps> = ({ colorScale, content }) => {
 
   if (type !== "class") {
     const domain: number[] = colorScale.domain() as number[];
-    console.log(domain);
-    console.log(colorScale.range());
+
     const quantileScale = scaleLinear<string>()
       .domain(domain)
       .range(colorScale.range());

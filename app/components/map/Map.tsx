@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useLayoutEffect } from "react";
 import L from "leaflet";
 import { scaleQuantile, scaleOrdinal, scaleLinear } from "d3-scale";
 import "leaflet/dist/leaflet.css";
@@ -33,26 +33,27 @@ function createInterpolatedColorScale(
     baseColors: string[],
     targetCount: number
   ): string[] {
-    const result: string[] = [...baseColors];
+    if (targetCount <= baseColors.length) {
+      return baseColors.slice(0, targetCount);
+    }
 
-    while (result.length < targetCount) {
-      const step = (baseColors.length - 1) / (targetCount - 1);
+    const result: string[] = [];
+    const step = (baseColors.length - 1) / (targetCount - 1);
 
-      for (let i = 0; i < targetCount; i++) {
-        const index = i * step;
-        const lowIndex = Math.floor(index);
-        const highIndex = Math.ceil(index);
+    for (let i = 0; i < targetCount; i++) {
+      const index = i * step;
+      const lowIndex = Math.floor(index);
+      const highIndex = Math.ceil(index);
 
-        if (lowIndex === highIndex) {
-          result.push(baseColors[lowIndex]);
-        } else {
-          const t = index - lowIndex;
-          const interpolated = interpolateHsl(
-            baseColors[lowIndex],
-            baseColors[highIndex]
-          )(t);
-          result.push(interpolated);
-        }
+      if (lowIndex === highIndex) {
+        result.push(baseColors[lowIndex]);
+      } else {
+        const t = index - lowIndex;
+        const interpolated = interpolateHsl(
+          baseColors[lowIndex],
+          baseColors[highIndex]
+        )(t);
+        result.push(interpolated);
       }
     }
 
@@ -76,7 +77,8 @@ const Map = ({
   mapType: string;
   ctr?: [number, number];
 }) => {
-  const { getEntityValue, type, getAllEntityValues } = useValues();
+  const { getEntityValue, type, setType, getAllEntityValues } = useValues();
+
   const [scale, setScale] = useState(null);
   const [mapScale, setMapScale] = useState(100);
   const { data, fetchData } = useData(mapType!);
@@ -168,15 +170,9 @@ const Map = ({
 
     data.forEach((feature) => {
       const value: any = getEntityValue(mapType, feature.properties.name);
-      console.log(value);
 
       const scaledValue: any =
         value !== undefined && value !== null ? colorScale(value) : "#E5E4E2";
-
-      let a = colorScale(value);
-      console.log(a);
-
-      console.log(scaledValue);
 
       const provinceLayer = L.geoJSON(feature, {
         style: {
@@ -202,16 +198,12 @@ const Map = ({
         }).addTo(map);
       }
 
-      console.log(scaledValue);
-
       const area = turf.area(feature.geometry);
 
       const fs = Math.sqrt(area) * settings.scaleFactor;
 
       let textColor = getContrastColor(
-        type == "class"
-          ? scaledValue
-          : rgbStringToHex(scaledValue ? scaledValue.toString() : "")
+        type == "class" ? scaledValue : rgbStringToHex(scaledValue.toString())
       );
 
       if (feature.properties.name == "MADHESH") {

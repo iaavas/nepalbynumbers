@@ -1,5 +1,4 @@
 export function rgbStringToHex(rgbString: string): string {
-  console.log(rgbString, typeof rgbString);
   const rgbRegex = /^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/;
 
   // Test the input string and extract the RGB values

@@ -17,8 +17,8 @@ const SETTINGS = {
     zoom: 9,
     scaleFactor: 0.0004,
     scale: 70,
-    y: 37,
-    x: 30,
+    y: 30,
+    x: 23,
   },
   gandaki: {
     zoom: 9,
