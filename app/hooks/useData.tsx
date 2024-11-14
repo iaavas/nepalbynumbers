@@ -8,6 +8,7 @@ import lumbini from "@/assets/data/lumbini.json";
 import koshi from "@/assets/data/koshi.json";
 import gandaki from "@/assets/data/gandaki.json";
 import madhesh from "@/assets/data/madhesh.json";
+import world from "@/assets/data/world.json";
 
 const dataSources: { [key: string]: any } = {
   province,
@@ -19,6 +20,7 @@ const dataSources: { [key: string]: any } = {
   koshi,
   madhesh,
   gandaki,
+  world,
 };
 
 export const useData = (dataType: string) => {

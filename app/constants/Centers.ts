@@ -8,4 +8,5 @@ export const centers = {
   lumbini: { center: [27.9207, 82.7347] },
   karnali: { center: [29.3863, 82.3886] },
   sudurpaschim: { center: [29.2988, 80.9871] },
+  world: { center: [0, 0] },
 };

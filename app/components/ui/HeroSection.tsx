@@ -45,8 +45,8 @@ const HeroSection = () => {
         />
         <link rel="canonical" href="https://nepalbynumbers.vercel.app/" />
       </Head>
-      <section className="min-h-screen flex sm:flex-row flex-col-reverse justify-center items-center gap-10 border-b border-gray-200 shadow-sm sm:px-12 bg-slate-50/50 my-8">
-        <div className="flex flex-col justify-center items-center">
+      <section className="min-h-screen flex sm:flex-row flex-col-reverse justify-center  gap-10 border-b border-gray-200 shadow-sm sm:pl-12 bg-white my-0">
+        <div className="flex flex-col justify-center items-center w-1/2">
           <div className=" ">
             <h1 className="text-3xl md:text-6xl font-bold text-gray-900 mb-6 font-quincy">
               Discover <span className="text-black">Nepal by Numbers</span>
@@ -55,7 +55,7 @@ const HeroSection = () => {
               Create stunning infographics and customize maps centered around
               Nepal, with our user-friendly no-code tools.
             </p>
-            <p className="text-sm md:text-base text-gray-500 mb-8 leading-relaxed">
+            <p className="text-sm md:text-base text-gray-800 mb-8 leading-relaxed">
               Unlock the power of data visualization for Nepal&apos;s geography.
             </p>
 
@@ -65,14 +65,30 @@ const HeroSection = () => {
           <Counter />
         </div>
 
-        <div>
+        <div className="relative w-1/2 py-2 overflow-x-hidden">
+          <Image
+            src="/hero.jpeg"
+            alt="Interactive visualization of Nepal's data with custom maps and infographic templates"
+            width={350}
+            height={350}
+            priority
+            className="bg-blend-multiply -top-60	"
+          />
           <Image
             src="/hero.png"
             alt="Interactive visualization of Nepal's data with custom maps and infographic templates"
-            width={800}
-            height={800}
+            width={350}
+            height={350}
             priority
-            className="bg-blend-multiply mix-blend-multiply	"
+            className="bg-blend-multiply 	absolute top-1/5 left-7 mt-2"
+          />
+          <Image
+            src="/hero1.jpeg"
+            alt="Interactive visualization of Nepal's data with custom maps and infographic templates"
+            width={350}
+            height={350}
+            priority
+            className="bg-blend-multiply 	absolute top-14 left-[65%] mt-2"
           />
         </div>
       </section>

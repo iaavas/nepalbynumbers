@@ -61,9 +61,7 @@ const StatisticCard = ({
       transition={{ duration: 0.3 }}
       className=" rounded-lg p-8 text-center"
     >
-      <h3 className="text-3xl font-semibold text-gray-800 mb-2 font-quincy">
-        {value}
-      </h3>
+      <h3 className="text-3xl font-semibold text-gray-800 mb-2 ">{value}</h3>
       <p className="text-sm text-gray-500 tracking-wider uppercase">{label}</p>
     </motion.div>
   );

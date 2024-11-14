@@ -62,6 +62,13 @@ const SETTINGS = {
     x: 10,
     y: 10,
   },
+  world: {
+    zoom: 2,
+    scaleFactor: 0.000032,
+    scale: 80,
+    x: 31,
+    y: 45,
+  },
 };
 
 export default SETTINGS;
