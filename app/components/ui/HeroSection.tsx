@@ -45,7 +45,7 @@ const HeroSection = () => {
         />
         <link rel="canonical" href="https://nepalbynumbers.vercel.app/" />
       </Head>
-      <section className="min-h-screen flex sm:flex-row flex-col-reverse justify-center items-center gap-10 border-b border-gray-200 shadow-sm sm:px-6 bg-slate-50/50">
+      <section className="min-h-screen flex sm:flex-row flex-col-reverse justify-center items-center gap-10 border-b border-gray-200 shadow-sm sm:px-10 bg-slate-50/50">
         <div className="flex flex-col justify-center items-center">
           <div className=" ">
             <h1 className="text-3xl md:text-6xl font-bold text-gray-900 mb-6 font-quincy">

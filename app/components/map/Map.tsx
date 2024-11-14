@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState, useRef, useLayoutEffect } from "react";
 import L from "leaflet";
-import { scaleQuantile, scaleOrdinal, scaleLinear } from "d3-scale";
+import { scaleOrdinal, scaleLinear } from "d3-scale";
 import "leaflet/dist/leaflet.css";
 import { useValues } from "../../context/ValueContext";
 import CreatedBy from "./CreatedBy";
@@ -22,6 +22,7 @@ import { interpolateHsl } from "d3-interpolate";
 import { rgbStringToHex } from "@/app/utils/rgb2hex";
 import withAuth from "../withAuth";
 import SETTINGS from "./settings";
+import { useSettings } from "@/app/context/SettingsContext";
 function createInterpolatedColorScale(
   categories: string[],
   initialColorRange: string[]
@@ -78,6 +79,8 @@ const Map = ({
   ctr?: [number, number];
 }) => {
   const { getEntityValue, type, setType, getAllEntityValues } = useValues();
+
+  const { displayLabel } = useSettings();
 
   const [scale, setScale] = useState(null);
   const [mapScale, setMapScale] = useState(100);
@@ -158,14 +161,16 @@ const Map = ({
         .range(colorRange)
         .interpolate(interpolateRgb);
     } else {
-      if (!values) return;
-      const extractedValues = values!
-        .map((item) => item.value)
-        .filter((value) => value !== undefined && value !== null);
+      if (values) {
+        const extractedValues = values!
+          .map((item) => item.value)
+          .filter((value) => value !== undefined && value !== null);
 
-      const uniqueCategories = Array.from(new Set(extractedValues as string[]));
-
-      colorScale = createInterpolatedColorScale(uniqueCategories, colorRange);
+        const uniqueCategories = Array.from(
+          new Set(extractedValues as string[])
+        );
+        colorScale = createInterpolatedColorScale(uniqueCategories, colorRange);
+      }
     }
     // @ts-ignore
     setScale(() => colorScale);
@@ -195,13 +200,15 @@ const Map = ({
         L.geoJSON(buffered, {
           style: {
             fillColor: "transparent",
-            weight: 20,
-            color: "#E5E4E2",
+            weight: 5,
+            color: "red",
             opacity: 0.7,
           },
           pane: "highlightPane",
         }).addTo(map);
       }
+
+      if (!displayLabel) return;
 
       const area = turf.area(feature.geometry);
 
@@ -215,9 +222,6 @@ const Map = ({
         textColor = "black";
       }
 
-      if (mapType === "district" || mapType === "world") {
-        return;
-      }
       const center = provinceLayer.getBounds().getCenter();
 
       let id = feature.properties.id || feature.id || feature.properties.name;
@@ -387,6 +391,7 @@ const Map = ({
     postfix,
     prefix,
     highlight,
+    displayLabel,
   ]);
 
   return (

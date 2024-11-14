@@ -2,6 +2,7 @@ import React from "react";
 import type { CollapseProps } from "antd";
 import { Collapse } from "antd";
 import Summary from "./Summary";
+import Settings from "./Settings";
 
 const text = `
   Available soon.
@@ -17,7 +18,7 @@ const Collapsibles = ({ map }: { map: string }) => {
     {
       key: "2",
       label: "Settings",
-      children: <p>{text}</p>,
+      children: <Settings />,
     },
   ];
 

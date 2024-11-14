@@ -12,6 +12,7 @@ import { ReferenceProvider } from "./context/ReferenceContext";
 
 import { HighlightProvider } from "./context/HighlightContext";
 import { WatermarkProvider } from "./context/WatermarkContext";
+import { SettingsProvider } from "./context/SettingsContext";
 
 //
 
@@ -51,7 +52,9 @@ export default function RootLayout({
               <ReferenceProvider>
                 <HighlightProvider>
                   <WatermarkProvider>
-                    <SearchProvider>{children}</SearchProvider>
+                    <SettingsProvider>
+                      <SearchProvider>{children}</SearchProvider>
+                    </SettingsProvider>
                   </WatermarkProvider>
                   <Analytics />
                 </HighlightProvider>

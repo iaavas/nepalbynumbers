@@ -34,6 +34,7 @@ interface ValueContextType {
   setType: Dispatch<SetStateAction<"reg" | "class">>;
   setTitle: Dispatch<SetStateAction<string>>;
   title: string;
+  clearAllValues: () => void;
 }
 
 type ValuesState = Record<EntityType, EntityValues>;
@@ -89,6 +90,10 @@ export const ValueProvider: FC<{ children: React.ReactNode }> = ({
     }
   };
 
+  const clearAllValues = () => {
+    setValues({});
+  };
+
   const contextValue: ValueContextType = {
     setEntityValue,
     setAllEntityValues,
@@ -98,6 +103,7 @@ export const ValueProvider: FC<{ children: React.ReactNode }> = ({
     setType,
     title,
     setTitle,
+    clearAllValues,
   };
 
   return (

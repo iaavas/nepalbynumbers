@@ -57,7 +57,7 @@ const SETTINGS = {
   },
   district: {
     zoom: 8,
-    scaleFactor: 0.00012,
+    scaleFactor: 0.00032,
     scale: 55,
     x: 10,
     y: 10,
