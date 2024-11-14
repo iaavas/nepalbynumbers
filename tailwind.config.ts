@@ -20,7 +20,7 @@ const config = {
     extend: {
       fontFamily: {
         sans: ["var(--font-SegoeUI)"],
-        sgbold: ["var(--font-SegoeUIBold)"],
+        quincy: ["var(--font-quincy)"],
       },
       colors: {
         border: "hsl(var(--border))",

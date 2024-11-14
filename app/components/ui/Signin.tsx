@@ -11,7 +11,7 @@ function Signin() {
 
   return (
     <button
-      className="px-6 py-3 text-white hover:text-black rounded-full border-2 bg-blue-600 hover:bg-white  transition ease-in-out duration-300 border-blue-600  text-lg   "
+      className="sm:px-6 sm:py-3  px-3 py-1.5 text-white hover:text-black rounded-sm border-2 bg-blue-800 hover:bg-white  transition ease-in-out duration-300 border-blue-800  text-lg   "
       onClick={async () => {
         if (user) {
           router.push("/templates");

@@ -10,7 +10,6 @@ import { SearchProvider } from "./context/SearchContext";
 
 import { ReferenceProvider } from "./context/ReferenceContext";
 
-import { Roboto } from "next/font/google";
 import { HighlightProvider } from "./context/HighlightContext";
 import { WatermarkProvider } from "./context/WatermarkContext";
 
@@ -21,9 +20,9 @@ const segoe = localFont({
   variable: "--font-SegoeUI",
 });
 
-const segoe_bold = localFont({
-  src: "../public/Bold.woff",
-  variable: "--font-SegoeUIBold",
+const quincy = localFont({
+  src: "../public/QuincyCF.ttf",
+  variable: "--font-quincy",
 });
 
 export const metadata: Metadata = {
@@ -38,7 +37,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${segoe.variable}  ${segoe_bold.variable} `}>
+    <html lang="en" className={`${segoe.variable}  ${quincy.variable} `}>
       <head>
         <meta
           name="google-site-verification"

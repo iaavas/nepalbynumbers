@@ -45,11 +45,11 @@ const HeroSection = () => {
         />
         <link rel="canonical" href="https://nepalbynumbers.vercel.app/" />
       </Head>
-      <section className="min-h-screen flex sm:flex-row flex-col-reverse justify-center  px-8 py-16 gap-10 border-b border-gray-200 shadow-sm sm:px-12">
+      <section className="min-h-screen flex sm:flex-row flex-col-reverse justify-center items-center gap-10 border-b border-gray-200 shadow-sm sm:px-6 bg-slate-50/50">
         <div className="flex flex-col justify-center items-center">
-          <div className="max-w-2xl mx-12">
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              Discover <span className="text-blue-600">Nepal by Numbers</span>
+          <div className=" ">
+            <h1 className="text-3xl md:text-6xl font-bold text-gray-900 mb-6 font-quincy">
+              Discover <span className="text-black">Nepal by Numbers</span>
             </h1>
             <p className="text-base md:text-lg text-gray-700 mb-4 leading-relaxed">
               Create stunning infographics and customize maps centered around
@@ -72,6 +72,7 @@ const HeroSection = () => {
             width={800}
             height={800}
             priority
+            className="bg-blend-multiply mix-blend-multiply	"
           />
         </div>
       </section>

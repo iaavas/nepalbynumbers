@@ -115,15 +115,19 @@ const Map = ({
     }
 
     const settings = SETTINGS[mapType as keyof typeof SETTINGS];
-
-    const map = L.map(mapRef.current! as string | HTMLElement, {
-      attributionControl: false,
-      zoomControl: false,
-      touchZoom: false,
-      scrollWheelZoom: false,
-      doubleClickZoom: false,
-      dragging: false,
-    }).setView(mctr.current, settings.zoom);
+    let map: any;
+    console.log(mapRef.current);
+    if (!mapRef.current || !mapRef.current._leaflet_id) {
+      map = L.map(mapRef.current, {
+        attributionControl: false,
+        zoomControl: false,
+        touchZoom: false,
+        scrollWheelZoom: false,
+        doubleClickZoom: false,
+        dragging: false,
+      }).setView(mctr.current, settings.zoom);
+      mapRef.current._leaflet_map = map; // Store map instance to ref
+    }
 
     const provinceValues = data.map((feature) =>
       getEntityValue(mapType, feature.properties.name)
@@ -154,6 +158,7 @@ const Map = ({
         .range(colorRange)
         .interpolate(interpolateRgb);
     } else {
+      if (!values) return;
       const extractedValues = values!
         .map((item) => item.value)
         .filter((value) => value !== undefined && value !== null);
