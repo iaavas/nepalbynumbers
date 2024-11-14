@@ -10,7 +10,7 @@ function FeaturesSection() {
   const features = [
     {
       image: "/features/data.png",
-      title: "Enter Your Data",
+      title: "Inject Your Data",
       description:
         "Easily input your data or upload directly from an Excel file.",
     },
@@ -38,12 +38,12 @@ function FeaturesSection() {
         />
       </Head>
       <motion.section
-        className="py-10 sm:px-12 px-2 bg-gradient-to-b from-white"
+        className="py-10 sm:px-8 px-2 bg-gradient-to-b from-white"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
       >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-12">
           <motion.div
             className="text-center mb-16"
             initial={{ y: -50, opacity: 0 }}
@@ -58,7 +58,7 @@ function FeaturesSection() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-20">
             {features.map((feature, index) => (
               <motion.div
                 key={index}
@@ -67,7 +67,7 @@ function FeaturesSection() {
                 transition={{ delay: 0.4 + index * 0.2, duration: 0.8 }}
               >
                 <FeatureBox image={feature.image} n={index + 1}>
-                  <h3 className="text-2xl mb-3 text-black drop-shadow-sm capitalize font-sans  ">
+                  <h3 className="text-2xl mb-1 text-black drop-shadow-sm capitalize ">
                     {feature.title}
                   </h3>
                   <p className="text-base text-gray-600 leading-relaxed tracking-wide">
