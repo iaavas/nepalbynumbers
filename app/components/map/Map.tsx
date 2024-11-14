@@ -212,7 +212,10 @@ const Map = ({
 
       const area = turf.area(feature.geometry);
 
-      const fs = Math.sqrt(area) * settings.scaleFactor;
+      const fs =
+        Math.sqrt(area) * settings.scaleFactor >= 20
+          ? 20
+          : Math.sqrt(area) * settings.scaleFactor;
 
       let textColor = getContrastColor(
         type == "class" ? scaledValue : rgbStringToHex(scaledValue.toString())
