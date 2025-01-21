@@ -10,7 +10,6 @@ import { NextResponse } from "next/server";
 
 async function getCountryFromIP(ip: string) {
   try {
-    // Using ipapi.co as it's free and doesn't require API key for low volume
     const response = await fetch(`https://ipapi.co/${ip}/json/`);
     const data = await response.json();
     return {
@@ -26,6 +25,7 @@ async function getCountryFromIP(ip: string) {
       countryCode: "UN",
       city: "Unknown",
       region: "Unknown",
+      error,
     };
   }
 }
@@ -41,11 +41,19 @@ export const POST = async (req: Request) => {
     if (!ipAddress && forwardedFor) {
       ipAddress = forwardedFor.split(",")[0].trim();
     }
-    ipAddress = ipAddress || "43.245.86.73";
+    ipAddress = ipAddress || "";
 
     const locationData = await getCountryFromIP(ipAddress);
 
     console.log(locationData);
+
+    if (locationData.error) {
+      return NextResponse.json({
+        error: "Internal Server Error",
+        message: locationData.error,
+        status: 500,
+      });
+    }
 
     const fingerprintData = {
       userAgent,
