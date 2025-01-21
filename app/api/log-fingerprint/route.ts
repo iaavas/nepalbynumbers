@@ -14,10 +14,10 @@ async function getCountryFromIP(ip: string) {
     const response = await fetch(`https://ipapi.co/${ip}/json/`);
     const data = await response.json();
     return {
-      country: data.country_name,
-      countryCode: data.country_code,
-      city: data.city,
-      region: data.region,
+      country: data.country_name || "Unknown",
+      countryCode: data.country_code || "UN",
+      city: data.city || "Unknown",
+      region: data.region || "Unknown",
     };
   } catch (error) {
     console.error("Error fetching location data:", error);
@@ -41,17 +41,19 @@ export const POST = async (req: Request) => {
     if (!ipAddress && forwardedFor) {
       ipAddress = forwardedFor.split(",")[0].trim();
     }
-    ipAddress = ipAddress || "Unknown";
+    ipAddress = ipAddress || "43.245.86.73";
 
-    // Get location data from IP
     const locationData = await getCountryFromIP(ipAddress);
+
+    console.log(locationData);
 
     const fingerprintData = {
       userAgent,
       browserName,
       fingerprint,
       ipAddress,
-      ...locationData,
+      region: locationData.region,
+      country: locationData.country,
       createdAt: serverTimestamp(),
     };
 
@@ -80,6 +82,7 @@ export const GET = async () => {
         fingerprint: string;
         browserName: string;
         country: string;
+        ipAddress: string;
       }),
     }));
 
@@ -87,13 +90,11 @@ export const GET = async () => {
       fingerprints.map((fingerprint) => fingerprint.fingerprint)
     ).size;
 
-    // Group by browser
     const browserData = fingerprints.reduce((acc, { browserName }) => {
       acc[browserName] = (acc[browserName] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
 
-    // Group by country
     const countryData = fingerprints.reduce((acc, { country }) => {
       if (country) {
         acc[country] = (acc[country] || 0) + 1;
