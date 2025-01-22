@@ -29,7 +29,8 @@
     "app/components/map/ProvinceMap.tsx",
     "app/map/(nepal)/nepal-province/page.tsx",
     "app/components/map/CreatedBy.tsx",
-    "app/components/map/ColorBar.tsx"
+    "app/components/map/ColorBar.tsx",
+    "global.d.ts"
   ],
   "exclude": ["node_modules"]
 }

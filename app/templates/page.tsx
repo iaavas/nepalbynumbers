@@ -3,16 +3,29 @@ import { centers } from "../constants/Centers";
 import { Card } from "antd";
 import Image from "next/image";
 import Link from "next/link";
-
+import { OpenpixelTracker } from "@/lib/openpixel/tracker";
 import Header from "../components/ui/Header";
-import Navbar from "../components/ui/Navbar";
+
 import withAuth from "../components/withAuth";
 import Footer from "../components/ui/Footer";
 
 function Home() {
+  const handleClick = async (m: string) => {
+    try {
+      await OpenpixelTracker.getInstance().trackEvent("button_click", {
+        buttonId: m,
+        timestamp: Date.now(),
+
+        page: window.location.pathname,
+        referrer: document.referrer,
+      });
+    } catch (error) {
+      console.error("Tracking failed:", error);
+    }
+  };
+
   return (
     <>
-      <Navbar />
       <main className="flex  flex-col items-center justify-between mb-8 ">
         <Header t={"Create Awesome Maps!"} />
         <h3 className="text-center font-bold text-xl my-8 font-sans tracking-wide ">
@@ -21,7 +34,7 @@ function Home() {
 
         <div className="grid grid-cols-1 md:grid-cols-3  mb-4  gap-12 ">
           {Object.keys(centers).map((m, idx) => (
-            <Link href={`/map?m=${m}`} key={idx}>
+            <Link href={`/map?m=${m}`} key={idx} onClick={() => handleClick(m)}>
               <Card
                 title={m.toUpperCase()}
                 bordered={true}

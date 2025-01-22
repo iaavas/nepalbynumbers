@@ -5,7 +5,6 @@ import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 import { deleteDoc, doc } from "firebase/firestore";
 
-import Navbar from "../ui/Navbar";
 import Header from "../ui/Header";
 import useProjects from "../../hooks/useProjects";
 import { db } from "@/app/libs/firebase/config";
@@ -28,7 +27,6 @@ const Projects = () => {
 
   return (
     <>
-      <Navbar />
       <div className="bg-white">
         <Header t={"Your Projects Here"} />
         {loading ? (

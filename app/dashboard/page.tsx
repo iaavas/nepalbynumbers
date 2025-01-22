@@ -20,7 +20,7 @@ import {
   Legend,
 } from "chart.js";
 import { Doughnut, Bar } from "react-chartjs-2";
-import { Users, Globe, Monitor, MapPin } from "lucide-react";
+import { Users, Globe, Monitor, MapPin, MousePointer } from "lucide-react";
 
 ChartJS.register(
   ArcElement,
@@ -55,14 +55,35 @@ interface ApiResponse {
   countryData: Record<string, number>;
 }
 
+interface TemplateResponse {
+  success: boolean;
+  buttonClickCounts: {
+    province: number;
+    district: number;
+  };
+}
+
 const Dashboard = () => {
   const [data, setData] = useState<ApiResponse | null>(null);
+  const [templateData, setTemplateData] = useState<TemplateResponse | null>(
+    null
+  );
 
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch("/api/log-fingerprint");
       const apiData: ApiResponse = await response.json();
       setData(apiData);
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch("/api/track");
+      const apiData: TemplateResponse = await response.json();
+      setTemplateData(apiData);
     };
 
     fetchData();
@@ -97,11 +118,22 @@ const Dashboard = () => {
     ],
   };
 
+  const buttonClickData = {
+    labels: templateData ? Object.keys(templateData.buttonClickCounts) : [],
+    datasets: [
+      {
+        label: "Button Clicks",
+        data: templateData ? Object.values(templateData.buttonClickCounts) : [],
+        backgroundColor: "#e74c3c",
+      },
+    ],
+  };
+
   const formatDate = (seconds: number) => {
     return new Date(seconds * 1000).toLocaleDateString();
   };
 
-  if (!data) {
+  if (!data || !templateData) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <p className="text-lg">Loading dashboard data...</p>
@@ -109,12 +141,17 @@ const Dashboard = () => {
     );
   }
 
+  const totalClicks = Object.values(templateData.buttonClickCounts).reduce(
+    (sum, count) => sum + count,
+    0
+  );
+
   return (
     <div className="p-8 max-w-7xl mx-auto space-y-8">
       <h1 className="text-3xl font-bold mb-8">Analytics Dashboard</h1>
 
       {/* Stats Overview */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">
@@ -157,10 +194,19 @@ const Dashboard = () => {
             </div>
           </CardContent>
         </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <CardTitle className="text-sm font-medium">Total Clicks</CardTitle>
+            <MousePointer className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{totalClicks}</div>
+          </CardContent>
+        </Card>
       </div>
 
       {/* Charts */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         <Card>
           <CardHeader>
             <CardTitle>Browser Distribution</CardTitle>
@@ -186,6 +232,28 @@ const Dashboard = () => {
             <div className="h-[300px] flex items-center justify-center">
               <Bar
                 data={countryChartData}
+                options={{
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  scales: {
+                    y: {
+                      beginAtZero: true,
+                    },
+                  },
+                }}
+              />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Button Click Distribution</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="h-[300px] flex items-center justify-center">
+              <Bar
+                data={buttonClickData}
                 options={{
                   responsive: true,
                   maintainAspectRatio: false,
@@ -226,8 +294,7 @@ const Dashboard = () => {
                     <TableCell>{fingerprint.browserName}</TableCell>
                     <TableCell>{fingerprint.ipAddress}</TableCell>
                     <TableCell>
-                      {fingerprint.city}, {fingerprint.region},{" "}
-                      {fingerprint.country}
+                      {fingerprint.region}, {fingerprint.country}
                     </TableCell>
                   </TableRow>
                 ))}

@@ -13,6 +13,8 @@ import { ReferenceProvider } from "./context/ReferenceContext";
 import { HighlightProvider } from "./context/HighlightContext";
 import { WatermarkProvider } from "./context/WatermarkContext";
 import { SettingsProvider } from "./context/SettingsContext";
+import { OpenPixelScript } from "@/app/components/OpenPixelScript";
+import Navbar from "./components/ui/Navbar";
 
 //
 
@@ -44,6 +46,7 @@ export default function RootLayout({
           name="google-site-verification"
           content="nvtjxP7bXYX7hRhILhNreHHed7o58-aVX2T8KuVE4IM"
         />
+        <OpenPixelScript />
       </head>
       <body>
         <ValueProvider>
@@ -53,7 +56,10 @@ export default function RootLayout({
                 <HighlightProvider>
                   <WatermarkProvider>
                     <SettingsProvider>
-                      <SearchProvider>{children}</SearchProvider>
+                      <SearchProvider>
+                        <Navbar />
+                        {children}
+                      </SearchProvider>
                     </SettingsProvider>
                   </WatermarkProvider>
                   <Analytics />
