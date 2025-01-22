@@ -14,7 +14,6 @@ import { HighlightProvider } from "./context/HighlightContext";
 import { WatermarkProvider } from "./context/WatermarkContext";
 import { SettingsProvider } from "./context/SettingsContext";
 import { OpenPixelScript } from "@/app/components/OpenPixelScript";
-import Navbar from "./components/ui/Navbar";
 
 //
 
@@ -56,10 +55,7 @@ export default function RootLayout({
                 <HighlightProvider>
                   <WatermarkProvider>
                     <SettingsProvider>
-                      <SearchProvider>
-                        <Navbar />
-                        {children}
-                      </SearchProvider>
+                      <SearchProvider>{children}</SearchProvider>
                     </SettingsProvider>
                   </WatermarkProvider>
                   <Analytics />

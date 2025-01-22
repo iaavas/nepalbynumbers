@@ -3,7 +3,7 @@ import React, { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import PageLayout from "@/app/components/layout/pageLayout";
 import { centers } from "@/app/constants/Centers";
-import Loader from "../components/ui/Loader";
+import Loader from "../../components/ui/Loader";
 
 function page() {
   return <DynamicContent />;

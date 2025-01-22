@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 
-import Loader from "../../components/ui/Loader";
+import Loader from "../../../components/ui/Loader";
 
 import DynamicContent from "@/app/components/layout/DynamicContent";
 import withAuth from "@/app/components/withAuth";

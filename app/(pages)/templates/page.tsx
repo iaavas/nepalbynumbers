@@ -1,14 +1,14 @@
 "use client";
-import { centers } from "../constants/Centers";
+import { centers } from "../../constants/Centers";
 import { Card } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import { OpenpixelTracker } from "@/lib/openpixel/tracker";
-import Header from "../components/ui/Header";
+import Header from "../../components/ui/Header";
 
-import withAuth from "../components/withAuth";
-import Footer from "../components/ui/Footer";
-
+import withAuth from "../../components/withAuth";
+import Footer from "../../components/ui/Footer";
+import Navbar from "../../components/ui/Navbar";
 function Home() {
   const handleClick = async (m: string) => {
     try {
@@ -26,6 +26,7 @@ function Home() {
 
   return (
     <>
+      <Navbar />
       <main className="flex  flex-col items-center justify-between mb-8 ">
         <Header t={"Create Awesome Maps!"} />
         <h3 className="text-center font-bold text-xl my-8 font-sans tracking-wide ">

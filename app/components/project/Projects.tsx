@@ -9,6 +9,7 @@ import Header from "../ui/Header";
 import useProjects from "../../hooks/useProjects";
 import { db } from "@/app/libs/firebase/config";
 import Loader from "../ui/Loader";
+import Navbar from "../ui/Navbar";
 
 const Projects = () => {
   const { projects, loading, error, fetchProjects } = useProjects();
@@ -27,6 +28,7 @@ const Projects = () => {
 
   return (
     <>
+      <Navbar />
       <div className="bg-white">
         <Header t={"Your Projects Here"} />
         {loading ? (
