@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "https://nepal-by-numbers.onrender.com/:path*" }
+  ]
+}
