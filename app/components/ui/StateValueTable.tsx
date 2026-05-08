@@ -6,13 +6,14 @@ import Postfix from "./Postfix";
 import ImportData from "./ImportData";
 import { useSearch } from "@/app/context/SearchContext";
 import Collapsibles from "./Collapsibles";
+import CanvasImageControls from "./CanvasImageControls";
 
 const StateValueTable = ({ content }: { content: string }) => {
   const { title, setTitle } = useValues();
   const { query, setQuery } = useSearch();
 
   return (
-    <div className="flex  flex-col w-96 py-4 gap-4">
+    <div className="flex flex-col w-full py-4 gap-4 pr-2">
       <textarea
         onChange={(e) => setTitle(e.target.value)}
         onResize={() => {}}
@@ -26,6 +27,7 @@ const StateValueTable = ({ content }: { content: string }) => {
       <span className="font-sans  text-md">Add Perfix or Postfix</span>
       <Postfix />
       <ImportData content={content} />
+      <CanvasImageControls />
       <span className="font-sans text-lg">Search Query</span>
       <input
         value={query}

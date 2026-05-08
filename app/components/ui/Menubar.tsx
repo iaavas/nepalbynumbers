@@ -9,7 +9,6 @@ import { Tabs } from "antd";
 import StateValueTable from "./StateValueTable";
 import Theme from "./Theme";
 import Export from "./Export";
-import Sidebar from "./Sidebar";
 
 function Menubar({ content }: { content: string }) {
   const [selectedTab, setSelectedTab] = useState<string>("1");

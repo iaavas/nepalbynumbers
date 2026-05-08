@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState, useRef, useLayoutEffect } from "react";
+import React, { useEffect, useState, useRef, useMemo } from "react";
 import L from "leaflet";
 import { scaleOrdinal, scaleLinear } from "d3-scale";
 import "leaflet/dist/leaflet.css";
@@ -16,6 +16,7 @@ import { useColor } from "@/app/context/ColorsContext";
 import { usePostfix } from "@/app/context/PostfixContext";
 import getContrastColor from "@/app/utils/TextColor";
 import { interpolateRgb } from "d3-interpolate";
+import Draggable from "react-draggable";
 
 import { interpolateHsl } from "d3-interpolate";
 
@@ -23,6 +24,10 @@ import { rgbStringToHex } from "@/app/utils/rgb2hex";
 import withAuth from "../withAuth";
 import SETTINGS from "./settings";
 import { useSettings } from "@/app/context/SettingsContext";
+import {
+  CanvasImage,
+  useCanvasImages,
+} from "@/app/context/CanvasImagesContext";
 function createInterpolatedColorScale(
   categories: string[],
   initialColorRange: string[]
@@ -71,6 +76,196 @@ function createInterpolatedColorScale(
     .range(extendedColorRange);
 }
 
+const CanvasOverlayImage = ({
+  image,
+  updateImage,
+  removeImage,
+}: {
+  image: CanvasImage;
+  updateImage: (id: string, updates: Partial<CanvasImage>) => void;
+  removeImage: (id: string) => void;
+}) => {
+  const [isResizing, setIsResizing] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isRotating, setIsRotating] = useState(false);
+  const resizeStart = useRef({ startX: 0, startWidth: 0 });
+  const frameRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (!isResizing) return;
+
+    const onMouseMove = (event: MouseEvent) => {
+      const delta = event.clientX - resizeStart.current.startX;
+      const nextWidth = Math.max(40, resizeStart.current.startWidth + delta);
+      updateImage(image.id, { width: nextWidth });
+    };
+
+    const onMouseUp = () => setIsResizing(false);
+
+    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("mouseup", onMouseUp);
+
+    return () => {
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mouseup", onMouseUp);
+    };
+  }, [image.id, isResizing, updateImage]);
+
+  useEffect(() => {
+    if (!isRotating) return;
+
+    const onMouseMove = (event: MouseEvent) => {
+      const rect = frameRef.current?.getBoundingClientRect();
+      if (!rect) return;
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const angleRad = Math.atan2(event.clientY - cy, event.clientX - cx);
+      const angleDeg = (angleRad * 180) / Math.PI;
+      updateImage(image.id, { rotation: angleDeg });
+    };
+
+    const onMouseUp = () => setIsRotating(false);
+
+    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("mouseup", onMouseUp);
+
+    return () => {
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mouseup", onMouseUp);
+    };
+  }, [image.id, isRotating, updateImage]);
+
+  const frameStyle = useMemo(
+    () => ({
+      width: `${image.width}px`,
+      transform: `rotate(${image.rotation}deg)`,
+      transformOrigin: "center center",
+      cursor: "move",
+      position: "relative" as const,
+      border: "1px dashed #2563eb",
+      borderRadius: "6px",
+      overflow: "visible" as const,
+      borderColor: isHovered ? "#2563eb" : "transparent",
+    }),
+    [image.width, image.rotation, isHovered]
+  );
+
+  return (
+    <Draggable
+      bounds="parent"
+      position={{ x: image.x, y: image.y }}
+      onDrag={(_event, data) => {
+        updateImage(image.id, { x: data.x, y: data.y });
+      }}
+      cancel=".image-control,.resize-handle"
+    >
+      <div
+        className="pointer-events-auto select-none"
+        style={{ width: "fit-content" }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <div ref={frameRef} style={frameStyle}>
+          {isHovered && (
+            <div
+              className="image-control"
+              title="Drag to rotate"
+              onMouseDown={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                setIsRotating(true);
+              }}
+              style={{
+                position: "absolute",
+                left: "-8px",
+                top: "-8px",
+                width: "18px",
+                height: "18px",
+                borderRadius: "999px",
+                border: "1px solid #1d4ed8",
+                backgroundColor: "#dbeafe",
+                cursor: "grab",
+                zIndex: 3,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "12px",
+                color: "#1d4ed8",
+                userSelect: "none",
+              }}
+            >
+              ↻
+            </div>
+          )}
+
+          {isHovered && (
+            <button
+              type="button"
+              className="image-control"
+              onClick={() => removeImage(image.id)}
+              style={{
+                position: "absolute",
+                top: "-10px",
+                right: "-10px",
+                width: "20px",
+                height: "20px",
+                borderRadius: "999px",
+                border: "1px solid #fecaca",
+                backgroundColor: "white",
+                color: "#dc2626",
+                fontSize: "12px",
+                zIndex: 2,
+              }}
+            >
+              x
+            </button>
+          )}
+
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={image.src}
+            alt={image.name}
+            draggable={false}
+            style={{
+              width: "100%",
+              height: "auto",
+              userSelect: "none",
+              display: "block",
+              borderRadius: "6px",
+            }}
+          />
+
+          {isHovered && (
+            <div
+              className="resize-handle"
+              onMouseDown={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                resizeStart.current = {
+                  startX: event.clientX,
+                  startWidth: image.width,
+                };
+                setIsResizing(true);
+              }}
+              style={{
+                position: "absolute",
+                right: "-8px",
+                bottom: "-8px",
+                width: "16px",
+                height: "16px",
+                borderRadius: "4px",
+                border: "1px solid #1d4ed8",
+                backgroundColor: "#dbeafe",
+                cursor: "nwse-resize",
+              }}
+            />
+          )}
+        </div>
+      </div>
+    </Draggable>
+  );
+};
+
 const Map = ({
   mapType,
   ctr = [28.3949, 84.124],
@@ -92,6 +287,7 @@ const Map = ({
   const currentPopupRef = useRef<any>(null);
 
   const { postfix, prefix } = usePostfix();
+  const { images, updateImage, removeImage } = useCanvasImages();
 
   const mapRef: any = useRef(null);
 
@@ -427,6 +623,17 @@ const Map = ({
         }}
       >
         <WatermarkCanvas />
+      </div>
+
+      <div className="absolute inset-0 z-[500] pointer-events-none">
+        {images.map((image) => (
+          <CanvasOverlayImage
+            key={image.id}
+            image={image}
+            updateImage={updateImage}
+            removeImage={removeImage}
+          />
+        ))}
       </div>
 
       <Legend scale={scale} content={mapType} />

@@ -14,6 +14,7 @@ import { HighlightProvider } from "./context/HighlightContext";
 import { WatermarkProvider } from "./context/WatermarkContext";
 import { SettingsProvider } from "./context/SettingsContext";
 import { OpenPixelScript } from "@/app/components/OpenPixelScript";
+import { CanvasImagesProvider } from "./context/CanvasImagesContext";
 
 //
 
@@ -54,9 +55,11 @@ export default function RootLayout({
               <ReferenceProvider>
                 <HighlightProvider>
                   <WatermarkProvider>
-                    <SettingsProvider>
-                      <SearchProvider>{children}</SearchProvider>
-                    </SettingsProvider>
+                    <CanvasImagesProvider>
+                      <SettingsProvider>
+                        <SearchProvider>{children}</SearchProvider>
+                      </SettingsProvider>
+                    </CanvasImagesProvider>
                   </WatermarkProvider>
                   <Analytics />
                 </HighlightProvider>
